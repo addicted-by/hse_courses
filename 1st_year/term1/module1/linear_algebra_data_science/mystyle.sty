@@ -1,0 +1,486 @@
+\usepackage{amsmath, amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{fancyhdr}
+\usepackage{dsfont}
+\usepackage{nccmath}
+\usepackage[cmtip,all]{xy}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{wasysym}
+\usepackage{setspace}
+\usepackage{lmodern}
+\usepackage{varwidth}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{setspace}
+\usepackage{listings, lstautogobble}
+\usepackage{relsize}
+\usepackage{anyfontsize}
+\usepackage{caption}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage{unicode-math}
+\usepackage{pst-node,pst-tree,pstricks}
+\usepackage{hyperref}
+\usepackage{centernot}
+\usepackage{eso-pic}
+\usepackage{etoolbox}
+\usepackage{wrapfig}
+\usepackage{graphicx, marvosym}
+\usepackage[many]{tcolorbox}
+\usepackage{tikz}
+\usepackage[fontsize=12pt]{fontsize}
+\defaultfontfeatures{Scale=MatchLowercase}
+% \setmainfont{Montserrat Medium}
+\setmainfont{FUTURA ROUND DEMI.TTF}
+\newfontfamily\myfont{FUTURA ROUND DEMI.TTF}
+\newcommand\ChapterFont{\myfont\selectfont\huge}
+\newcommand\SectionFont{\textbf\myfont\selectfont\Large}
+% \setmathfont{TeX Gyre Pagella Math}
+% \setmathfont{FiraMath-Regular}
+\setmathfont{KpMath-Bold.otf}[version=bold]
+\setmathfont{Latin Modern Math}[range={frak,\bigcap,\bigcup, \vdots, \ddots, \intercal, \bigsqcup, \sim}]
+\setmathfont[range={scr,bfscr},
+              Scale=MatchUppercase,
+              StylisticSet=1]{STIX Two Math}
+
+\setmathfont[range={up/{Latin,latin,Greek,greek}, 
+              bfup/{Latin,latin,Greek,greek}},
+              script-features={}, sscript-features={}
+]{STIX Two Math}
+% \setmathfont{FiraMath-Regular}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+\usepackage{mathrsfs}
+\usepackage{multicol}
+\usepackage{multirow}
+\setlength{\columnseprule}{0pt}
+\setlength{\columnsep}{20.0pt}
+\usepackage{pict2e}
+
+\DeclareRobustCommand{\triangle}{%
+  \begingroup
+  \setlength{\unitlength}{1ex}%
+  \begin{picture}(1,1)
+  \polyline(1,0)(0,0)(.5,1)(1,0)(.5,0)
+  \end{picture}%
+  \endgroup
+}
+
+\newcommand{\trbr}[1]{
+	\left\langle#1\right\rangle
+}
+\newcommand{\pd}[2] {
+	\frac{\vdelta #1}{\vdelta #2}
+}
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern3mu{#1#2}}}
+
+\usepackage[explicit]{titlesec}
+\newcommand*\sectionlabel{}
+\titleformat{\section}
+  {\gdef\sectionlabel{}
+   \normalfont\Large\bfseries\scshape}
+  {\gdef\sectionlabel{\thesection\ }}{0pt}
+  {
+\noindent
+% \setstretch{1}
+\begin{tikzpicture}
+\node[rectangle,rounded corners=3pt,inner sep=4pt,fill=chaptercolor2,text width=0.98\columnwidth] {\color{white}\begin{spacing}{0.3}\myfont\sectionlabel#1\end{spacing}};
+\end{tikzpicture}
+  }
+\titlespacing*{\section}{0pt}{5pt}{0pt}
+\renewcommand*\thesection{\arabic{section}.}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqa}{\begin{eqnarray}}
+\newcommand{\eeqa}{\end{eqnarray}}
+\newcommand{\beqas}{\begin{eqnarray*}}
+\newcommand{\eeqas}{\end{eqnarray*}}
+\newcommand{\vv}{\vec{v}}
+\newcommand{\ve}{\vec{e}}
+\newcommand{\vvu}{\vec{u}}
+\newcommand{\liml}{\lim\limits}
+\newcommand{\prodl}{\prod\limits}
+\newcommand{\suml}{\sum\limits}
+\newcommand{\range}[1]{\{1, \ldots, #1\}}
+\newcommand{\pr}{\operatorname{pr}}
+\renewcommand{\grad}{\operatorname{grad}}
+\newcommand{\charr}{\operatorname{char}}
+\newcommand{\basisf}{f_1, \ldots, f_n}
+\newcommand{\hdash}{\rotatebox{90}{\dashline}}
+\newcommand{\basis}{\vec{e_1}, \ldots, \vec{e_n}}
+\newcommand{\basisk}{\vec{e_1,}, \ldots, \vec{e_k}}
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+\newcommand{\bits}{\begin{itemize*}}
+\newcommand{\eits}{\end{itemize*}}
+\newcommand{\cons}{\textbf{Consequence: }}
+\newenvironment{enumerate*}{\begin{enumerate}
+    \setlength{\topsep}{0ex}
+    \setlength{\parskip}{0ex}
+    \setlength{\partopsep}{-4ex}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parsep}{0ex}}
+{\end{enumerate}}
+\let\bs\backslash
+\let\lra\Leftrightarrow
+\let\ra\rightarrow
+\let\rra\rightrightarrows
+\let\Ra\Rightarrow
+\let\La\Leftarrow
+\let\emb\hookrightarrow
+\let\tr\triangle
+\renewcommand{\phi}{\ensuremath{\varphi}}
+\renewcommand{\kappa}{\ensuremath{\varkappa}}
+\renewcommand{\le}{\ensuremath{\leqslant}}
+\renewcommand{\leq}{\ensuremath{\leqslant}}
+\renewcommand{\ge}{\ensuremath{\geqslant}}
+\renewcommand{\geq}{\ensuremath{\geqslant}}
+\renewcommand{\emptyset}{\ensuremath{\varnothing}}
+\newcommand{\benum}{\begin{enumerate*}}
+\newcommand{\eenum}{\end{enumerate*}}
+%\newcommand{\benums}{\begin{enumerate*}}
+%\newcommand{\eenums}{\end{enumerate*}}
+\newcommand{\mybullet}{$\bullet$}
+% math mode commands
+
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+\newcommand{\rrr}{{\mathbb R}}
+\newcommand{\bigOO}{{\cal O}}
+\newcommand{\dataset}{{\cal D}}
+\renewcommand{\tr}{\operatorname{tr}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\Lf}{\mathscr{L}}
+\newcounter{excounter}
+\setcounter{excounter}{1}
+\newcommand{\Exc}[1]{\myred{Exercise:} #1 \hfill{\myred{!!!}}}
+\newcommand{\Ex}{\textbf{Example \theexcounter \stepcounter{excounter}: }}
+\newcommand{\contr}{\overline{\mathbb R}}
+\newcommand{\bin}{\operatorname{Bin}}
+\newcommand{\poiss}{\operatorname{Poiss}}
+\newcommand{\geom}{\operatorname{Geom}}
+\newcommand{\intl}{\int\limits}
+\newcommand{\cov}{\operatorname{cov}}
+\newcommand{\corr}{\operatorname{corr}}
+\newcommand{\prokol}{\overset{\circ}{U}_\delta(a)}
+\newcommand{\im}{\text{Im}}
+\renewcommand{\ker}{\operatorname{Ker}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\re}{\text{Re}}
+\renewcommand{\rank}{\operatorname{rank}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\sign}{\operatorname{sgn}}
+\newcommand{\onevector}{{\mathbf 1}}
+\newcommand{\bbone}[1]{{\mathbf 1}_{[#1]}}
+\newcommand{\vdelta}{\partial}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\indeg}{indeg}
+\DeclareMathOperator{\outdeg}{outdeg}
+\newcommand{\eps}{\varepsilon}
+\newcommand {\argmax}[2]{\mbox{\raisebox{-1.7ex}{$\stackrel{\textstyle{\rm #1}}{\scriptstyle #2}$}}\,}  % to replace with the amsmath construction
+\newlength{\picwi}
+\newcommand{\backskip}{\hspace{-2.5em}} % how much to skip back for an empty item?
+
+% Set up some colors
+\definecolor{myblue}{rgb}{0.14,0.11,0.49}
+\definecolor{myred}{rgb}{0.74,0.1,0.05}
+\definecolor{mygreen}{rgb}{0.,0.52,0.32}
+\definecolor{myyellow}{rgb}{0.96,0.92,0.13}
+\definecolor{myorange}{rgb}{0.7,0.41,0.1}
+\definecolor{mypurple}{rgb}{0.51,0.02,.8}
+\definecolor{mygray}{rgb}{0.6,0.6,0.6}
+
+\newcommand{\myblue}[1]{\textcolor{myblue}{#1}}
+\newcommand{\myred}[1]{\textcolor{myred}{#1}}
+\newcommand{\mygreen}[1]{\textcolor{mygreen}{#1}}
+\newcommand{\myorange}[1]{\textcolor{myorange}{#1}}
+\newcommand{\myyellow}[1]{\textcolor{myellow}{#1}}
+\newcommand{\mypurple}[1]{\textcolor{mypurple}{#1}}
+\newcommand{\mygray}[1]{\textcolor{mygray}{#1}}
+\definecolor{chaptercolor1}{RGB}{5, 0, 100}
+\definecolor{chaptercolor2}{RGB}{0, 0, 100}
+
+\newcommand{\mmp}[1]{\emph MMP: {#1}}
+\newcommand{\mydef}[1]{\myred{\bf {#1}}}
+\newcommand{\myemph}[1]{\mygreen{ {#1}}}
+\newcommand{\mycode}[1]{\myblue{\tt {#1}}}
+\newcommand{\myexe}[1]{{\small \mypurple{Задание} {#1}}}
+
+
+\newcommand{\bigzero}{\mbox{\normalfont\Large 0}}
+\newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
+\newcommand*{\bord}{\multicolumn{1}{c|}{}}
+\newcommand{\annotation}[1]{\begin{center} \SectionFont{Annotation}\end{center}#1}
+\newcommand{\finalformula}{\begin{center} \color{chaptercolor2}\SectionFont{Final Grade} \end{center}}
+
+\usepackage{geometry}
+
+\geometry{
+  a4paper,% redundant if already in \documentclass
+  left=10mm,
+  right=10mm,
+  top=20mm,
+  bottom=25mm,
+  heightrounded,% better use it
+}
+
+\renewcommand{\chaptertitlename}{Course}
+\titleformat{\chapter}[block]
+ {\normalfont\ChapterFont\huge\color{chaptercolor2}}%\raisebox{-0.6\height}
+ {\tcbset{colframe=chaptercolor1, boxrule=0.8pt, left=0pt, right=0pt, top=0pt, bottom=0pt}\raisebox{-0.48\height}{\rotatebox{90}{\tcbox[boxsep=4pt, colback= white ]{\color{chaptercolor1}\Large\chaptertitlename}}}\hskip 0.25em\mbox{\tcbox[ boxsep=12pt, colback=chaptercolor1, tcbox raise = -35pt]{\color{white}\bfseries\fontsize{70}{70}\selectfont\myfont\thechapter }}}
+ {0.5em}
+ {#1\vskip0.6ex\endgraf\titlerule[1ex]}[]
+
+ \titleformat{name=\chapter,numberless}[block]
+ {\normalfont\selectfont\huge\color{chaptercolor2}}
+ {}
+ {0pt}
+ {\parbox[b]{70pt}{\mbox{}}%
+ \hspace{15pt}%
+ \parbox[b]{\dimexpr\textwidth-15pt}{%
+ \raggedright\bfseries#1\vskip6pt%
+ }%
+ }
+
+\newtcbtheorem{theorema}{Theorem}{theorem name,breakable, enhanced,
+frame empty, interior empty,
+borderline={1mm}{0mm}{black},
+attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
+boxed title style={frame code={
+            \path[fill=black!30!black]
+              ([yshift=-1mm,xshift=-1mm]frame.north west)
+                arc[start angle=0,end angle=180,radius=1mm]
+              ([yshift=-1mm,xshift=1mm]frame.north east)
+                arc[start angle=180,end angle=0,radius=1mm];
+            \path[left color=gray!60!black,right color=gray!60!black,
+              middle color=gray!80!black]
+              ([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+              [rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
+              -- (frame.south east) -- (frame.south west)
+              -- ([xshift=-1mm,yshift=-1mm]frame.north west)
+              [sharp corners]-- cycle;
+            },interior engine=empty,
+          },
+          fonttitle=\bfseries}{theo}
+
+
+\newtcbtheorem{definition}{Definition}{
+  theorem name, 
+  breakable,
+  lower separated=false,
+  colback=white!80!gray,
+colframe=white, fonttitle=\bfseries,
+colbacktitle=black,
+coltitle=white,
+enhanced,
+boxed title style={colframe=black},
+attach boxed title to top left={xshift=0.5cm,yshift=-2mm},
+}{def}
+
+
+\newtcbtheorem{lemma}{Lemma}%
+{theorem name, breakable, 
+enhanced,frame empty,interior empty,colframe=white, top=8mm,
+    coltitle=white,fonttitle=\bfseries,colbacktitle=black,
+    % borderline={0.5mm}{0mm}{black},
+    borderline={0.5mm}{0mm}{black,dashed},
+    attach boxed title to top left={yshift=-4mm},
+    boxed title style={sharp corners=east,boxrule=1pt},varwidth boxed title}{thm}
+
+
+
+\tcbset{%
+prop/.style={%
+theorem name,
+    enhanced,
+    breakable,
+    sharp corners,
+    toprule=0pt, rightrule=0pt, bottomrule=0pt, leftrule=1mm,
+    colback=#1!5, colframe=#1!80!black, coltitle=#1!80!black, 
+    detach title,
+    overlay unbroken and first ={
+        \node[rotate=90, minimum width=1cm, anchor=south, font=\bfseries] 
+            at (frame.west) {\tcbtitle};
+    }
+}
+}
+\newtcbtheorem{proposition}{Prop}
+{prop=black}{pr}
+
+\usetikzlibrary{calc}
+
+\newcommand{\titlepath}{
+  \fill[black]
+  (title.south east)
+  --(title.east)coordinate(A)
+  to[curve to,out=90,in=0]($(A)+(-5mm,5mm)$)
+      --($(title.north west)+(5mm,0mm)$)coordinate(B)
+to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
+      --($(C)+(0mm,-5mm)$)
+      to[curve to,out=90,in=180]($(title.south west)+(+5mm,0mm)$)coordinate(F)
+      --cycle;
+      \draw[black,ultra thick]
+      ([yshift=.5\pgflinewidth]title.south east)--
+      ([yshift=.5\pgflinewidth]title.south-|interior.east);
+    }
+
+\newtcolorbox{note}{
+  enhanced,
+  frame empty,
+  title=Note,
+  colback=white,
+  coltitle=white,
+  before skip=14pt plus 2pt,
+  after skip=10pt plus 2pt,
+  borderline south={0.5mm}{0mm}{black,dash pattern=on 0.1pt off 4pt,line
+  width=2pt,line cap=round},
+  attach boxed title to top left={xshift=-5mm},
+  boxed title style={empty},
+  underlay boxed title=\titlepath
+
+}
+
+\renewenvironment{proof}{\paragraph{\underline{Proof}:}}{\hfill$\square$}
+
+\usepackage{hyphenat}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% Добавляем свои блоки
+\makeatletter
+\algblock[ALGORITHMBLOCK]{BeginAlgorithm}{EndAlgorithm}
+\algblock[BLOCK]{BeginBlock}{EndBlock}
+
+\newcommand*{\algrule}[1][\algorithmicindent]{
+  \makebox[#1][l]{
+    \hspace*{.2em}% <------------- This is where the rule starts from
+    \vrule height .75\baselineskip depth .25\baselineskip
+  }
+}
+
+\newcount\ALG@printindent@tempcnta
+\def\ALG@printindent{
+  \ifnum \theALG@nested>0% is there anything to print
+  \ifx\ALG@text\ALG@x@notext% is this an end group without any text?
+  % do nothing
+  \else
+  \unskip
+  % draw a rule for each indent level
+  \ALG@printindent@tempcnta=1
+  \loop
+  \algrule[\csname ALG@ind@\the\ALG@printindent@tempcnta\endcsname]
+  \advance \ALG@printindent@tempcnta 1
+  \ifnum \ALG@printindent@tempcnta<\numexpr\theALG@nested+1\relax
+  \repeat
+  \fi
+  \fi
+}
+
+% Перевод команд псевдокода
+\algrenewcommand\algorithmicwhile{\textbf{Пока}}
+\algrenewcommand\algorithmicdo{\textbf{do}}
+\algrenewcommand\algorithmicrepeat{\textbf{Повторять}}
+\algrenewcommand\algorithmicuntil{\textbf{Пока выполняется}}
+\algrenewcommand\algorithmicend{\textbf{Конец}}
+\algrenewcommand\algorithmicif{\textbf{Если}}
+\algrenewcommand\algorithmicelse{\textbf{иначе}}
+\algrenewcommand\algorithmicthen{\textbf{тогда}}
+\algrenewcommand\algorithmicfor{\textbf{Цикл}}
+\algrenewcommand\algorithmicforall{\textbf{Выполнить для всех}}
+\algrenewcommand\algorithmicfunction{\textbf{Функция}}
+\algrenewcommand\algorithmicprocedure{\textbf{Процедура}}
+\algrenewcommand\algorithmicloop{\textbf{Зациклить}}
+\algrenewcommand\algorithmicrequire{\textbf{Условия:}}
+\algrenewcommand\algorithmicensure{\textbf{Обеспечивающие условия:}}
+\algrenewcommand\algorithmicreturn{\textbf{Возвратить}}
+\algrenewtext{EndWhile}{\textbf{Конец цикла}}
+\algrenewtext{EndLoop}{\textbf{Конец зацикливания}}
+\algrenewtext{EndFor}{\textbf{Конец цикла}}
+\algrenewtext{EndFunction}{\textbf{Конец функции}}
+\algrenewtext{EndProcedure}{\textbf{Конец процедуры}}
+\algrenewtext{EndIf}{\textbf{Конец условия}}
+\algrenewtext{EndFor}{\textbf{Конец цикла}}
+\algrenewtext{BeginAlgorithm}{\textbf{Начало алгоритма}}
+\algrenewtext{EndAlgorithm}{\textbf{Конец алгоритма}}
+\algrenewtext{BeginBlock}{\textbf{Начало блока. }}
+\algrenewtext{EndBlock}{\textbf{Конец блока}}
+\algrenewtext{ElsIf}{\textbf{иначе если }}
+
+% the following line injects our new indent handling code in place of the default spacing
+\patchcmd{\ALG@doentity}{\noindent\hskip\ALG@tlm}{\ALG@printindent}{}{\errmessage{failed to patch}}
+\patchcmd{\ALG@doentity}{\item[]\nointerlineskip}{}{}{} % no spurious vertical space
+% end vertical rule patch for algorithmicx
+\makeatother
+
+
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\usepackage{nccmath}
+\usepackage{xpatch}
+\xpatchcmd{\NCC@ignorepar}{%
+\abovedisplayskip\abovedisplayshortskip}
+{%
+\abovedisplayskip\abovedisplayshortskip%
+\belowdisplayskip\belowdisplayshortskip}
+{}{}
+\usetikzlibrary{positioning, arrows.meta}
+\tikzset{%
+    myarrow/.style = {-Stealth, shorten >=3pt}
+} 
+\newcommand{\mypoint}[2]{\tikz[remember picture]{\node[inner sep=0, anchor=base](#1){$#2$};}}
+\usepackage{arydshln}
+\makeatletter
+\newcommand*\dashline{\rotatebox[origin=c]{90}{$\dabar@\dabar@\dabar@$}}
+\makeatother
+
+
+
+\lstset{language=C++,
+                basicstyle=\footnotesize\ttfamily,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{gray}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#},
+                breaklines=true,
+                autogobble=true
+}
+
+
+\usepackage[titles]{tocloft}
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\AtBeginDocument{\renewcommand\contentsname{\centering \myfont \Huge Table of Contents}}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L,RO]{Lecture \thesection} %номер страницы слева сверху на четных и справа на нечетных
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\fancyhead[C]{\myfont\leftmark}
+\fancyhead[LO]{\myfont link} 
+\fancyfoot[R]{v0.1}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{2022}

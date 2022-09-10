@@ -1,0 +1,120 @@
+% \begin{multicols}{2}
+%     \raggedcolumns
+    \section{Difference between fundamental and applied linear algebra. Problems with the real data. Pseudoinverse matrices. Skeletonization.}
+    \par 
+    Let's consider some of the standard linear algebra problems, for example, solving the systems of a linear equations. It can be written:
+    \[
+        A\vec{x} = \vec{b},    
+    \]
+    where $A = M_{m \times n}(F)$ -- the matrix of coefficients, $\vec{x} = \begin{bmatrix}
+        x_1 \\
+        \vdots \\
+        x_n
+    \end{bmatrix} \in F^n$ -- unknown vector and $\vec{b} \in F^m$ -- known vector. Solving such systems is our goal. In the best situation we can write out the solution:
+    \[
+        \vec{x} = A^{-1}\vec{b}.
+    \]
+    Or we have an another method in a more general situation, when the matrix of the coefficients can be rectangular or degenerate, no inverted. We can provide a Gaussian elimination:
+    \[
+        [A | b] \overset{\text{Gaussian}}{ \underset{\text{elimination}}{\xymatrix@C=3em{{}\ar@{~>}[r]&{}}}}
+        \left[\begin{tabular}{llll|l}
+            $1$                    &   & \multicolumn{1}{c}{}  &                   & $b_1$     \\
+                                 & $1$ & \multicolumn{1}{c}{\Huge *} &                   & $b_2$     \\
+            \multicolumn{1}{r}{} &   & $\ddots$              &                   & $\vdots$ \\
+            \multicolumn{1}{c}{} &   &                       & $1$                 & $b_m$    \\
+            \multicolumn{3}{c}{\multirow{2}{*}{\Huge $0$}}           & \multirow{3}{*}{} & $0$        \\
+            \multicolumn{3}{c}{}                             &                   & $\vdots$ \\
+                                 &   &                       &                   & $0$       
+            \end{tabular}\right]
+    \]
+    After that we can easily express one variable in terms of another one step by step.
+    \par
+    But in the real work with the linear models the initial data can be inaccurate due to the observational errors in some physic cases or human reliability in, for example, social or business situations. It can lead to some problems. For example, in Gaussian elimination you need to choose pivot variable, and if it is contains some errors, then other computation will increase them. In situations with high order error such methods cannot be applied. But even if you have the exact formula and enough resources for calculating the inverted matrix you will release that inverse is obtained with some errors. Another problem is rounding. It happens because of precise nature of Gaussian elimination algorithm or other algorithms and machine precision. It is hard and slow to calculate precision of the solution.
+    \par
+    Next problem is about speed or complexity of calculations. For example, the complexity for Gaussian elimination is $\bigOO(n^3)$. It is bad for dealing with, for example, video or signals in real time. 
+    \subsubsection*{Indefinite system}
+    \subsubsection*{Inconsistent system}
+    \subsection*{Pseudoinverse Matrices}
+    \begin{definition}{}{}
+        Let $A \in M_{m\times n}(\C)$. Then $C$ is called pseudoinverse matrix to A, or Moore-Penrose (pseudo) inverse, if it is satisfies Penrose axioms: 
+        \begin{center}
+            \renewcommand{\arraystretch}{1.2}
+            \setlength\arrayrulewidth{1.25pt}
+            \begin{tabular}{p{9cm}|p{8cm}}
+                \cline{2-2}
+                \vspace*{-0.8cm}
+                \begin{enumerate}[I.]
+                    \itemsep-0.5em
+                    \item $ACA = A$;
+                    \item $CAC = C$;
+                    \item $(AC)^* = AC$;
+                    \item $(CA)^* = CA$.
+                \end{enumerate}
+                & \Ex{if $A \in M_{n\times n}, \det A \neq 0$, then $A^{-1}$ is a pseudoinverse.}
+                \end{tabular}
+        \end{center} 
+    \end{definition}
+    \begin{proposition}{}{}
+        If a pseudoinverse matrix $C$ to $A$ exists, it is unique.
+    \end{proposition}
+    \begin{proof}
+        Suppose $B$ is some another pseudoinverse matrix to $A$. Then:
+        \begin{gather*}
+            AB \overset{\rom{1}}{=} \left(AC \right)\left(AB\right) \overset{\rom{3}}{\Rightarrow} \left(AC \right)^*\left(AB\right)^* \Rightarrow C^*\left(A^*B^*A^*\right) = C^*(ABA)^* = (AC)^* = AC.
+        \end{gather*}
+        Similarly, $BA=CA$. Now, $B\overset{\rom{2}}{=} BAB = BAC = CAC = C$.
+    \end{proof}
+    \begin{note}{}{}
+        Notation: $C = A^+$.
+    \end{note}
+    \Ex $A = O_{m\times n} = \begin{bmatrix}
+        0 & \ldots & 0\\
+        \vdots & \ddots & \vdots\\
+        0 & \ldots & 0
+    \end{bmatrix}$. Then $A^+ = O_{n\times m}$.
+    \begin{note}{}{}
+        If $A \in M_{m\times n} (\C)$, then $C \in M_{n\times m}(\C)$.
+    \end{note}
+    \begin{multicols}{2}
+    \raggedcolumns
+    \Ex $\begin{bmatrix}
+        5 & 0 \\
+        0 & 0 \\
+        0 & 0
+    \end{bmatrix}^+ = \displaystyle\begin{bmatrix}
+        \medmath{\frac{1}{5}} & 0 & 0\\
+        0 & 0 & 0
+    \end{bmatrix}$
+
+    \Ex $\begin{bmatrix}
+        1 \\ 2
+    \end{bmatrix}^+ = \begin{bmatrix}
+        \medmath{\frac{1}{5}} & \medmath{\frac{2}{5}}
+    \end{bmatrix}$
+    \end{multicols}
+    \Ex Let $A = \vec{a} \in \C^n$. Then: \[\vec{a}^{\, +} = \dfrac{1}{a^*a}\vec{a}^{\, *} = \dfrac{1}{|\vec{a}\,|^2} = \dfrac{1}{|a_1|^2 + \ldots + |a_n|^2} \vec{a}^{\, *}.\]
+    \begin{proposition}{}{}
+        Suppose that $A \in M_{m\times n}(\C)$ has full column rank, that is, $\rank A = n$. Then:
+        $A^+ = (\underbrace{A^*A}_{n\times n})^{-1}A^*.$
+    \end{proposition}
+    \begin{proposition}{}{}
+        If $\rank A = m$ ($A$ has full row rank), then: $A^+ = A^* (\underbrace{AA^*}_{m\times m})^{-1}.$
+    \end{proposition}
+    \Exc{Check if}
+    \begin{definition}{Skeletonization}{}
+        A full rank decomposition (or skeletonization) of a matrix $A \in M_{m\times n}(\C)$ with $r = \rank A$ is a decomposition:
+        \[
+            A = F \cdot G, \hspace*{0.5cm} \begin{aligned}
+                F\ \in \ M_{m\times r}(\C),\\
+                G\ \in \ M_{r\times n}(\C).
+            \end{aligned}  
+        \]
+        (Then $\rank F = \rank G = r$. $F, G$ are called matrices of full rank.)
+    \end{definition}
+    \begin{theorema}{}{}
+        For each matrix $A \in M_{m\times n}(\C)$, its pseudoinverse matrix $A^+$ exists. If $A = F \cdot G$ is a full rank decomposition, then:
+        \[
+            A^+ = G^+F^+ = G^*\left(G,G^*\right)^{-1} \left(F^*, F\right)^{-1}F^*. 
+        \]
+    \end{theorema}
+% \end{multicols}
