@@ -3,6 +3,7 @@
 \usepackage{physics}
 \usepackage{fancyhdr}
 \usepackage{dsfont}
+\usepackage{relsize}
 \usepackage{nccmath}
 \usepackage[cmtip,all]{xy}
 \usepackage{mathrsfs}
@@ -17,10 +18,11 @@
 \usepackage{listings, lstautogobble}
 \usepackage{relsize}
 \usepackage{anyfontsize}
-\usepackage{caption}
+\usepackage[labelsep=endash]{caption}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{microtype}
 \usepackage{mathtools}
+\usepackage{nicematrix}
 \usepackage{unicode-math}
 \usepackage{pst-node,pst-tree,pstricks}
 \usepackage{hyperref}
@@ -214,6 +216,14 @@
 \definecolor{chaptercolor1}{RGB}{5, 0, 100}
 \definecolor{chaptercolor2}{RGB}{0, 0, 100}
 
+\hypersetup{
+	unicode=true, % закладки для текстов в юникоде
+	colorlinks=true, % цветные ссылки
+	linkcolor=chaptercolor1, % цвет гиперссылок внутри документа
+	citecolor=red, % цвет библиографических ссылок
+	urlcolor=chaptercolor1 % цвет ссылок на ресурсы в сети
+}
+
 \newcommand{\mmp}[1]{\emph MMP: {#1}}
 \newcommand{\mydef}[1]{\myred{\bf {#1}}}
 \newcommand{\myemph}[1]{\mygreen{ {#1}}}
@@ -224,7 +234,7 @@
 \newcommand{\bigzero}{\mbox{\normalfont\Large 0}}
 \newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
 \newcommand*{\bord}{\multicolumn{1}{c|}{}}
-\newcommand{\annotation}[1]{\begin{center} \SectionFont{Annotation}\end{center}#1}
+\newcommand{\annotation}[1]{\begin{center} \color{chaptercolor2}\SectionFont{Annotation}\end{center}#1}
 \newcommand{\finalformula}{\begin{center} \color{chaptercolor2}\SectionFont{Final Grade} \end{center}}
 
 \usepackage{geometry}
@@ -283,6 +293,8 @@ boxed title style={frame code={
   breakable,
   lower separated=false,
   colback=white!80!gray,
+  before skip=14pt plus 2pt,
+  after skip=10pt plus 2pt,
 colframe=white, fonttitle=\bfseries,
 colbacktitle=black,
 coltitle=white,
@@ -472,15 +484,38 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
   \hskip -\arraycolsep
   \let\@ifnextchar\new@ifnextchar
   \array{#1}}
+  \newcommand{\Vast}{\bBigg@{4}}
 \makeatother
 
 \AtBeginDocument{\renewcommand\contentsname{\centering \myfont \Huge Table of Contents}}
+
 \pagestyle{fancy}
 \fancyhead{}
-\fancyhead[L,RO]{Lecture \thesection} %номер страницы слева сверху на четных и справа на нечетных
+\fancyhead[R]{Lecture \thesection} %номер страницы слева сверху на четных и справа на нечетных
 \renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
 \fancyhead[C]{\myfont\leftmark}
-\fancyhead[LO]{\myfont link} 
-\fancyfoot[R]{v0.1}
+\fancyhead[L]{\href{http://wiki.cs.hse.ru/Linear_Algebra_for_Data_Science_(2022)}{Web page of course}} 
+\fancyfoot[R]{v1.0}
 \fancyfoot[C]{\thepage}
 \fancyfoot[L]{2022}
+\setoperatorfont\myfont
+\titleformat{\subsubsection}{\normalsize \color{myblue}}{}{}{#1}
+\titleformat{\subsection}{\large \color{myblue}}{}{}{#1}
+\renewcommand{\thesubsection}{\arabic{subsection}.}
+
+\makeatletter
+\newenvironment{problem}{\@startsection
+       {subsection}
+       {1}
+       {-.2em}
+       {-3.5ex plus -1ex minus -.2ex}
+       {2.3ex plus .2ex}
+       {\pagebreak[3]%forces pagebreak when space is small; use \eject for better results
+       \large\bf\noindent{Problem }
+       }
+       }
+      %  {\vspace{1ex}\begin{center} \rule{0.3\linewidth}{.3pt}\end{center}}
+       %  \begin{center}\large\bf \ldots\ldots\ldots\end{center}}
+\makeatother
+
+\newenvironment{solution}{\paragraph{\underline{Solution}:}}{\hfill$\blacksquare$}

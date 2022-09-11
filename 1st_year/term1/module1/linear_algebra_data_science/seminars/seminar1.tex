@@ -1,0 +1,134 @@
+\section{Pseudoinverse matrices. Skeletonization. Singular value decomposition (SVD)}
+
+\begin{problem}{Skeletonization. Pseudoinverse matrix}
+    Find the pseudoinverse matrix to matrix $A$ using skeletonization:
+    \[
+             A = \begin{bmatrix}
+                    2 & -1 & 0\\
+                    -1 & 1 & 1\\
+                    0 & 1 & 2
+                \end{bmatrix}
+    \]
+\end{problem}
+\begin{solution}
+    Let's start with skeletonization and then find the pseudoinverse matrix by the formula:
+    \[
+        A^+ = G^*(G,G^*)^{-1}(F^*,F)^{-1}F^* 
+    \]
+    \[
+        A = \Vast[
+            \overbrace{\fbox{$\begin{matrix}
+                2 & -1 \\
+                -1 & 1 \\
+                0 & 1
+            \end{matrix}$}}^{F} \hspace*{0.25cm} \begin{matrix}
+                0 \\
+                1 \\
+                2
+            \end{matrix}\Vast] \Rightarrow \begin{bmatrix}
+                2 & -1 & 0 \\
+                0 & \medmath{\frac{1}{2}} & 1 \\
+                0 & 1 & 2
+            \end{bmatrix} \Rightarrow \begin{bmatrix}
+                1 & -\medmath{\frac{1}{2}} & 0\\
+                0 & \medmath{\frac{1}{2}} & 1\\
+                0 & 0 & 0
+            \end{bmatrix} \Rightarrow \Vast[
+                \begin{array}{c}
+                    \overbrace{\fbox{$\begin{matrix}
+                        1 & 0 & 1\\
+                        0 & 1 & 2
+                    \end{matrix}$}}^{G}\\
+                    \hspace*{0.18cm} \begin{matrix}
+                        0 & 0 & 0\\\\
+                    \end{matrix}
+                \end{array}
+                \Vast]
+    \]
+    Let's check:
+    \[
+        F \cdot G = \begin{bmatrix}
+            2 & -1 \\
+            -1 & 1 \\
+            0 & 1
+        \end{bmatrix} \cdot \begin{bmatrix}
+            1 & 0 & 1 \\
+            0 & 1 & 2
+        \end{bmatrix} = \begin{bmatrix}
+            2 & -1 & 0\\
+            -1 & 1 & 1\\
+            0 & 1 & 2
+        \end{bmatrix}
+    \]
+    Correct. Now we need to find the pseudoinverse matrix:
+    \[
+        G^*(G, G^*)^{-1} = \begin{bmatrix}
+            1 & 0 \\
+            0 & 1 \\
+            1 & 2
+        \end{bmatrix} \cdot \left(\begin{bmatrix}
+            1 & 0 & 1\\
+            0 & 1 & 2
+        \end{bmatrix} \cdot \begin{bmatrix}
+            1 & 0 \\
+            0 & 1\\
+            1 & 2
+        \end{bmatrix}\right)^{-1} = \begin{bmatrix}
+            1 & 0\\
+            0 & 1\\
+            1 & 2
+        \end{bmatrix} \cdot \dfrac{1}{6} \begin{bmatrix}
+            5 & -2 \\
+            -2 & 2
+        \end{bmatrix} = \begin{bmatrix}
+            5 & -2 \\
+            -2 & 2\\
+            1 & 2
+        \end{bmatrix} \cdot \dfrac{1}{6}
+    \]
+    \begin{note}{}{}
+        Matrix $(G, G^*)$ is called Gramm Matrix and contains results of scalar products. 
+    \end{note}
+    \begin{gather*}
+        (F^*, F)^{-1}  F^* = \left(\begin{bmatrix}
+            2 & -1 & 0\\
+            -1 & 1 & 1
+        \end{bmatrix} \cdot \begin{bmatrix}
+            2 & -1 \\ -1 & 1 \\
+            0 & 1
+        \end{bmatrix}\right)^{-1}\cdot \begin{bmatrix}
+            2 & -1 & 0\\
+            -1 & 1 & 0
+        \end{bmatrix} = \begin{bmatrix}
+            5 & -3 \\
+            -3 & 3
+        \end{bmatrix}^{-1} \begin{bmatrix}
+            2 & -1 & 0\\
+            -1 & 1 & 0
+        \end{bmatrix} = \\ = \dfrac{1}{6} \begin{bmatrix}
+            3 & 3 \\
+            3 & 5
+        \end{bmatrix} \cdot \begin{bmatrix}
+            2 & -1 & 0\\
+            -1 & 1 & 0
+        \end{bmatrix} = \dfrac{1}{6} \begin{bmatrix}
+            3 & 0 & 0\\
+            1 & 2 & 0
+        \end{bmatrix}
+    \end{gather*}
+    All things considered, we can obtain pseudoinverse matrix $A^+$:
+    \[
+        \dfrac{1}{36} \begin{bmatrix}
+            5 & -2 \\
+            -2 & 2\\
+            1 & 2
+        \end{bmatrix} \cdot \begin{bmatrix}
+            3 & 0 & 0\\
+            1 & 2 & 0
+        \end{bmatrix} = \dfrac{1}{36} \begin{bmatrix}
+            13 & -4 & 0\\
+            -4 & 4 & 0\\
+            5 & 4 & 0
+        \end{bmatrix}
+    \]
+\end{solution}
