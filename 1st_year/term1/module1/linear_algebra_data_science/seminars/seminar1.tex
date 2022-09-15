@@ -132,3 +132,176 @@
         \end{bmatrix}
     \]
 \end{solution}
+
+    Singular Value Decomposition of matrix $A\in M_{m\times n}(\C)$ is a decomposition of a kind:
+    \[
+        A = U\Sigma V^*,  
+    \]
+    where $U \in M_{m\times m}(\C)$ and $V \in M_{n\times n}(\C)$ are unitary matrices:
+    \begin{gather*}
+        U^*U = UU^*=UU^{-1} = I\\
+        V^*V = VV^*=VV^{-1} = I
+    \end{gather*}
+    and $\Sigma \in M_{m\times n}(\C)$ is a diagonal matrix of a kind:
+    \[
+        \scalebox{1.5}{$\Sigma = $}
+        \left[\begin{tabular}{clp{0.1cm}p{0.1cm}}
+            \multicolumn{1}{l}{\scalebox{1.25}{$\sigma_1$}}        &         & & \multicolumn{1}{l}{\multirow{3}{*}{\begin{tikzpicture}[x=0.55pt,y=0.55pt,yscale=-1,xscale=1]
+                    \draw  [line width=1.75]  (304.32,138.5) .. controls (312.66,138.5) and (319.43,147.68) .. (319.43,159) .. controls (319.43,170.32) and (312.66,179.5) .. (304.32,179.5) .. controls (295.98,179.5) and (289.21,170.32) .. (289.21,159) .. controls (289.21,147.68) and (295.98,138.5) .. (304.32,138.5) -- cycle ;
+                    \end{tikzpicture}}} \\ %! 
+\multicolumn{1}{l}{}         & \scalebox{1.25}{$\sigma_2$}       & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}                     \\ %! 
+            \multicolumn{2}{c}{\multirow{2}{*}{
+                \begin{tikzpicture}[x=0.55pt,y=0.55pt,yscale=-1,xscale=1]
+                    \draw  [line width=1.75]  (304.32,138.5) .. controls (312.66,138.5) and (319.43,147.68) .. (319.43,159) .. controls (319.43,170.32) and (312.66,179.5) .. (304.32,179.5) .. controls (295.98,179.5) and (289.21,170.32) .. (289.21,159) .. controls (289.21,147.68) and (295.98,138.5) .. (304.32,138.5) -- cycle ;
+                    \end{tikzpicture}
+            }} & \scalebox{1.25}{$\ddots$}              & \multicolumn{1}{l}{}  \\ %!
+            \multicolumn{2}{c}{}                   &                       & \multicolumn{1}{l}{\scalebox{1.25}{$\sigma_r$}}   \\[0.05cm] %!
+ 
+            \multicolumn{4}{c}{\begin{tikzpicture}[x=0.55pt,y=0.55pt,yscale=-1,xscale=1]
+                \draw [line width=1.75]  (246,143.5) .. controls (246,133.56) and (273.41,125.5) .. (307.21,125.5) .. controls (341.02,125.5) and (368.43,133.56) .. (368.43,143.5) .. controls (368.43,153.44) and (341.02,161.5) .. (307.21,161.5) .. controls (273.41,161.5) and (246,153.44) .. (246,143.5) -- cycle ;
+                \end{tikzpicture}
+                }                                                                        
+            \end{tabular}\right],
+    \]
+    where $\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_r$ -- singular values. ($r = \rank A$).
+
+\begin{problem}{Singular Value Decomposition}
+Find singular value decomposition of a matrix:
+\[
+    A = \begin{bmatrix}
+        3 & 3 \\
+        0 & 0 \\
+        4 & 4
+    \end{bmatrix}  
+\]
+\end{problem}
+\begin{solution}
+    Let's start with finding $V \in M_{2\times 2}(\R)$ and $\Sigma \in M_{2\times 2}(\R)$:
+    \[
+        A^\intercal A = \begin{bmatrix}
+            3 & 0 & 4\\
+            3 & 0 & 4
+        \end{bmatrix} \cdot \begin{bmatrix}
+            3 & 3\\
+            0 & 0\\
+            4 & 4
+        \end{bmatrix} = \begin{bmatrix}
+            25 & 25 \\ 
+            25 & 25
+        \end{bmatrix}.   
+    \]
+    Next step is to find eigenvalues and eigenvectors for the obtained matrix.
+    \[
+        \det \left(\begin{bmatrix}
+            25-\lambda & 25 \\
+            25 & 25-\lambda
+        \end{bmatrix}\right) = 0 \Longleftrightarrow \lambda^2 - 50\lambda = 0.
+    \]
+    We can obtain eigenvalues: $\lambda_1 = 50; \ \lambda_2 = 0$. Then singular values is equal to: $\sigma_1 = \sqrt{50}, \ \sigma_2 = 0$. Then:
+    \[
+        \scalebox{1.5}{$\Sigma$} = \begin{bmatrix}
+            \sqrt{50} & 0\\
+            0 & 0 \\
+            0 & 0
+        \end{bmatrix}  
+    \]
+    After that we can find eigenvalues:
+    \[
+        \begin{bmatrix}
+            -25 & 25 \\
+            25 & -25
+        \end{bmatrix} \vec x = 0
+    \]
+    $\vec x_1$, for example, can be equal $\vec x_1 = \begin{bmatrix}
+        1 \\ 1
+    \end{bmatrix}$. We need to normalize it, so $\vec x_1 = \dfrac{\sqrt{2}}{2}\begin{bmatrix}
+        1 \\ 1
+    \end{bmatrix}$. Similarly, $\vec x_2 = \begin{bmatrix}
+        -1 \\ 1
+    \end{bmatrix} \dfrac{\sqrt 2}{2}$. 
+    \[
+        V = \dfrac{\sqrt{2}}{2} \begin{bmatrix}
+            1 & -1\\ 1 & 1
+        \end{bmatrix}  
+    \] 
+    Let's find matrix $U$ though:
+    \[
+        AA^\intercal = \begin{bmatrix}
+            3 & 3 \\
+            0 & 0\\
+            4 & 4
+        \end{bmatrix} \cdot \begin{bmatrix}
+            3 & 0 & 4\\
+            3 & 0 & 4
+        \end{bmatrix} = \begin{bmatrix}
+            18 & 0 & 24\\
+            0 & 0 & 0\\
+            24 & 0 & 32
+        \end{bmatrix}
+    \]
+    Repeating the same scenario:
+    \[
+        \det \left(\begin{bmatrix}
+            18 - \lambda & 0 & 24\\
+            0 & -\lambda & 0\\
+            24 & 0 & 32 - \lambda
+        \end{bmatrix}\right) \Longleftrightarrow \lambda^3 - 50\lambda^2=0.
+    \]
+    Then we can obtain singular values $\sigma_1 = \sqrt{50}, \sigma_2 = 0, \sigma_3=0$.
+    \[
+        \begin{bmatrix}
+            -32 & 0 & 24\\
+            0 & -50 & 0\\
+            24 & 0 & -18
+        \end{bmatrix}\vec x = 0
+        \]
+    Solving by Gaussian elimination:
+    \[
+        \begin{bmatrix}[ccc|c]
+            -4 & 0 & 3 & 0\\
+            0 & -1 & 0 & 0\\
+            4 & 0 & -3 & 0
+        \end{bmatrix}  \sim \begin{bmatrix}[ccc|c]
+            -1 & 0 & \medmath{\frac{3}{4}} & 0\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 0 & 0
+        \end{bmatrix} \Longrightarrow
+    \]
+    $\Rightarrow \vec x_1 = \begin{bmatrix}
+        \medmath{\frac{3}{4}} \\[0.2cm] 0 \\ 1
+    \end{bmatrix} \cdot \dfrac{4}{5}$. Similarly, 
+    \[
+        \begin{bmatrix}[ccc|c]
+            18 & 0 & 24 & 0\\
+            0 & 0 & 0 & 0\\
+            24 & 0 & 32 & 0
+        \end{bmatrix}  \sim \begin{bmatrix}[ccc|c]
+            1 & 0 & \medmath{\frac{4}{3}} & 0\\
+            0 & 0 & 0 & 0\\
+            0 & 0 & 0 & 0
+        \end{bmatrix} \Longrightarrow 
+    \]
+    $\Rightarrow \vec x_1 = \begin{bmatrix}
+        -\medmath{\frac{4}{3}} \\[0.2cm]
+        0 \\
+         1
+    \end{bmatrix} \cdot \dfrac{3}{5}, \vec x_2 = \begin{bmatrix}
+        0 \\ 1 \\ 0
+    \end{bmatrix}$.
+    \par 
+    All things considered, the result of singular value decomposition:
+    \[
+        U = \dfrac{1}{5}\begin{bmatrix}
+            3 & 0 & -4\\
+            0 & 5 & 0\\
+            4 & 0 & 3
+        \end{bmatrix}, \vspace*{0.5cm} \Sigma = \begin{bmatrix}
+            \sqrt{50} & 0\\
+            0 & 0\\
+            0 & 0
+        \end{bmatrix}, \vspace*{0.5cm} V = \frac{\sqrt{2}}{2} \begin{bmatrix}
+            1 & -1 \\
+            1 & 1
+        \end{bmatrix}  
+    \]
+\end{solution}
