@@ -1,0 +1,237 @@
+\documentclass[12pt]{report}
+\usepackage{../mystyle}
+\begin{document}
+\boldmath
+\fancyhead[R]{Homework \thesection \mygreen{(Optional)}}
+\fancyhead[C]{Linear Algebra for Data Science}
+
+\setcounter{section}{1}
+
+\begin{problem}{Pseudoinverse Matrix}
+    % \begin{problem}[Теорема Бэра]
+    Find 
+    \[
+    \begin{pmatrix}
+      0\\
+      1\\
+      2\\
+      3
+    \end{pmatrix}^{+}
+    \]
+    \end{problem}
+    
+    \begin{solution}
+    From the lecture we know that $A^{+} = (A^{*}A)^{-1}A^{*}$.
+    
+    \begin{gather*} 
+        A^{*} = A^T = 
+    \begin{pmatrix}
+      0 & 1 & 2 & 3
+    \end{pmatrix}
+    ;\ A^{*}A = 
+    \begin{pmatrix}
+      0 & 1 & 2 & 3
+    \end{pmatrix}
+    \begin{pmatrix}
+      0\\
+      1\\
+      2\\
+      3
+    \end{pmatrix}
+     = 0 + 1 + 4 + 9 = 14\\ (A^{*}A)^{-1} = \medmath{\frac{1}{14}} \Rightarrow A^{+} = (A^{*}A)^{-1}A^{*} = \medmath{\frac{1}{14}}
+     \begin{pmatrix}
+      0 & 1 & 2 & 3
+    \end{pmatrix}. \end{gather*}
+    \end{solution}
+    
+    \vspace{\baselineskip}
+    
+    \begin{problem}{Skeletonization}
+        Find a full rank decomposition
+        \[
+    \begin{pmatrix}
+        1 & 1 & 1\\
+        2 & 2 & 2\\
+        3 & 3 & 3\\
+        1 & 2 & 3
+    \end{pmatrix}
+        \]
+    \end{problem}
+    
+    \begin{solution}
+        We want such decomposition: $A_{m \times n} = F_{m \times r} \times G_{r \times n}$; m = 4, n = 3. Use Gauss transformation to find G:
+        
+    $\begin{pmatrix}
+        1 & 1 & 1\\
+        2 & 2 & 2\\
+        3 & 3 & 3\\
+        1 & 2 & 3
+    \end{pmatrix}
+    \sim
+    \begin{pmatrix}
+        1 & 1 & 1\\
+        1 & 2 & 3\\
+        0 & 0 & 0\\
+        0 & 0 & 0
+    \end{pmatrix}
+    \sim
+    \begin{pmatrix}
+        1 & 1 & 1\\
+        0 & 1 & 2\\
+        0 & 0 & 0\\
+        0 & 0 & 0
+    \end{pmatrix}
+    \sim
+    \begin{NiceArray}{(ccc)}[cell-space-top-limit=3pt]
+        1 & 0 & -1\\
+        0 & 1 & 2\\
+        0 & 0 & 0\\
+        0 & 0 & 0
+    \CodeAfter
+      \tikz \draw (2-|1) -| (3-|2) -| (3-|4) ; 
+    \end{NiceArray}$; So, $G = 
+    \begin{pmatrix}
+        1 & 0 & -1\\
+        0 & 1 & 2
+    \end{pmatrix}$
+    
+    We see that first and second columns $(a_1, a_2)$ are independent and $a_3 = -a_1 + 2a_2$, so matrix F will consist of $a_1$ and $a_2$:
+    
+    $F = \begin{pmatrix}
+        1 & 1\\
+        2 & 2\\
+        3 & 3\\
+        1 & 2
+    \end{pmatrix}$. Let's check: $A = F \times G = 
+    \begin{pmatrix}
+        1 & 1\\
+        2 & 2\\
+        3 & 3\\
+        1 & 2
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0 & -1\\
+        0 & 1 & 2
+    \end{pmatrix} = 
+    \begin{pmatrix}
+        1 & 1 & 1\\
+        2 & 2 & 2\\
+        3 & 3 & 3\\
+        1 & 2 & 3
+    \end{pmatrix}
+    $.
+    
+    
+    \end{solution}
+    \begin{problem}{Pseudoinverse matrix. Skeletonization}
+        Find 
+        \[
+    \begin{pmatrix}
+        1 & 0 & 0\\
+        1 & 1 & 1\\
+        0 & 1 & 1
+    \end{pmatrix}^{+}
+        \]
+    \end{problem}
+    
+    \begin{solution}
+        Check $\rank(A)$: 
+        $\begin{pmatrix}
+            1 & 0 & 0\\
+        1 & 1 & 1\\
+        0 & 1 & 1
+        \end{pmatrix}
+        \sim
+        \begin{NiceArray}{(ccc)}[cell-space-top-limit=3pt]
+        1 & 0 & 0\\
+        0 & 1 & 1
+    \CodeAfter
+      \tikz \draw (2-|1) -| (3-|2) -| (3-|3); 
+    \end{NiceArray} = G
+    \Rightarrow \rank(A) < \dim(A) \Rightarrow$
+    we need to use formula 
+    \[A^{+} = G^{+}F^{+} = G^{*}(GG^{*})^{-1}(F^{*}F)^{-1}F^{*}\]
+    \begin{gather*}
+        G^{*} = G^T = 
+        \begin{pmatrix}
+            1 & 0\\
+            0 & 1\\
+            0 & 1
+        \end{pmatrix}; GG^{*} = 
+        \begin{pmatrix}
+            1 & 0\\
+            0 & 2
+        \end{pmatrix}; (GG^{*})^{-1} = 
+        \begin{pmatrix}
+            1 & 0 & \vrule & 1 & 0 \\
+            0 & 2 & \vrule & 0 & 1
+        \end{pmatrix}
+        \sim
+        \begin{pmatrix}
+            1 & 0 & \vrule & 1 & 0 \\
+            0 & 1 & \vrule & 0 & \medmath{\frac{1}{2}}
+        \end{pmatrix}
+        \Longrightarrow 
+        \begin{pmatrix}
+            1 & 0\\
+            0 & \medmath{\frac{1}{2}}
+        \end{pmatrix}, \\ G^{*}(GG{*})^{-1} = 
+        \begin{pmatrix}
+            1 & 0\\
+            0 & \medmath{\frac{1}{2}}\\[0.2cm]
+            0 & \medmath{\frac{1}{2}}
+        \end{pmatrix}
+\end{gather*}
+
+    Then 
+    \[ F = 
+    \begin{pmatrix}
+        a_1 & a_2
+    \end{pmatrix}
+     = 
+     \begin{pmatrix}
+         1 & 0\\
+         1 & 1\\
+         0 & 1
+     \end{pmatrix},
+     F^{*} = F^T = 
+     \begin{pmatrix}
+         1 & 1 & 0\\
+         0 & 1 & 1
+     \end{pmatrix}, \dots, (F^{*}F)^{-1}F{*} = \frac{1}{3}
+     \begin{pmatrix}
+         2 & 1 & -1\\
+         -1 & 1 & 2
+     \end{pmatrix}
+     \]
+
+    All things considered,
+     \[ A^{+} = \frac{1}{3} \frac{1}{2}
+     \begin{pmatrix}
+        2 & 0\\
+        0 & 1\\
+        0 & 1
+    \end{pmatrix}
+     \begin{pmatrix}
+         2 & 1 & -1\\
+         -1 & 1 & 2
+     \end{pmatrix} = \frac{1}{6} 
+     \begin{pmatrix}
+         4 & 2 & -2\\
+         -1 & 1 & 2\\
+         -1 & 1 & 2
+     \end{pmatrix}
+     \]
+    
+    To complete our solution we need to check all Moore-Penrose axioms, I leave it for the reader.
+    \end{solution}
+    
+    \begin{problem}{Proof}
+        Prove that $Im(AA^{+}) = Im(AA^{*}) = Im(A)$.
+    \end{problem}
+    
+    \begin{solution}
+        to do
+    \end{solution}
+
+\end{document}
