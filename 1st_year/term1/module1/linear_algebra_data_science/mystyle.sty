@@ -334,6 +334,7 @@ theorem name,
 {prop=black}{pr}
 
 \usetikzlibrary{calc}
+\usetikzlibrary{patterns}
 
 \newcommand{\titlepath}{
   \fill[black]
@@ -519,3 +520,48 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
 \makeatother
 
 \newenvironment{solution}{\paragraph{\underline{Solution}:}}{\hfill$\blacksquare$}
+
+
+\tikzset{
+pattern size/.store in=\mcSize, 
+pattern size = 5pt,
+pattern thickness/.store in=\mcThickness, 
+pattern thickness = 0.3pt,
+pattern radius/.store in=\mcRadius, 
+pattern radius = 1pt}
+\makeatletter
+\pgfutil@ifundefined{pgf@pattern@name@_xen0kut1n lines}{
+\pgfdeclarepatternformonly[\mcThickness,\mcSize]{_xen0kut1n}
+{\pgfqpoint{0pt}{0pt}}
+{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+{\pgfpoint{\mcSize}{\mcSize}}
+{\pgfsetcolor{\tikz@pattern@color}
+\pgfsetlinewidth{\mcThickness}
+\pgfpathmoveto{\pgfpointorigin}
+\pgfpathlineto{\pgfpoint{\mcSize}{0}}
+\pgfusepath{stroke}}}
+\makeatother
+
+% Pattern Info
+ 
+\tikzset{
+pattern size/.store in=\mcSize, 
+pattern size = 5pt,
+pattern thickness/.store in=\mcThickness, 
+pattern thickness = 0.3pt,
+pattern radius/.store in=\mcRadius, 
+pattern radius = 1pt}
+\makeatletter
+\pgfutil@ifundefined{pgf@pattern@name@_vilei2kdf}{
+\pgfdeclarepatternformonly[\mcThickness,\mcSize]{_vilei2kdf}
+{\pgfqpoint{0pt}{0pt}}
+{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+{\pgfpoint{\mcSize}{\mcSize}}
+{
+\pgfsetcolor{\tikz@pattern@color}
+\pgfsetlinewidth{\mcThickness}
+\pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+\pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+\pgfusepath{stroke}
+}}
+\makeatother
