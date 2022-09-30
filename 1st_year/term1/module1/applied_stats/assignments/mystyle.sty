@@ -1,0 +1,169 @@
+\usepackage{amsmath, amsthm}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+% \usepackage{dsfont}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{caption}
+% \usepackage{mathtools}
+\usepackage{graphicx, marvosym}
+\usepackage{euler}
+\usepackage{fontspec}
+% \usepackage{nccmath}
+\usepackage[fontsize=12pt]{fontsize}
+\defaultfontfeatures{Scale=MatchLowercase}
+\setmainfont{Montserrat SemiBold}
+% \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+% \usepackage{mathrsfs}
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+\setlength{\columnsep}{20.0pt}
+\usepackage{geometry}
+
+\geometry{
+  a4paper,% redundant if already in \documentclass
+  left=10mm,
+  right=10mm,
+  top=20mm,
+  bottom=25mm,
+  heightrounded,% better use it
+}
+
+\DeclareRobustCommand{\triangle}{%
+  \begingroup
+  \setlength{\unitlength}{1ex}%
+  \begin{picture}(1,1)
+  \polyline(1,0)(0,0)(.5,1)(1,0)(.5,0)
+  \end{picture}%
+  \endgroup
+}
+
+\newcommand{\trbr}[1]{
+	\left\langle#1\right\rangle
+}
+\newcommand{\pd}[2] {
+	\frac{\vdelta #1}{\vdelta #2}
+}
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern3mu{#1#2}}}
+
+\usepackage[explicit]{titlesec}
+
+\renewcommand*\thesection{\arabic{section}.}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqa}{\begin{eqnarray}}
+\newcommand{\eeqa}{\end{eqnarray}}
+\newcommand{\beqas}{\begin{eqnarray*}}
+\newcommand{\eeqas}{\end{eqnarray*}}
+\newcommand{\vv}{\vec{v}}
+\newcommand{\ve}{\vec{e}}
+\newcommand{\vvu}{\vec{u}}
+\newcommand{\liml}{\lim\limits}
+\newcommand{\prodl}{\prod\limits}
+\newcommand{\suml}{\sum\limits}
+\newcommand{\range}[1]{\{1, \ldots, #1\}}
+\newcommand{\pr}{\operatorname{pr}}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\charr}{\operatorname{char}}
+\newcommand{\basisf}{f_1, \ldots, f_n}
+\newcommand{\hdash}{\rotatebox{90}{\dashline}}
+\newcommand{\basis}{\vec{e_1}, \ldots, \vec{e_n}}
+\newcommand{\basisk}{\vec{e_1,}, \ldots, \vec{e_k}}
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+\newcommand{\bits}{\begin{itemize*}}
+\newcommand{\eits}{\end{itemize*}}
+\newcommand{\cons}{\textbf{Следствие: }}
+\newenvironment{enumerate*}{\begin{enumerate}
+    \setlength{\topsep}{0ex}
+    \setlength{\parskip}{0ex}
+    \setlength{\partopsep}{-4ex}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parsep}{0ex}}
+{\end{enumerate}}
+\let\bs\backslash
+\let\lra\Leftrightarrow
+\let\ra\rightarrow
+\let\rra\rightrightarrows
+\let\Ra\Rightarrow
+\let\La\Leftarrow
+\let\emb\hookrightarrow
+\let\tr\triangle
+\renewcommand{\phi}{\ensuremath{\varphi}}
+\renewcommand{\kappa}{\ensuremath{\varkappa}}
+\renewcommand{\le}{\ensuremath{\leqslant}}
+\renewcommand{\leq}{\ensuremath{\leqslant}}
+\renewcommand{\ge}{\ensuremath{\geqslant}}
+\renewcommand{\geq}{\ensuremath{\geqslant}}
+\renewcommand{\emptyset}{\ensuremath{\varnothing}}
+\newcommand{\benum}{\begin{enumerate*}}
+\newcommand{\eenum}{\end{enumerate*}}
+\newcommand{\E}{\mathbb{E}}
+%\newcommand{\benums}{\begin{enumerate*}}
+%\newcommand{\eenums}{\end{enumerate*}}
+\newcommand{\mybullet}{$\bullet$}
+% math mode commands
+
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+\newcommand{\rrr}{{\mathbb R}}
+\newcommand{\bigOO}{{\cal O}}
+\newcommand{\dataset}{{\cal D}}
+\renewcommand{\tr}{\operatorname{tr}}
+\newcommand{\X}{\mathbb{X}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\Lf}{\mathscr{L}}
+\newcommand{\Ex}{\textbf{Пример: }}
+\newcommand{\contr}{\overline{\mathbb R}}
+\newcommand{\bin}{\operatorname{Bin}}
+\newcommand{\poiss}{\operatorname{Poiss}}
+\newcommand{\geom}{\operatorname{Geom}}
+\newcommand{\intl}{\int\limits}
+\newcommand{\cov}{\operatorname{cov}}
+\newcommand{\corr}{\operatorname{corr}}
+\newcommand{\prokol}{\overset{\circ}{U}_\delta(a)}
+\renewcommand{\ker}{\operatorname{Ker}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\sign}{\operatorname{sgn}}
+\newcommand{\onevector}{{\mathbf 1}}
+\newcommand{\bbone}[1]{{\mathbf 1}_{[#1]}}
+\newcommand{\vdelta}{\partial}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\indeg}{indeg}
+\DeclareMathOperator{\outdeg}{outdeg}
+\newcommand{\eps}{\varepsilon}
+\newcommand {\argmax}[2]{\mbox{\raisebox{-1.7ex}{$\stackrel{\textstyle{\rm #1}}{\scriptstyle #2}$}}\,}  % to replace with the amsmath construction
+\newcommand{\var}{\operatorname{var}}
+\newlength{\picwi}
+\newcommand{\backskip}{\hspace{-2.5em}} % how much to skip back for an empty item?
+
+\makeatletter
+\newenvironment{problem}{\@startsection
+       {subsection}
+       {1}
+       {-.2em}
+       {-3.5ex plus -1ex minus -.2ex}
+       {2.3ex plus .2ex}
+       {\pagebreak[3]%forces pagebreak when space is small; use \eject for better results
+       \large\bf\noindent{Задача }
+       }
+       }
+\makeatother
+
+\newenvironment{solution}{\paragraph{\underline{Решение}:}}{\hfill$\blacksquare$}
+
+
+\usepackage{stackengine}
+\newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}

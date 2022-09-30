@@ -1,7 +1,10 @@
 ---
 title: "Методы прикладной статистики"
 author: "Рябыкин Алексей"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
 ---
 
 ## Домашнее задание 2
@@ -34,7 +37,6 @@ output: html_notebook
 
 ```{r}
 library(dplyr)
-library(plotly)
 library(readxl)
 library(ggplot2)
 library(docxtractr)
@@ -150,7 +152,7 @@ data <- f(data, cols_to_change)
 
 ```{r, echo=FALSE}
 boxplot(data$avg_income, horizontal = T,
-        xlab = columns_desctiption["avg_income"],
+        xlab = columns_description["avg_income"],
         main = "Региональные месячные денежные доходы",
         adj = 0,
         col = "light grey")
@@ -242,7 +244,7 @@ ggplot(data, aes(x = population, y = residential_buildings)) +
 
 ```{r}
 boxplot(data$net_financial_result, horizontal = T,
-        xlab = columns_desctiption["net_financial_result"],
+        xlab = columns_description["net_financial_result"],
         main = "Сальдированный результат",
         adj = 0,
         col = "light grey")
