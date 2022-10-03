@@ -4,6 +4,7 @@ TO DO LIST:
 - [ ] Seminar 2
 - [ ] Seminar 3
 - [ ] HW2 end
+- [ ] Cleaning
 - [X] <s>Lecture 1</s>
 - [X] <s>Seminar 1</s>
 - [X] <s>Lecture 3</s>
