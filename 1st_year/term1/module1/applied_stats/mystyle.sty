@@ -9,10 +9,14 @@
 \usepackage{graphicx, marvosym}
 \usepackage{euler}
 \usepackage{fontspec}
+\usepackage[many]{tcolorbox}
+\usepackage{tikz}
+\usepackage{varwidth}
 % \usepackage{nccmath}
 \usepackage[fontsize=12pt]{fontsize}
 \defaultfontfeatures{Scale=MatchLowercase}
-\setmainfont{Montserrat SemiBold}
+% \setmainfont{Montserrat SemiBold}
+\setmainfont{afuturarounddemi.ttf}
 % \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 % \usepackage{mathrsfs}
 \usepackage{multicol}
@@ -74,7 +78,6 @@
 \newcommand{\eit}{\end{itemize}}
 \newcommand{\bits}{\begin{itemize*}}
 \newcommand{\eits}{\end{itemize*}}
-\newcommand{\cons}{\textbf{Следствие: }}
 \newenvironment{enumerate*}{\begin{enumerate}
     \setlength{\topsep}{0ex}
     \setlength{\parskip}{0ex}
@@ -124,10 +127,14 @@
 \newcommand{\calH}{\mathcal{H}}
 \newcommand{\Lf}{\mathscr{L}}
 \newcommand{\Ex}{\textbf{Пример: }}
+\newcommand{\example}{\textbf{Example: }}
 \newcommand{\contr}{\overline{\mathbb R}}
-\newcommand{\bin}{\operatorname{Bin}}
+\newcommand{\bern}[1]{\operatorname{Bern}(#1)}
+\newcommand{\bin}[1]{\operatorname{Bin}(#1)}
 \newcommand{\poiss}{\operatorname{Poiss}}
 \newcommand{\geom}{\operatorname{Geom}}
+\newcommand{\hgeom}[1]{\operatorname{HGeom}(#1)}
+\newcommand{\dunif}[1]{\operatorname{DUnif}(#1)}
 \newcommand{\intl}{\int\limits}
 \newcommand{\cov}{\operatorname{cov}}
 \newcommand{\corr}{\operatorname{corr}}
@@ -149,6 +156,108 @@
 \newlength{\picwi}
 \newcommand{\backskip}{\hspace{-2.5em}} % how much to skip back for an empty item?
 
+
+
+\newtcbtheorem{definition}{Definition}{
+  theorem name, 
+  breakable,
+  lower separated=false,
+  colback=white!80!gray,
+  before skip=14pt plus 2pt,
+  after skip=10pt plus 2pt,
+colframe=white, fonttitle=\bfseries,
+colbacktitle=black,
+coltitle=white,
+enhanced,
+boxed title style={colframe=black},
+attach boxed title to top left={xshift=0.5cm,yshift=-2mm},
+}{def}
+
+\newtcbtheorem{theorema}{Theorem}{theorem name,breakable, enhanced,
+frame empty, interior empty,
+borderline={1mm}{0mm}{black},
+attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
+boxed title style={frame code={
+            \path[fill=black!30!black]
+              ([yshift=-1mm,xshift=-1mm]frame.north west)
+                arc[start angle=0,end angle=180,radius=1mm]
+              ([yshift=-1mm,xshift=1mm]frame.north east)
+                arc[start angle=180,end angle=0,radius=1mm];
+            \path[left color=gray!60!black,right color=gray!60!black,
+              middle color=gray!80!black]
+              ([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+              [rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
+              -- (frame.south east) -- (frame.south west)
+              -- ([xshift=-1mm,yshift=-1mm]frame.north west)
+              [sharp corners]-- cycle;
+            },interior engine=empty,
+          },
+          fonttitle=\bfseries}{theo}
+
+
+\newtcbtheorem{lemma}{Lemma}%
+{theorem name, breakable, 
+enhanced,frame empty,interior empty,colframe=white, top=8mm,
+    coltitle=white,fonttitle=\bfseries,colbacktitle=black,
+    % borderline={0.5mm}{0mm}{black},
+    borderline={0.5mm}{0mm}{black,dashed},
+    attach boxed title to top left={yshift=-4mm},
+    boxed title style={sharp corners=east,boxrule=1pt},varwidth boxed title}{thm}
+
+
+
+\tcbset{%
+prop/.style={%
+theorem name,
+    enhanced,
+    breakable,
+    sharp corners,
+    toprule=0pt, rightrule=0pt, bottomrule=0pt, leftrule=1mm,
+    colback=#1!5, colframe=#1!80!black, coltitle=#1!80!black, 
+    detach title,
+    overlay unbroken and first ={
+        \node[rotate=90, minimum width=1cm, anchor=south, font=\bfseries] 
+            at (frame.west) {\tcbtitle};
+    }
+}
+}
+\newtcbtheorem{proposition}{Prop}
+{prop=black}{pr}
+
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+
+\newcommand{\titlepath}{
+  \fill[black]
+  (title.south east)
+  --(title.east)coordinate(A)
+  to[curve to,out=90,in=0]($(A)+(-5mm,5mm)$)
+      --($(title.north west)+(5mm,0mm)$)coordinate(B)
+to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
+      --($(C)+(0mm,-5mm)$)
+      to[curve to,out=90,in=180]($(title.south west)+(+5mm,0mm)$)coordinate(F)
+      --cycle;
+      \draw[black,ultra thick]
+      ([yshift=.5\pgflinewidth]title.south east)--
+      ([yshift=.5\pgflinewidth]title.south-|interior.east);
+    }
+
+\newtcolorbox{note}{
+  enhanced,
+  frame empty,
+  title=Note,
+  colback=white,
+  coltitle=white,
+  before skip=14pt plus 2pt,
+  after skip=10pt plus 2pt,
+  borderline south={0.5mm}{0mm}{black,dash pattern=on 0.1pt off 4pt,line
+  width=2pt,line cap=round},
+  attach boxed title to top left={xshift=-5mm},
+  boxed title style={empty},
+  underlay boxed title=\titlepath
+
+}
+
 \makeatletter
 \newenvironment{problem}{\@startsection
        {subsection}
@@ -163,7 +272,17 @@
 \makeatother
 
 \newenvironment{solution}{\paragraph{\underline{Решение}:}}{\hfill$\blacksquare$}
+\newcommand{\cons}{\underline{Corollary: }}
 
 
 \usepackage{stackengine}
 \newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}
+
+\boldmath
+\pagestyle{fancy}
+\fancyhead[R]{Lecture \thesection}
+\fancyhead[C]{Methods of applied statistics}
+\fancyhead[L]{}
+\fancyfoot[L]{2022}
+\fancyfoot[R]{v1.0}
+\fancyfoot[C]{--\thepage--}

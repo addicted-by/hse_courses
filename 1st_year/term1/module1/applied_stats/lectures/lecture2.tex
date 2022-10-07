@@ -1,0 +1,350 @@
+\section{Some basic information from probability theory to construct the statistical models.}
+
+\subsection*{Понятие вероятности}
+\begin{definition}{}{}
+    Вероятность $P$ -- численная мера объективной возможности наступления события. Вероятностное пространство $\left(\Omega,\mathcal{F}, P\right)$ -- состоит из пространства элементарных исходов $\Omega$, сигма-алгебры на этом пространстве $\mathcal{F}$ и самой вероятности $P$, формально, сигма-аддитивной меры.
+\end{definition}
+\begin{note}{}{}
+    Требования к вероятности:
+    \[
+        \begin{array}{c}
+          P(\Omega) = 1,\\
+          P(A \cup B) = P(A) + P(B)  
+        \end{array}  
+    \]
+\end{note}
+\begin{definition}{}{}
+    События $A$ и $B$ несовместны, если $AB = \emptyset$
+\end{definition}
+\begin{definition}{}{}
+    События образуют полную группу событий, если их сумма является достоверным событием.
+\end{definition}
+
+\begin{definition}{}{}
+    Полная группа попарно несовместных событий определяется как произведение $A_iA_j = \emptyset$ при $i\neq j$ и $\sum\limits_{i=1}^n A_i$ является достоверным событием, то есть $P\left(\sum\limits_{i=1}^n A_i\right) = 1.$
+\end{definition}
+
+\par
+Другое определение вероятности:
+\begin{definition}{}{}
+    Вероятность наступления события $A$ можно представить как предел относительной частоты при большом количестве испытаний:
+    \[
+        P(A) \approx \dfrac{m}{n}.  
+    \]
+\end{definition}
+\subsection*{Вероятность наступления сложных событий}
+
+\begin{theorema}{}{}
+    \[
+        P(A \cup B) = P(A) + P(B) - P(A \cap B)  
+    \]
+\end{theorema}
+\cons 
+\[
+    P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A\cap B) - P(A\cap C) - P(B \cap C) + P(A\cap B \cap C)  
+\]
+\begin{theorema}{Inclusion-Exclusion}{}
+    \[
+        P\left(\bigcup\limits_{i=1}^n A_i\right) = \sum\limits_i P(A_i) - \sum\limits_{i < j} P(A_i \cap A_j) + \sum\limits_{i < j < k} P(A_i \cap A_j \cap A_k) - \ldots + \left(-1\right)^{n-1}P\left(A_1 \cap \ldots \cap A_n\right)
+    \]
+\end{theorema}
+\begin{note}{}{}
+    Частный случай для несовместных событий $A$ и $B$:
+    \[
+        P(A\cup B) = P(A) + P(B)  
+    \]
+    Аналогично для суммы попарно несовместных событий $\sum\limits_{i=1}^n A_i$:
+    \[
+        P(A_1 + \ldots + A_n) = \sum\limits_{i=1}^n P(A_i). 
+    \]
+\end{note}
+\begin{theorema}{}{}
+    Произведение зависимых событий
+  \[
+        P(AB) = P(A)P(A|B) = P(B)P(B|A),
+  \]
+  где $P(A|B)$ -- условная вероятность события $A$.
+\end{theorema}
+\begin{note}{}{}
+    События $A$ и $B$ независимы, если 
+    \[
+        P(A|B) = A
+    \] 
+    Вероятность произведения попарно независимых событий:
+    \[
+        P(A_1 \ldots A_n) = \prod\limits_{i=1}^n P(A_i).  
+    \] 
+\end{note}
+
+\begin{definition}{}{}
+    При известных априорных вероятностях $P(A_i)$, условная вероятность $P(B|A_i)$, определяется следующим образом:
+    \[
+        P(A_i| B) = \dfrac{P(B|A_i)P(A_i)}{P(B)},  
+    \]  
+    где $A_i$ -- событие, априорное событию $B$.
+\end{definition}
+\begin{theorema}{}{}
+  Формула полной вероятности:
+  \[
+    P(B) = \sum\limits_{i=1}^n P(A_i)P(B|A_i)
+  \]  
+\end{theorema}
+\begin{theorema}{Bayes}{}
+    При известных априорных вероятностях $P(A)$ и $P(B)$ и условной вероятности $P(B|A)$, вероятность $P(A|B)$ может быть определена:
+    \[
+        P(A|B) = \dfrac{P(B|A)P(A)}{P(B)}  
+    \]
+\end{theorema}
+
+\subsection*{Схема Бернулли}
+
+Рассмотрим событие $B_m$, состоящее в том, что событие $A$ в $n $ повторных независимых испытаниях наступит ровно $m$ раз. Вероятность такого события определяется следующим образом:
+\[
+    P_{n, m} = \dfrac{n!}{m!(n-m)!}p^m(1-p)^{n-m},  
+\]
+где $p$ -- вероятность наступления события $A$ в каждом испытании.
+
+\par
+Аппроксимации в случае большого количества испытаний:
+\begin{itemize}
+    \item Случай редких событий (событий, вероятность которых стремится к нулю). При этом интенсивность событий постоянна: $\lambda = np$. В данном случае можно воспользоваться теоремой Пуассона:
+    \[
+        \lim\limits_{n\to \infty} P_n(m) = \dfrac{\lambda^m}{m!}e^{-\lambda}  
+    \]
+    \item Когда вероятность наступления события примерно равна $0.5$, можно воспользоваться локальной теоремой Лапласа:
+    \[
+        \lim\limits_{n\to \infty} P_n(m) = \dfrac{1}{\sqrt{2\pi}\sqrt{npq}}e^{\displaystyle - \dfrac{\dfrac{1}{2}\left(m - np\right)^2}{npq}}
+    \]
+\end{itemize}
+
+\subsection*{Random variables}
+\begin{definition}{(Random variables)}{}
+    Given an experiment with simple space $S$, a random variable is a function $X$ of a kind $X: \ S \to \R$.
+\end{definition}
+\Ex Число очков на игральной кости; оценка, полученная на экзамене; время ожидания автобуса на остановке.
+
+\example (Coin tosses) We toss a fair coin twice. The sample space is $S = \{HH, HT, TH, TT\}$. Here are some r.v.-s on this space:
+\begin{itemize}
+    \item $X = \# \text{ of Heads}$:
+    \[
+        X(HH) = 2, \ X(HT) = X(TH) = 1, X(TT) = 0  
+    \]
+    \item $Y = \# \text{ of Tails}$: $Y = 2 - X$
+    \item $I = \left\{
+        \begin{array}{ll}
+            1, & \text{ if 1-st toss = Heads},\\
+            0, & \text{ otherwise}
+        \end{array}
+    \right.$ -- indicator random variable.
+\end{itemize}
+\subsection*{Distributions and probability mass functions}
+
+There are two main types of r.v.-s.: discrete and continuous.
+
+\begin{definition}{(Discrete random variable)}{}
+    A random variable $X$ is said to be discrete if there is a finite list of values $a_1, a_2, \ldots, a_n$ or an infinite set $a_1, a_2, \ldots$ s.t. $(\exists j)\ P(X = a_j) = 1$. If $X$ is a discrete r.v., then this finite or countably infinite set of values it takes and such that $P(X = x) > 0$ is called the support of X.
+\end{definition}
+\begin{note}{}{}
+    Continuous r.v.-s can take any real value in an interval.
+\end{note}
+The distribution of an r.v. specifies the probabilities of all events associated with the r.v. For a discrete case the most natural way to do this is:
+\begin{definition}{(Probability mass function)}{}
+    The probability mass function (PMF) of a discrete r.v. $X$ is the function $p_X$ given by $p_X(x) = P(X=x)$. It is non-zero positive if $x \in (\text{support } X)$ and 0 otherwise.
+\end{definition}
+\begin{note}{}{}
+    In writing $P(X = x), \ X=x$ denotes an event. (Sometimes also written as $\{X = x\}$ -- formally, $\{s \in S: \ X(s) \in x\}$).
+\end{note}
+\example (Two coin tosses). $X = \# \text{ of Heads}, \ Y = \# \text{ of Tails}, \ I = \left\{\begin{array}{ll}
+    1, & \text{ if 1-st toss = Heads},\\
+    0, & \text{otherwise}
+\end{array}\right.$ -- indicator variable.
+\[
+    \begin{array}{c}
+        p_X(0) = P(X=0) = \dfrac{1}{4}, \hspace*{0.5cm} p_X(1) = \dfrac{1}{2}, \hspace*{0.5cm} p_X(2) = \dfrac{1}{4},\\[0.5cm]
+        Y = 2-X, \text{ so same PMF}. \hspace*{0.5cm} p_I(0) = \dfrac{1}{2}, \ p_I(1) = \dfrac{1}{2}.
+    \end{array}  
+\]
+\example (sum of die rolls). Roll two fair $6$-sided dice. Let $T = X+Y$, where $X, Y$ are individual rolls. The sample space is $S = \left\{\left(1,1\right), \left(1,2\right), \ldots, \left(6,5\right), \left(6,6\right)\right\}$:
+\[
+    p_T(2) = p_{T}(12) = \dfrac{1}{36}, \ p_T(3) = p_{T}(11) = \dfrac{2}{36}, \ldots, \ p_T(7) = \dfrac{6}{36}.  
+\]
+\begin{theorema}{(Valid PMFs)}{}
+    Let $X$ be a discrete random variable with support $x_1, x_2, \ldots$. The PMF $p_X$ of $X$ must satisfy:
+    \begin{itemize}
+        \item Nonnegative: $p_X(x) > 0$ if $x = x_j$ for some $j$, $p_X(x) = 0$ otherwise;
+        \item Sums to 1: $\sum\limits_{j=1}^\infty p_X(x_j) = 1$. 
+    \end{itemize}
+\end{theorema}
+\subsection*{Bernoulli and Binomial}
+\begin{definition}{(Bernoulli distribution)}{}
+    A random variable $X$ is said to have Bernoulli distribution with parameter $p$ if $P(X = 1) = p$ and $P(X=0) = 1-p$, where $0 < p < 1$. We write $X \sim \bern{p}$($X$ is Bernoulli-distributed). It is a family of distributions indexed by p.  
+\end{definition}
+
+\begin{definition}{(Indicator random variable)}{}
+    Indicator r.v. of an event $A$ = r.v. that equals $1$ if $A$ occurs and $0$ otherwise. It denoted by $I_A$ or $I(A)$.
+\end{definition}
+\begin{note}{}{}
+    \[
+        I_A \sim \bern{p} \text{ with } p = P(A).  
+    \]
+\end{note}
+\par 
+An experiment that can result in a ``success'' or ``failure'' (but not both) is called a Bernoulli trial. A Bernoulli r.v. thus = indicator r.v. of success in Bernoulli trial.
+
+\par
+Suppose $n$ independent Bernoulli trials are run, each with $P(\text{success}) = p$. Let $X$ = the number of successes. $X \sim \bin{n, p}$ -- the Binomial distribution with parameters $n = 1, 2, \ldots$ and $0 < p < 1$.
+
+\begin{note}{}{}
+    $\bern{p}$ is the same as $\bin{1, p}$
+\end{note}
+
+\begin{theorema}{(Binomial PMF)}{}
+    If $X \sim \bin{n,p}$, then the PMF of $X$:
+    \[
+        P(X = k) = \binom{n}{k} p^k \left(1 - p\right)^{n-k}, \hspace*{0.5cm} \text{for } k = 0,1, \ldots, n.  
+    \] 
+\end{theorema}
+\begin{theorema}{}{}
+    Let $X \sim \bin{n, p}$ and $q = 1-p$ (we often use $q$ as a failure probability in Bernoulli trial). Then $n-X \sim \bin{n, q}$ (based on the binomials symmetry property).
+\end{theorema}
+\par 
+\cons Let $X \sim \bin{n,p}$ with $p = \dfrac{1}{2}$ and even $n$. Then the distribution of $X$ is symmetric about $\dfrac{n}{2}$ -- that is:
+\[
+    P (X = \dfrac{n}{2} + j) = P(X=\dfrac{n}{2} - j)    
+\]
+
+\subsection*{Hypergeometric}
+
+\par
+\underline{Preface}: Urn with $w$ white and $b$ black balls, drawing $n$ balls with replacement yields $\bin{n, \dfrac{w}{w+b}}$, for $X - \#$ of white balls in $n$ trials. If we instead sample without replacement, then $X$ follows a Hypergeometric distribution: $X \sim \hgeom{w, b, n}$. In Bernoulli trials are independent, in Hypergeometric trials are dependent (cause of without replacement nature).
+\begin{theorema}{(Hypergeometric PMF)}{}
+    If $X \sim \hgeom{w, b, n}$, then 
+    \[
+        P (X = k)  = \dfrac{\displaystyle \binom{\displaystyle w}{\displaystyle k} \binom{b}{n-k}}{\displaystyle \binom{w+b}{n}}
+    \]  
+\end{theorema}
+\example (Aces in a poker hand). In a 5-card hand from a we shuffled deck, the $\#$ of aces $\sim \hgeom{4, 48, 5}$. Then 
+\[
+    P(3\text{ aces}) = \dfrac{\displaystyle \binom{4}{3} \binom{48}{2}}{\displaystyle \binom{52}{5}} \approx 0.0017.  
+\]
+\begin{theorema}{}{}
+    $\hgeom{w, b, n}$ and $\hgeom{n, w+b - n, w}$ are identical.
+\end{theorema}
+
+\subsection*{Discrete uniform}
+
+\par 
+\underline{Preface}: let $C$ be a finite nonempty set of numbers. Choose one of these uniformly at random (i.e. all values are equally likely). Call the chosen number $X$. Then $X$ is said to have the Discrete Uniform distribution with parameter $C$, which one can be denoted as $X \sim \dunif{C}$.
+
+\begin{note}{}{}
+    The PMF is $P(X = x) = \dfrac{1}{|C|}$ for $x \in C$ (and $0$ otherwise). For any subset $A \subset C, \ P(X \in A) = \dfrac{|A|}{|C|}$.
+\end{note}
+
+\subsection*{Числовые статистики для дискретных и непрерывных случайных величин}
+\par
+Начальные и центральные моменты для дискретных случайных величин:
+\[
+    \begin{array}{c}
+        v^*_k = \sum\limits_{i=1}^{n} x^k_i p_i\\
+        \mu_k^* = \sum\limits_{i=1}^{n} \left(x_i - \overline{x}\right)^kp_i.
+    \end{array}
+\]
+\par 
+Для непрерывной случайной величины:
+\[
+    \begin{array}{c}
+    v_k^* = \int\limits_{-\infty}^{\infty} x^k f(x)dx\\
+    \mu_k^* = \int\limits_{-\infty}^{\infty} \left(x - \overline{x}\right)^kf(x)dx.
+    \end{array}
+\]
+Математическое ожидание -- начальный момент первого порядка:
+\[
+    \begin{array}{c}
+    \E X = \sum\limits_{i=1}^n x_ip_i;\\
+    \E X = \int\limits_{-\infty}^\infty xf(x)dx
+    \end{array}  
+\]
+\begin{theorema}{(Properties of expectation)}{}
+    \[
+        \begin{array}{c}
+            \E[\text{const}] = \text{const} ;\\[0.25cm]
+            \E[\text{const } X] = \text{const } X;\\[0.25cm]
+            \E[X_1 + \ldots X_n] = \E X_1 + \ldots \E X_n;\\[0.25cm]
+            (\text{independent: }) \E[X_1 \cdot \ldots \cdot X_n] = \E X_1 \cdot \ldots \cdot \E X_n;\\[0.25cm]
+            \E \left[\dfrac{1}{n}\sum\limits_{i+1}^nX_i\right] = \E X_i
+        \end{array}  
+    \]
+\end{theorema}
+\par
+Дисперсия -- центральный момент 2-го порядка:
+\[
+    \begin{array}{c}
+        \var X = \sum\limits_{i=1}^n (x_i - \overline{x})^2 p_i\\
+        \var X = \int\limits_{-\infty}^\infty \left(x - \overline{x}\right)^2f(x) dx
+    \end{array}  
+\]
+
+\begin{theorema}{(Properties of the variance)}{}
+    \[
+        \begin{array}{c}
+            \var X = \E[X^2] - \E X^2\\[0.25cm]
+            \var [\text{const}] = 0\\[0.25cm]
+            \var [\text{const } X] = \text{const }^2 \var X\\[0.25cm]
+            (\text{independent: }) \var \left[X_1 + \ldots + X_n\right] = \var X_1 + \ldots \var X_n;\\[0.25cm]
+            \var [X \pm C] = \var X\\[0.25cm]
+            \var \left[\dfrac{1}{n}\sum\limits_{i+1}^n X_i\right] = \dfrac{\var X_i}{n} 
+        \end{array}  
+    \]
+\end{theorema}
+Взаимосвязи начальных и центральных моментов:
+\[
+    \begin{array}{c}
+        \mu_2 = v_2 - v_1^2\\
+        \mu_3 = v_3 - 3v_1 v_2 + 2v_1^2
+    \end{array}
+\]
+
+\subsection*{Предельные теоремы}
+\begin{theorema}{(Bernoulli theorem)}{}
+    Если вероятность появления события $A$ в одном испытании равна $p$, число наступлений события при $n$ независимых испытаниях $m$, то $\forall \varepsilon > 0$:
+    \[
+        \lim\limits_{n\to \infty} P\left(\left|\dfrac{m}{n} - P(A)\right| < \varepsilon\right) = 1. 
+    \]
+\end{theorema}
+\begin{note}{}{}
+    Для оценки вероятности по теореме Бернулли используется формула:
+    \[
+        P\left(\left| \dfrac{m}{n} - P(A) \right|< \varepsilon \right) \geq \dfrac{\var X}{n\varepsilon^2}.  
+    \]
+\end{note}
+
+\begin{theorema}{}{}
+    Пусть событие $A$ может произойти в любом из $n$ независимых испытаний с одной и той же вероятностью $p$ и $v_n(A)$ -- число осуществлений события $A$ в $n$ испытаниях. Тогда 
+    \[
+        \dfrac{v_n(A) - np}{\sqrt{np(1-p)}} \to N(0;1)
+    \]
+\end{theorema}
+
+\begin{theorema}{(Центральная предельная теорема)}{}
+    Пусть $X_1, \ldots, X_n$ -- последовательность независимых одинаково распределенных случайных величин, имеющих конечные математические ожидания $\mu$ и дисперсии $\sigma^2.$ Тогда 
+    \[
+        \dfrac{\sum\limits_{i=1}^n X_i - \mu n}{\sigma \sqrt{n}} \to N(0,1)  
+    \]
+\end{theorema}
+
+\par 
+Другие предельные теоремы:
+\begin{itemize}
+    \item Лемма Маркова  
+    \[
+        P(X\geq \tau) \leq \dfrac{M(X)}{\tau}, \ \tau > 0.
+    \]
+    \item Неравенство Чебышева
+    \[
+        P\left\{\left|X - E(X)\right\| \leq \varepsilon\right\} \geq 1 - \dfrac{\var X}{\varepsilon^2}  
+    \]
+    \item Теорема Чебышева 
+    \[
+        \lim\limits_{n\to \infty} P\left\{\left|\dfrac{1}{n} \sum\limits_{i=1}^n X_i - \dfrac{1}{n}\sum\limits_{i=1}^{n} \E X_i\right| < \varepsilon\right\} = 1  
+    \]
+\end{itemize}
