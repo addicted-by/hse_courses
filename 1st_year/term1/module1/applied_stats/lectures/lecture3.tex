@@ -1,1 +1,150 @@
-\section{Статистическая проверка гипотез и ее приложения}
+\section{Оценивание параметров в практике статистического анализа}
+\par
+В статистике наблюдения $x = \left(x_1, \ldots, x_n\right)$ рассматриваются как реализация случайного вектора $X_n = \left(X_1, \ldots, X_n\right)$, который имеет определенный закон распреления. Задача статистического оценивания заключается в оценке характеристик неизвестного распределения случайного вектора $X_n$, используя его реализацию $x$.
+
+\begin{definition}{(Оценка)}{}
+    Оценка $\hat{\theta}$ параметра $\theta$ -- некоторая функция от наблюдений, принимающая значение параметра, которое на практике используют вместо неизвестного значения параметра $\theta$.
+\end{definition}
+
+\par
+Существует два подхода к статистическому оцениванию параметров:
+\begin{enumerate}
+    \item[1) ] $\theta$ -- неслучайная величина, неизвестная;
+    \item[2) ] $\theta$ -- случайная величин с известной плотностью распределения $f(\theta)$ (Байесовский подход) 
+\end{enumerate}
+
+\begin{theorema}{}{}
+    Байесовский критерий минимального среднего риска оценивания:
+    \[
+        \begin{array}{c}
+           \displaystyle \overline{r} = \int\limits_{\theta}\int\limits_{\hat{\theta}} r\left(\theta; \hat{\theta}\right)f(\theta; x) dxd\theta\\[0.2cm]
+           \displaystyle f(\theta; x) = f(\theta)f(x| \theta)\\[0.5cm]
+           \displaystyle\overline{r} = \int\limits_{\theta}\int \limits_{-\infty}^\infty r\left(\theta; \hat{\theta}\right)f(\theta)f(x|\theta) dxd\theta,
+        \end{array}  
+    \]
+    где
+    \[
+        \int\limits_{-\infty}^\infty r \left(\theta; \hat{\theta}\right) f(\theta) f(x|\theta) dx \to \min
+    \]
+    условный средний риск.
+\end{theorema}
+
+\par
+Два вида представления оценок:
+\begin{itemize}
+    \item Точечный $\hat{\theta}$
+    \item Интервальный $P\left(\theta_{\min} \leq \theta \leq \theta_{\max}\right) = r$
+\end{itemize}
+
+\subsection*{Точечное оценивание параметров}
+
+\begin{note}{}{}
+    Свойства оценок:
+    \begin{itemize}
+        \item Несмещенность оценки -- математическое ожидание оценки совпадает с оцениваемым параметром:
+        \[
+            \E\hat{\theta} = \theta.  
+        \]
+        \item Состоятельность --  при увеличении числа наблюдений оценка сходится по вероятности к оцениваемому параметру;
+        \item Эффективность -- несмещенная ценка, дисперсия которой является минимальной по сравнению с другими оценками
+    \end{itemize}
+\end{note}
+
+\par
+Метод моментов: выборочные моменты используются в качестве оценок моментов генеральной совокупности.
+
+\par 
+Рассмотрим непрерывную случайную величину $X$, которая в результате $n$ испытаний принимает значения $x_1, \ldots, x_n$. Нам известен вид функции плотноти $f(x; \theta)$ с неизвестным параметром $\theta$. Для нахождения оценок ставят оптимизационную задачу максимизации функции правдоподобия вида:
+\[
+    L\left(x_1, \ldots, x_n; \ \theta\right) = f\left(x_1;  \theta\right)\ldots f\left(x_n; \theta\right) 
+\]
+Для работы с производными рассматривают логарифм функции правдоподобия.
+
+\Ex Exponential distribution:
+\[
+    f(x) = \left\{
+        \begin{array}{c}
+        \displaystyle\lambda e^{-\lambda x}, \ x > 0\\
+        \displaystyle 0, x \leq 0
+    \end{array}
+    \right.  
+\]
+\par
+Likelihood:
+\[
+    L(x; \lambda) = \prod\limits_{i=1}^n \lambda e^{-\lambda x}   
+\]
+\par
+Log-likelihood:
+\[
+    \ln L\left(x_1, \ldots, x_n, \lambda\right) = n\ln \lambda - \lambda \sum\limits_{i=1}^n x_i  
+\]
+\par
+The result of partial derivation:
+\[
+    \dfrac{d \ln L}{d\lambda} = \dfrac{n}{\lambda} - \sum \limits_{i=1}^n x_i = 0  
+\]
+\par
+Now we can obtain estimated value:
+\[
+    \lambda^* = \dfrac{n}{\sum\limits_{i=1}^n x_i}.
+\]
+\subsection*{Примеры точечных оценок наиболее важных характеристик}
+\begin{itemize}
+    \item Оценка математического ожидани -- выборочное среднее:
+    \[
+        \E X \approx \overline{x} = \dfrac{1}{n}\sum\limits_{i=1}^n x_i  
+    \]
+    \item Оценка генеральной дисперсии -- выборочная дисперсия:
+    \[
+        \var X \approx S^2 = \dfrac{1}{n} \sum\limits_{i=1}^n \left(x_i - \overline{x}\right)^2.  
+    \]
+    \item Несмещенная оценка дисперсии:
+    \[
+        \var X \approx S^2 = \dfrac{1}{n-1} \sum\limits_{i=1}^n \left(x_i - \overline{x}\right)^2.  
+    \]
+    \item Выборочная оценка генеральной доли:
+    \[
+        p = \dfrac{m}{n}.  
+    \]
+\end{itemize}
+\par 
+Для обеспечения робастности используется метод максимального квази-правдоподобия
+\subsection*{Интервальное оценивание параметров}
+\par 
+Пусть имеется выборка $x = \left(x_1, \ldots, x_n\right)$ из генеральной совокупности $X = \left(X_1, \ldots, X_n\right)$. Целью является построения доверительного интервала $\left(\theta_{\min}; \theta_{max}\right)$, такого что:
+\[
+    P\left(\theta_{\min} < \theta_{\max}\right) = \gamma,  
+\]
+где $\gamma$ -- надежность.
+\par
+Этапы построения интервальных оценок:
+\begin{itemize}
+    \item Выбор $\gamma$;
+    \item $\zeta = \mu(\theta)$, причем подразумевается,что $P(\zeta)$ известно;
+    \item Построение доверительного интервала для статистики:
+    \[
+        P\left(\zeta_{\min} < \zeta < \zeta_{\max}\right) = \gamma.  
+    \]
+    \item Построение доверительного интервала для оценки:
+    \[
+        P\left(\theta_{\min} < \theta < \theta_{\max}\right) = \gamma.
+    \]
+\end{itemize}
+
+\Ex (для построения доверительного интервала для среднего)
+Пусть имеется выборка $x = \left(x_1, x_2, \ldots, x_n\right)$, кроме того $x_i \sim N(a, \sigma^2)$ i.i.d и $\sigma^2$ известно.
+\begin{itemize}
+    \item Выберем $\overline{X}$ в качестве статистики.
+    \[
+        \E(\overline{X}) = a \hspace*{0.5cm} \var \overline{X} = \dfrac{1}{n}\sigma^2  
+    \]
+    $\overline{X} \sim N\left(a, \dfrac{\sigma^2}{n}\right)$:
+    \[
+        \begin{array}{c}
+            \displaystyle \overline{X} - \dfrac{\sigma}{\sqrt{n}} < a < \overline{X} + \dfrac{\sigma}{\sqrt{n}} \\[0.5cm]
+            \displaystyle P\left(-t_{\gamma} < \dfrac{\overline{X} - a}{\sigma} - \sqrt{n} < t_{\gamma}\right) = \gamma\\[0.5cm]
+            \displaystyle P\left(\overline{X} - t_{\gamma} \dfrac{\sigma}{\sqrt{n}} < a < \overline{X} + t_{\gamma} \dfrac{\sigma}{\sqrt{n}}\right) = \gamma.
+        \end{array}  
+    \]
+\end{itemize}
