@@ -1,6 +1,9 @@
 TO DO LIST:
 
 - [ ] Lecture 2 end
+- [ ] Lecture 4 end
+- [ ] Lecture 5 end
+- [ ] Lecture 6 end
 - [ ] Seminar 2
 - [ ] Seminar 3
 - [ ] HW2 end
