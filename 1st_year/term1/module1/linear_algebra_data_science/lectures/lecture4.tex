@@ -133,7 +133,7 @@ Also we can show, for example, open ball on this example (we will define it litt
     \]
     \item Metric on continuous functions:
     \par 
-    Let $X = C[0,1] = \left\{\text{continuous functions } f: [0,1] \to \R\right\}$.
+    Let $X = \mathcal{C}[0,1] = \left\{\text{continuous functions } f: [0,1] \to \R\right\}$.
     Then we can define metrics:
     \[
             \begin{array}{c}
@@ -283,7 +283,7 @@ pattern radius = 1pt}
     \[
         \rho(x,y) = \left| e^x - e^y \right|.  
     \]
-    \item Another example of vector:
+    \item Another example of metric:
     \[
         \rho(x,y) = \left\{
             \begin{array}{cc}
@@ -359,8 +359,8 @@ pattern radius = 1pt}
 \end{wrapfigure}
 \[
     \begin{array}{c}
-        B_8(M) = {M, N}\\
-        B_6(N) = {M, N, K}
+        B_8(M) = \{M, N\}\\
+        B_6(N) = \{M, N, K\}
     \end{array}  
 \]}
 \vspace*{2cm}
@@ -382,23 +382,108 @@ pattern radius = 1pt}
         \]
     \end{enumerate*}
 \end{definition}
-\begin{note}{}{}
-    In the vector space $\R^n (\C^n)$ the following three norms are in common use:
-    \begin{itemize}
-        \item absolute norm:
-        \[
-            ||x||_1 = \sum\limits_{i=1}^n |x_i|  
-        \]
-        \item Euclidean norm:
+\Ex Euclidean norm:
         \[
             \left|\vec{x}\right|_2 = \sqrt{\sum\limits_{i=1}^n |x_i|^2}    
         \]
-        \item maximum norm:
-        \[
-            ||u||_\infty = \max\limits_{1 \leq i \leq n} |u_i|.  
+
+\begin{proposition}{}{}
+    In a normed space $V$, the function $\rho\left(\vec{x},\vec{y}\right) = \nu\left(\vec{y} - \vec{x}\right)$ is a metric.
+\end{proposition}
+\begin{proof}
+    For proving positive definition of function $\nu\left(\vec{x}, \vec{y}\right)$ we need a lemma:
+    \begin{lemma}{}{}
+        $\nu\left(\vec{0}\right) = 0$
+    \end{lemma}
+    \begin{proof}
+        $\nu\left(0 \cdot \vec{0}\right) = 0 \cdot \nu\left(\vec{0}\right) = 0.$
+    \end{proof}
+    \begin{enumerate}
+        \item Positive definition:
+        \[ 
+            \begin{array}{c}
+                \displaystyle\rho\left(\vec{x}, \vec{y}\right) = \nu\left(\vec{y} - \vec{x}\right) > 0  \\
+                \displaystyle \rho\left(\vec{x}, \vec{x}\right) = \nu\left(\vec{x} - \vec{x}\right) = \nu\left(\vec{0}\right) = 0 
+            \end{array}
         \]
-    \end{itemize}
+        \item Symmetric:
+        \[
+            \rho\left(\vec{x}, \vec{y}\right) = \nu\left(\vec{y} - \vec{x}\right) = |-1|\nu\left(\vec{x} - \vec{y}\right) = \nu\left(\vec{x} - \vec{y}\right) = \rho\left(\vec{y}, \vec{x}\right)
+        \]
+        \item Triangle inequality:
+        \[
+            \begin{array}{c}
+                \rho\left(\vec{x}, \vec{y}\right) + \rho\left(\vec{y}, \vec{z}\right) = \nu\left(\vec{y} - \vec{x}\right) + \nu\left(\vec{z} - \vec{y}\right) \geq \\ \geq \nu\left(\vec{y} - \vec{x} + \vec{z} -\vec{y} \right) = \nu\left(\vec{z} - \vec{x}\right) = \rho\left(\vec{x}, \vec{z}\right)
+            \end{array}
+        \]
+    \end{enumerate}
+\end{proof}
+\begin{note}{}{}
+    Each normed space is a metric space.
 \end{note}
+
+\par
+\Ex In the vector space $\R^n (\C^n)$ the following three norms are in common use:
+    \begin{itemize}
+        \item Manhattan norm (Taxicab norm):
+        
+    \end{itemize}
+
+    {\begin{wrapfigure}{l}{0.4\textwidth}
+        \scalebox{1.5}{\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+            \path (0,164); %set diagram left start at 0, and has height of 164
+            
+            %Shape: Grid [id:dp08042200947302103] 
+            \draw  [draw opacity=0][line width=0.75]  (46.53,16.6) -- (172.55,16.6) -- (172.55,142.61) -- (46.53,142.61) -- cycle ; \draw  [line width=0.75]  (71.74,16.6) -- (71.74,142.61)(96.94,16.6) -- (96.94,142.61)(122.14,16.6) -- (122.14,142.61)(147.34,16.6) -- (147.34,142.61) ; \draw  [line width=0.75]  (46.53,41.8) -- (172.55,41.8)(46.53,67.01) -- (172.55,67.01)(46.53,92.21) -- (172.55,92.21)(46.53,117.41) -- (172.55,117.41) ; \draw  [line width=0.75]  (46.53,16.6) -- (172.55,16.6) -- (172.55,142.61) -- (46.53,142.61) -- cycle ;
+            %Straight Lines [id:da6909809940649061] 
+            \draw [line width=1.5]    (46.53,142.34) -- (172.43,16.6) ;
+            %Straight Lines [id:da10608550876089407] 
+            \draw [line width=1.5]    (46.53,142.34) -- (46.53,117.19) -- (71.71,117.19) -- (71.71,92.04) -- (96.89,92.04) -- (96.89,66.89) -- (122.07,66.89) -- (122.07,41.75) -- (147.25,41.75) -- (147.25,16.6) -- (172.43,16.6) ;
+            %Straight Lines [id:da694529903122499] 
+            \draw [line width=1.5]    (172.43,16.6) -- (46.53,16.6) -- (46.53,142.34) ;
+            \end{tikzpicture}}            
+    \end{wrapfigure}
+    This is the norm of the following kind:
+    \[
+        ||x||_1 = \sum\limits_{i=1}^n |x_i|  
+    \]
+    \par 
+    Let's prove that this function is a norm.
+    \begin{enumerate}
+        \item Positive definite property:
+        Let $x \in \R^n$ or $x \in \C^n$. Obviously $||x||_1 \geq 0.$ Also $||x||_1 = 0$ iff $x = 0$.
+        \item Homogeneity property:
+        \useshortskip
+        \[
+            \forall c \in \R: \ ||c\cdot x||_1 = \sum\limits_{i=1}^n |c\cdot x_i| = |c| \cdot \sum\limits_{i=1}^n |x_i| = |c| \cdot ||x||_1 .
+        \]
+    \end{enumerate}}
+    \begin{enumerate}
+        \item[3.] Triangle inequality $\forall x, y \in \R^n$:
+        \[
+            \begin{array}{c}
+                \displaystyle ||x+y||_1 = \sum\limits_{i=1}^n |x_i + y_i| \leq \sum\limits_{i=1}^n \left(|x_i| + |y_i|\right) = \\
+                \displaystyle =              \sum\limits_{i=1}^n |x_i| + \sum\limits_{i=1}^n |y_i| = ||x||_1 + ||y||_1.     
+            \end{array}
+        \]
+    \end{enumerate}
+    \begin{itemize}
+        \item Maximum norm (Infinity norm):
+        \[
+            ||x||_\infty = \max\limits_{1 \leq i \leq n} |x_i|.  
+        \]
+        \begin{enumerate}
+            \item The function $||x||_\infty$ is positive since it is the maximum over a set of positive terms $|x_i|$.
+            \item Homogeneity property:
+            \[
+                ||\alpha\cdot x ||_{\infty} = \max\limits_{1 \leq i \leq n} |\alpha\cdot x_i| = \max\limits_{1 \leq i \leq n} |\alpha| \cdot |x_i| = |\alpha| \cdot \max\limits_{1 \leq i \leq n} = |\alpha|\cdot ||x||_\infty. 
+            \]
+            \item Triangle inequality:
+            \[
+                ||x+y||_{\infty} = \max\limits_{1 \leq i \leq n} |x_i + y_i| \leq \max\limits_{1 \leq i \leq n} \left(|x_i| + |y_i|\right) \leq \max\limits_{1 \leq i \leq n} |x_i| + \max\limits_{1 \leq i \leq n} |y_i| = ||x||_\infty + ||y||_\infty.
+            \]
+        \end{enumerate}
+    \end{itemize}
 
 \Ex For the vector $x = \begin{bmatrix}
     1 \\
@@ -418,12 +503,134 @@ whereas for the vector $x = \begin{bmatrix}
     ||x||_1 = \sqrt{2} + \sqrt{13} + 4; \ ||u||_2 = \sqrt{31}; \ ||u||_\infty = 4.  
 \]
 
+The notations $||\cdot ||_1, ||\cdot||_2$ and $||\cdot ||_\infty$ are justified because of the fact that all these norms are special cases of the general Minkovskiy $p-$norm:
+\[
+    ||x||_p = \sqrt[P]{\sum\limits_{i=1}^n |x_i|^p}, \ p\geq 1
+\]
+Similarly, in the vector space of real-valued continuous functions $\mathcal{C}[a,b]$, the following three norms are frequently used:
+\[
+    ||f||_1 = \int\limits_{a}^b |f(x)| dx; \ ||f||_2 = \sqrt{\int\limits_a^b f^2(x)dx}; \ ||f||_\infty = \max\limits_{x\in [a,b]} |f(x)|  
+\]
+And Minkovskiy norm:
+\[
+    ||f||_p = \sqrt[p]{\int\limits_{a}^b |f(x)|^p dx}  
+\]
+\par
+For example, for $V = \mathcal{C}[0,1]$:
+
+\[
+    \begin{array}{c}
+        \displaystyle ||f||_p = \sqrt[p]{\int\limits_{0}^1 |f(x)|^p dx}  \\
+        \displaystyle ||f||_1 = \int\limits_{0}^1 |f(x)|^p dx\\
+        \displaystyle ||f||_\infty = ||f||_0 = \max\limits_{x \in [0,1]} |f(x)|.
+    \end{array}  
+\]
+\par 
+Some weighted norms:
+
+Let $V = \mathcal{C}[0,1]$; $\omega \geq 0$:
+
+\[
+    \begin{array}{c}
+        \displaystyle ||f||_p^\omega = \left(\int\limits_0^1 |f(x)|^p \cdot \omega(x) dx\right)^\dfrac{1}{p} \\
+        \displaystyle ||f||_\infty^\omega = ||f||_0^\omega = \max\limits_{x\in [0,1]} |f(x) \cdot \omega(x)|.
+    \end{array}  
+\]
+
+\subsection*{Balls in normed space}
 \begin{proposition}{}{}
-    In a normed space $V$, the function $\rho\left(\vec{x},\vec{y}\right) = \nu\left(\vec{y} - \vec{x}\right)$ is a metric.
+    Let $V$ be a normed space
+    \begin{itemize}
+        \item All balls of the same radius $R$ are equal geometrically: a parallel translation of $B_R(\vec{x})$ by a vector $\vec{v} = \vec{y} - \vec{x}$ makes $B_R(\vec{y})$.
+        \item For any two balls: $B = B_r(0)$ and $B' = B_R(0)$, there is a homotety $x \longmapsto \lambda \vec{x}$, which transfers $B$ onto $B'$, where $\lambda = \dfrac{R}{r}$. Also $B_1^p(0) = $ unit ball for $0$-norm.
+    \end{itemize}
 \end{proposition}
 \begin{proof}
+{\begin{wrapfigure}{r}{0.4\textwidth}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+    %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
     
+    %Straight Lines [id:da8306888936977477] 
+    \draw [line width=1.5]    (175.02,17) -- (175.02,264.39) ;
+    \draw [shift={(175.02,13)}, rotate = 90] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (6.97,-3.35) -- (0,0) -- (6.97,3.35) -- cycle    ;
+    %Straight Lines [id:da5110121506356493] 
+    \draw [color={rgb, 255:red, 16; green, 16; blue, 16 }  ,draw opacity=1 ][fill={rgb, 255:red, 4; green, 4; blue, 4 }  ,fill opacity=1 ][line width=1.5]    (340.5,145.77) -- (40.89,145.77) ;
+    \draw [shift={(344.5,145.77)}, rotate = 180] [fill={rgb, 255:red, 16; green, 16; blue, 16 }  ,fill opacity=1 ][line width=0.08]  [draw opacity=0] (6.97,-3.35) -- (0,0) -- (6.97,3.35) -- cycle    ;
+    %Shape: Ellipse [id:dp06424647272445538] 
+    \draw  [line width=1.5]  (101.19,145.27) .. controls (101.19,106.04) and (134.25,74.24) .. (175.02,74.24) .. controls (215.8,74.24) and (248.85,106.04) .. (248.85,145.27) .. controls (248.85,184.49) and (215.8,216.29) .. (175.02,216.29) .. controls (134.25,216.29) and (101.19,184.49) .. (101.19,145.27) -- cycle ;
+    %Shape: Rectangle [id:dp9119970932820067] 
+    \draw  [dash pattern={on 5.63pt off 4.5pt}][line width=1.5]  (101.19,73.71) -- (248.85,73.71) -- (248.85,215.76) -- (101.19,215.76) -- cycle ;
+    %Shape: Diamond [id:dp4333715282427959] 
+    \draw  [dash pattern={on 1.69pt off 2.76pt}][line width=1.5]  (175.02,73.14) -- (248.85,144.45) -- (175.02,215.76) -- (101.19,144.45) -- cycle ;
+    %Shape: Ellipse [id:dp8226317539510353] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (170.74,144.45) .. controls (170.74,142.18) and (172.66,140.33) .. (175.02,140.33) .. controls (177.39,140.33) and (179.31,142.18) .. (179.31,144.45) .. controls (179.31,146.73) and (177.39,148.58) .. (175.02,148.58) .. controls (172.66,148.58) and (170.74,146.73) .. (170.74,144.45) -- cycle ;
+    %Shape: Ellipse [id:dp08502683026718438] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (244.57,145.27) .. controls (244.57,142.99) and (246.49,141.14) .. (248.85,141.14) .. controls (251.22,141.14) and (253.14,142.99) .. (253.14,145.27) .. controls (253.14,147.54) and (251.22,149.39) .. (248.85,149.39) .. controls (246.49,149.39) and (244.57,147.54) .. (244.57,145.27) -- cycle ;
+    %Shape: Ellipse [id:dp4574361474994544] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (96.91,145.27) .. controls (96.91,142.99) and (98.82,141.14) .. (101.19,141.14) .. controls (103.56,141.14) and (105.48,142.99) .. (105.48,145.27) .. controls (105.48,147.54) and (103.56,149.39) .. (101.19,149.39) .. controls (98.82,149.39) and (96.91,147.54) .. (96.91,145.27) -- cycle ;
+    %Shape: Ellipse [id:dp9128016551294487] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (170.74,74.24) .. controls (170.74,71.96) and (172.66,70.11) .. (175.02,70.11) .. controls (177.39,70.11) and (179.31,71.96) .. (179.31,74.24) .. controls (179.31,76.51) and (177.39,78.36) .. (175.02,78.36) .. controls (172.66,78.36) and (170.74,76.51) .. (170.74,74.24) -- cycle ;
+    %Shape: Ellipse [id:dp34957400582859055] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (170.74,216.29) .. controls (170.74,214.02) and (172.66,212.17) .. (175.02,212.17) .. controls (177.39,212.17) and (179.31,214.02) .. (179.31,216.29) .. controls (179.31,218.57) and (177.39,220.42) .. (175.02,220.42) .. controls (172.66,220.42) and (170.74,218.57) .. (170.74,216.29) -- cycle ;
+    
+    % Text Node
+    \draw (180.27,152.42) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle 0$};
+    % Text Node
+    \draw (76.36,152.67) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle -1$};
+    % Text Node
+    \draw (256.83,152.67) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle 1$};
+    % Text Node
+    \draw (182.38,223.97) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle -1$};
+    % Text Node
+    \draw (181.75,50.91) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle 1$};
+    % Text Node
+    \draw (226.43,53) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \infty $};
+    % Text Node
+    \draw (232.5,220.22) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \infty $};
+    % Text Node
+    \draw (100.43,220.22) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \infty $};
+    % Text Node
+    \draw (100.43,53.73) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \infty $};
+    % Text Node
+    \draw (221.69,94.87) node [anchor=north west][inner sep=0.75pt]  [rotate=-43.96] [align=left] {$\displaystyle 1$};
+    % Text Node
+    \draw (123.83,98.41) node [anchor=north west][inner sep=0.75pt]  [rotate=-316.59] [align=left] {$\displaystyle 1$};
+    % Text Node
+    \draw (126.89,193.78) node [anchor=north west][inner sep=0.75pt]  [rotate=-225.71] [align=left] {$\displaystyle 1$};
+    % Text Node
+    \draw (235.69,179.51) node [anchor=north west][inner sep=0.75pt]  [rotate=-135.19] [align=left] {$\displaystyle 1$};
+    % Text Node
+    \draw (105.42,86.05) node [anchor=north west][inner sep=0.75pt]  [rotate=-311.39] [align=left] {$\displaystyle 2$};
+    % Text Node
+    \draw (237.7,79.66) node [anchor=north west][inner sep=0.75pt]  [rotate=-47.02] [align=left] {$\displaystyle 2$};
+    % Text Node
+    \draw (245.64,202.2) node [anchor=north west][inner sep=0.75pt]  [rotate=-133.09] [align=left] {$\displaystyle 2$};
+    % Text Node
+    \draw (109.66,208.34) node [anchor=north west][inner sep=0.75pt]  [rotate=-226.72] [align=left] {$\displaystyle 2$};
+    % Text Node
+    \draw (327.49,150.48) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle x$};
+    % Text Node
+    \draw (180.61,16.85) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle y$};
+    
+    
+    \end{tikzpicture}
+\end{wrapfigure}   
+    \begin{enumerate}
+        \item 
+        \[
+            \begin{array}{c}
+               \displaystyle B_R(\vec{x}) + V = \left\{\vec{a}\ | \ \nu\left(\vec{a} - \vec{x}\right) \leq R\right\} + \left(\vec{y} - \vec{x}\right) =  \\ 
+               \displaystyle = \left\{\vec{a} + \vec{y} - \vec{x}\ | \ \nu\left(\vec{a} - \vec{x}\right) \leq R\right\} = \left\{\vec{b}\ | \ \nu\left(\vec{b} - \vec{y}\right) \leq R \right\} = \\
+               \displaystyle = B_R(\vec{y}), \text{ where: } \vec{a} + \vec{y} - \vec{x} = \vec{b}; \ \vec{a} = \vec{b} - \vec{y} + \vec{x}.
+            \end{array}
+        \]
+        \item $\dfrac{R}{r} \cdot \vec{a} = \vec{b}$; $\vec{a} = \dfrac{r}{R} \cdot \vec{b}$.
+        \[
+            \begin{array}{c}
+                \displaystyle \lambda \cdot B = \dfrac{R}{r}\cdot \left\{\vec{a}\ | \ \nu\left(\vec{a}\right) \leq r\right\} = \left\{\dfrac{R}{r} \cdot \vec{a} \ | \ \nu\left(\vec{a}\right) \leq r\right\} = \\
+                \displaystyle = \left\{\vec{b}\ | \ \nu\left(\dfrac{r}{R} \cdot \vec{b}\right) \leq r\right\} = \left\{\vec{b}\ | \ \dfrac{r}{R} \cdot \nu \left(\vec{b}\right) \leq r\right\} = \\
+                \displaystyle = \left\{\vec{b}\ | \ \nu\left(\vec{b}\right) \leq \dfrac{r\cdot R}{r}\right\} = \left\{\vec{b} \ | \ \nu\left(\vec{b}\right) \leq R\right\} = B'.
+            \end{array}  
+        \]
+    \end{enumerate} }
 \end{proof}
-\begin{note}{}{}
-    Each normed space is a metric space.
-\end{note}
