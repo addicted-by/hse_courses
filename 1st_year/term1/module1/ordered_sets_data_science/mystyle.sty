@@ -13,22 +13,26 @@
 \usepackage{lmodern}
 \usepackage{varwidth}
 \usepackage[utf8]{inputenc}
-\usepackage[english,russian]{babel}
+\usepackage[english]{babel}
 \usepackage{setspace}
 \usepackage{listings, lstautogobble}
 \usepackage{relsize}
 \usepackage{anyfontsize}
 \usepackage[labelsep=endash]{caption}
-\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[chemfig,table,xcdraw,usenames,dvipsnames]{xcolor}
+\usepackage{chemfig}
 \usepackage{microtype}
 \usepackage{mathtools}
 \usepackage{nicematrix}
-\usepackage{unicode-math}
+\usepackage{txfonts}
+\newcommand{\ftextnumero}{{\fontfamily{txr}\selectfont \textnumero}}
+\usepackage[mathrm=sym]{unicode-math}
 \usepackage{pst-node,pst-tree,pstricks}
 \usepackage{hyperref}
 \usepackage{centernot}
 \usepackage{eso-pic}
 \usepackage{etoolbox}
+
 \usepackage{wrapfig}
 \usepackage{graphicx, marvosym}
 \usepackage[many]{tcolorbox}
@@ -57,18 +61,18 @@
 \usepackage{mathrsfs}
 \usepackage{multicol}
 \usepackage{multirow}
-\setlength{\columnseprule}{0pt}
-\setlength{\columnsep}{20.0pt}
+% \setlength{\columnseprule}{0pt}
+% \setlength{\columnsep}{20.0pt}
 \usepackage{pict2e}
 
-\DeclareRobustCommand{\triangle}{%
-  \begingroup
-  \setlength{\unitlength}{1ex}%
-  \begin{picture}(1,1)
-  \polyline(1,0)(0,0)(.5,1)(1,0)(.5,0)
-  \end{picture}%
-  \endgroup
-}
+% \DeclareRobustCommand{\triangle}{%
+%   \begingroup
+%   \setlength{\unitlength}{1ex}%
+%   \begin{picture}(1,1)
+%   \polyline(1,0)(0,0)(.5,1)(1,0)(.5,0)
+%   \end{picture}%
+%   \endgroup
+% }
 
 \newcommand{\trbr}[1]{
 	\left\langle#1\right\rangle
@@ -207,7 +211,6 @@
 \definecolor{myorange}{rgb}{0.7,0.41,0.1}
 \definecolor{mypurple}{rgb}{0.51,0.02,.8}
 \definecolor{mygray}{rgb}{0.6,0.6,0.6}
-
 \newcommand{\myblue}[1]{\textcolor{myblue}{#1}}
 \newcommand{\myred}[1]{\textcolor{myred}{#1}}
 \newcommand{\mygreen}[1]{\textcolor{mygreen}{#1}}
@@ -443,8 +446,8 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
 \makeatother
 
 
-\setlength{\abovedisplayskip}{2pt}
-\setlength{\belowdisplayskip}{2pt}
+% \setlength{\abovedisplayskip}{2pt}
+% \setlength{\belowdisplayskip}{2pt}
 \usepackage{nccmath}
 \usepackage{xpatch}
 \xpatchcmd{\NCC@ignorepar}{%
@@ -478,18 +481,6 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
 
 \usepackage[titles]{tocloft}
 
-\makeatletter
-\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
-\makeatother
-
-\makeatletter
-\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
-  \hskip -\arraycolsep
-  \let\@ifnextchar\new@ifnextchar
-  \array{#1}}
-  \newcommand{\Vast}{\bBigg@{4}}
-\makeatother
-
 \AtBeginDocument{\renewcommand\contentsname{\centering \myfont \Huge Table of Contents}}
 
 \pagestyle{fancy}
@@ -503,7 +494,7 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
 \fancyfoot[L]{2022}
 \setoperatorfont\myfont
 \titleformat{\subsubsection}{\normalsize \color{myblue}}{}{}{#1}
-\titleformat{\subsection}{\large \color{myblue}}{}{}{#1}
+\titleformat{\subsection}{\large}{}{}{#1}
 \renewcommand{\thesubsection}{\arabic{subsection}.}
 
 \makeatletter

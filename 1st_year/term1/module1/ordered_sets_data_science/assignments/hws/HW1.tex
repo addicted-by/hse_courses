@@ -1,0 +1,56 @@
+\documentclass[12pt]{report}
+\usepackage{../mystyle}
+\begin{document}
+\boldmath
+\fancyhead[L]{Homework 1.}
+\fancyhead[C]{Ordered sets in Data Analysis}
+\fancyhead[R]{Ryabykin Aleksey}
+\setcounter{subsection}{2}
+    \begin{problem}{}
+        Find the number of parts of a finite graph with the set of edges E.
+    \end{problem}
+    \begin{solution}
+        To count the number of subgraphs of a simple graph $G$: $2^E$.
+    \end{solution}
+    \begin{problem}{}
+        Degree of a vertex of an (undirected) graph is the number of edges incident to the vertex. Prove that in an arbitrary graph the number of vertices with odd degree is even. 
+    \end{problem}
+    \begin{solution}
+        The degree sum formula states, that for given graph with $E$ edges the sum of degrees will be equal to:
+        \[
+            \sum\limits_{\text{vertex}} \deg(\text{vertex}) = 2|E|.  
+        \] 
+        That is why it is an even sum. The sum of even degrees is even, we can state that sum of odd degrees is even too by deleting the sum of even degrees from the sum of degrees. It can be possible iff the amount of odd degrees is even.
+    \end{solution}
+    \begin{problem}{}
+        Prove that the incomparability relation for an strict order is a tolerance relation.
+    \end{problem}
+    \begin{solution}
+        We need to prove reflexivity and symmetry. $\forall x \in A \ (x,x) \in I_R$ follows from the irreflexivity of strict order. Symmetry follows from the complement derivative of a relation $R$, if the pair as well as symmetrical to it is not in order, then both are included in incomparability relation.
+    \end{solution}
+    \begin{problem}{}
+        Every subset of an ordered set is an ordered set (w.r.t. the restriction of the order relation on the subset)
+    \end{problem}
+    \begin{solution}
+        Suppose $R \subset A \times A, \ A$ is some (partially) ordered set and $B$ is a subset of it. To prove the given statement we need to prove for $S$:
+        \[
+            S = R \cap B \times B = \{(a, b) \ | \ (a,b) \in R, \ a, b\in B\}  
+        \]
+        following properties:
+        \begin{itemize}
+            \item Reflexivity:
+            \[
+                \forall b \in B \ bSb;
+            \]
+            by `inheriting'   from $A$ set.
+            \item Antisymmetric:
+            \[
+                \forall a, b \in B \ aSb \ \&\ bSa \Longrightarrow a = b
+            \]
+            similarly.
+            \item Transitive:
+            \par
+            We have $\forall a,b,c \in A\ aRb\ \&\ bRc \Longrightarrow aRc$. Then if $a,b,c \in B$, then fine. If $a,b\in B$ but not $c$ then $aSb$, but not $bSc$. Similar if $b, c \in B$ but not $a$. If $a, c \in B$ but not $b$, then $aSc$.
+        \end{itemize}
+    \end{solution}
+\end{document}
