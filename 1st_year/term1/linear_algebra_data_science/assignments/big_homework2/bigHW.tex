@@ -1,0 +1,431 @@
+\documentclass[12pt]{report}
+\usepackage{../mystyle}
+\begin{document}
+\boldmath
+\pagestyle{fancy}
+\setcounter{chapter}{1}
+
+\chapter{Linear Algebra for Data Science. \\[-1cm] \hspace*{3.5cm} \large Work has been done by: Ryabykin Aleksey. Variant 42\vskip3.2ex}
+\fancyhead[L]{Graded Homework 2.}
+\fancyhead[C]{Linear Algebra for Data Science}
+\fancyhead[R]{Ryabykin Aleksey (Variant 42)}
+% \setcounter{subsection}{2}
+\begin{problem}{}
+ Find the best approximation matrix $A_1$ of rank $2$ of the matrix $A$ in the norms $||\cdot ||_2$ and find $||A-A_1||_2$, where
+ \[
+   A = \begin{bmatrix}
+    -81 & -30 & 60 & -48\\
+    78 & -42 & 24 & 36 \\
+    -42 & 21 & -72 & -12 
+ \end{bmatrix}.
+ \]   
+\end{problem}
+
+\begin{solution}
+    Let me find at first SVD decomposition of this matrix $A$, which equals:
+    \[
+         A = U\Sigma V^*.
+    \]
+    To perform this lets find eigenvalues and eigenvectors of matrix $AA^*$. The singular values (values locaeted on the diagonal of the matrix $\Sigma$) are the square roots of the first ones. The second ones are the rows of matrix $U$.
+    \[
+       AA^T = \begin{bmatrix}
+         13365 & -5346 & -972 \\
+         -5346 & 9720 & -6318 \\
+         -972 & -6318 & 7533
+       \end{bmatrix}
+    \]
+    The eigenvalues of this matrix are 18225, 11664, 729. Then matrix $\Sigma$:
+    \[
+       \Sigma = \begin{bmatrix}
+         135 & 0 & 0 & 0\\
+         0 & 108 & 0 & 0\\
+         0 & 0 & 27 & 0
+       \end{bmatrix}
+    \]
+    The matrix $U$:
+    \[ U = \dfrac{1}{3} \begin{bmatrix}
+         2 & 2 & -1 \\
+         -2 & 1 & -2 \\
+         1 & -2 & -2
+    \end{bmatrix} 
+    \]
+    Now we can obtain the columns of matrix $V$ using the formula $v_i = A^T\dfrac{u_i}{\Sigma_{i,i}}$. The last column of $V$ can be obtained by Gramm-Shmidt orthogonalization. So, the matrix $V$:
+    \[
+         V = \dfrac{1}{9} \begin{bmatrix}
+            -8 & 1 & 0 & -4 \\
+            0 & -4 & 8 & -1 \\
+            1 & 8 & 4 & 0\\
+            -4 & 0 & 1 & 8
+         \end{bmatrix}
+    \]
+    We make the smallest singular value of $A$ as zero to compute the reduced rank matrix:
+    \[
+         \Sigma_2 = \begin{bmatrix}
+            135 & 0 & 0 & 0 \\
+            0 & 108 & 0 & 0\\
+            0& 0 & 0 & 0
+         \end{bmatrix}
+    \]
+    Now, let's compute matrix $A$, by using $\Sigma_2$:
+    \[
+         A_2 = U \Sigma_2 V^* = \begin{bmatrix}
+            -80 & -22 & 64 & -48 \\
+            80 & -26 & 32 & 36 \\
+            -40 & 37 & -64 & -12
+         \end{bmatrix}
+    \]
+    Now let's find the second norm for the difference of obtained matrices in the second norm. This norm is the same as the second norm of the difference of the respective $\Sigma$ matrices, which is the smallest singular value of $A$:
+    \[
+      ||A-A_2||_2 = ||\Sigma - \Sigma_2||_2 = \left\lVert\begin{bmatrix}
+         -1 & -8 & -3 & 0\\-2 & -16 & -7 & 0\\-3 & -16 & -9 & 0\end{bmatrix}\right\rVert_2 = \max\limits_{1\leq i\leq m}{\ \sigma_i} = 27.
+    \]
+\end{solution}
+
+\begin{problem}{}
+  Estimate the relative error of the approximation solution $(1,1)$ of the system $Ax = b$
+ in the norms $|\cdot |_1$ and $|\cdot |_2$ using the condition number of the matrix $A$, where  \[
+      A = \begin{bmatrix}
+         -2.99 & 0.05 \\
+         1.04 & -6.18
+      \end{bmatrix}, \hspace*{0.5cm} b = \begin{bmatrix}
+         -3.03 \\ 
+         -5.09
+      \end{bmatrix}
+  \]
+\end{problem}
+
+\begin{solution}
+   Note, that $\hat{x} = \begin{bmatrix}
+      1 & 1
+   \end{bmatrix}^\intercal$ is the solution of the system with following matrix:
+   \[
+      \hat{A} = \begin{bmatrix} -3 & 0 \\ 1 & -6\end{bmatrix}, \hat{b} = \begin{bmatrix} -3 \\-5\end{bmatrix}, \hat{x} = \begin{bmatrix} 1 \\1\end{bmatrix}
+   \]
+  Condition number:
+  \[
+   \varkappa(A) \approx \varkappa(\hat{A}) \approx ||\hat{A}||\cdot||\hat{A}^{-1}||
+  \]
+  and relative error:
+  \[
+   \delta A = \dfrac{||\Delta A||}{||\hat{A}||}, \ \delta b = \dfrac{||\Delta b||}{||\hat{b}||}
+  \]
+  So let me find the iverse matrix of $\hat{A}$ firstly:
+  \[
+      \hat{A}^{-1} = \dfrac{1}{18} \begin{bmatrix}
+         -6 & 0 \\
+         -1 & -3
+      \end{bmatrix}
+  \]
+  For the norm $|\cdot|_1$ we have a condition number:
+  \[\varkappa_1 = \max\{4,6\} \cdot \max\left\{\dfrac{7}{18}, \dfrac{3}{18}\right\}= 6 \cdot \dfrac{7}{18} = \dfrac{21}{9}\]
+  For the norm $|\cdot |_2$ it is equal to the maximal singular value of $\hat{A}$ divided by its minimal singular value. It can be computed as the square root of the respective eigenvalues of $A^*A$ matrix:
+  \[
+      \varkappa_2 = \sqrt{\dfrac{\lambda_{max}(A^*A)}{\lambda_{min}(A^*A)}},
+  \] 
+  where 
+  \[
+      A^*A = \begin{bmatrix}
+         10  & -6 \\
+        -6  &  36 
+       \end{bmatrix}, \lambda_{min} = 8.68, \lambda_{max} = 37.318
+  \]
+  So, the condition number $\varkappa_2$ is equal $\varkappa_2 = 2.07$.
+  Now let's find the difference in both norms and the relative error. So, let's find $\Delta b, \delta_1 b,\delta_2 b$ and $\Delta A, \delta_1 A,\delta_2 A$.
+  \[\Delta A = \begin{bmatrix}0.01 & 0.05\\0.04 & -0.18\end{bmatrix}, \hspace*{0.5cm} \Delta b = \begin{bmatrix}0.03 \\ 0.09\end{bmatrix}\]
+  \[\delta_1 b =\dfrac{|\Delta b|_1}{|b|_1}\approx \dfrac{|\Delta b|_1}{|\hat{b}|_1} = \dfrac{0.12}{8}= 0.015\]
+\[\delta_2 b =\dfrac{|\Delta b|_2}{|b|_2}\approx \dfrac{|\Delta b|_2}{|\hat{b}|_2} = \dfrac{\sqrt{0.03^2+0.09^2}}{\sqrt{3^2+5^2}}= 0.0163\]
+\[\delta_1 A =\dfrac{|\Delta A|_1}{|A|_1}\approx \dfrac{|\Delta A|_1}{|\hat{A}|_1} = \dfrac{0.23}{6} = 0.0383\]
+For $\delta_2 A$ we find $\Delta A^* \Delta A$ and then:  
+\['
+\delta_2 A =\dfrac{|\Delta A|_2}{|A|_2}\approx \dfrac{|\Delta A|_2}{|\hat{A}|_2} =\dfrac{\sigma_1 (\Delta A)}{\sigma_1 (A)} = \dfrac{\sqrt{0.0362}}{\sqrt{37.32}}= 0.0311
+\]
+Now lets find the upper bound for the relative error for the solution in both norms with the following formula:
+\[
+       \delta x \leq \varkappa (A) \left(\delta b + \delta A\right).
+\]
+\begin{itemize}
+   \item Norm $|\cdot|_2$ gives the lowest relative error $\delta_2 x \leq 0.0983$;
+   \item Norm $|\cdot|_1$ gives the lowest relative error $\delta_1 x \leq 0.124$.
+\end{itemize}
+
+\end{solution}
+
+\begin{problem}{}
+   Solve the system approximately and estimate the relative error of the solution in the norms $|\cdot|_1, |\cdot|_2, |\cdot|_\infty$:
+   \[
+      \left\{
+         \begin{array}{c}
+            -2(6 + \varepsilon_1) x + 2(1 + \varepsilon_2) y = 4 + \varepsilon_3\\
+            4 x + (4 + \varepsilon_1)y = -3 + \varepsilon_4,
+         \end{array}
+      \right.
+   \]
+   where the unknown numbers $\varepsilon_j$ satisfy the conditions $|\varepsilon_j| < 0.05$ for all $j = 1, \ldots, 4$.
+\end{problem}
+
+\begin{solution}
+   Let's solve the following system:
+   \[
+      \hat{A} = \begin{bmatrix} -12 & 2 \\ 4 & 4\end{bmatrix}, \hat{b} = \begin{bmatrix} 4 \\-3\end{bmatrix}.
+   \]
+   The vector $\hat{x} = \begin{bmatrix} -\dfrac{11}{28} & -\dfrac{5}{14}\end{bmatrix}^\intercal$ is the solution.
+   \[
+      \varkappa(A) \approx \varkappa(\hat{A}) \approx ||\hat{A}||\cdot||\hat{A}^{-1}||
+   \]
+   So let's find at first the iverse matrix of $\hat{A}$:
+   \[
+      \hat{A}^{-1} = \dfrac{1}{28}\begin{bmatrix}
+         -2 & 1\\
+         2 & 6
+      \end{bmatrix} 
+   \]
+   For the norm $|\cdot|_1$ we have a condition number:
+\[
+   \varkappa_1 = \max\{16, 6\} \cdot \max\left\{\dfrac{4}{28}, \dfrac{7}{28}\right\}= 4
+\]
+For the norm $|\cdot|_{\infty}$ we have a condition number:
+\[
+   \varkappa_{\infty} = \max\{14,8\} \cdot \max\left\{\dfrac{8}{28}, \dfrac{3}{28}\right\}=4 \]
+   For the norm $|\cdot|_2$ we have a condition number:
+   \[\varkappa_2 = \sqrt{\dfrac{\lambda_{max}(A^*A)}{\lambda_{min}(A^*A)}}\]
+   Let me find $A^*A$ and then $\varkappa_2$.
+   \[
+      A^*A =\begin{bmatrix}
+         160  & -8 \\
+        -8  &  20 
+       \end{bmatrix} 
+   \]
+   So, we have eigenvalues: $ \lambda_{max} = 160.455,\, \lambda_{min} = 19.544$ and $\varkappa_2 = 2.073$. Let's find now $\Delta b$ and $\Delta A$:
+   \[
+       \Delta A = \begin{bmatrix}
+         -2\varepsilon_1 & 2\varepsilon_2 \\
+         0 & \varepsilon_1
+       \end{bmatrix}, \hspace*{0.5cm} \Delta b = \begin{bmatrix}
+         \varepsilon_3 \\ \varepsilon_4
+       \end{bmatrix}
+   \]
+For $|\cdot |_1$:
+   \[
+      \delta_1 A =\dfrac{|\Delta A|_1}{|A|_1}\approx \dfrac{|\Delta A|_1}{|\hat{A}|_1} = \dfrac{\max\left\{2|\varepsilon_1|, |\varepsilon_1| + |2\varepsilon_2|\right\}}{\max\left\{16 , 6\right\}} < \dfrac{0.15}{16}= 0.009375
+      \]
+\[
+   \delta_1 b =\dfrac{|\Delta b|_1}{|b|_1}\approx \dfrac{|\Delta b|_1}{|\hat{b}|_1} = \dfrac{|\varepsilon_3| + |\varepsilon_4|}{4 + 3} < \dfrac{0.1}{7}= 0.0142857 
+\]
+For $|\cdot|_\infty$:
+\[
+   \delta_{\infty} A =\dfrac{|\Delta A|_{\infty}}{|A|_{\infty}}\approx \dfrac{|\Delta A|_{\infty}}{|\hat{A}|_{\infty}} = \dfrac{\max\{2|\varepsilon_1| + 2|\varepsilon_2|, |\varepsilon|\}}{\max\{14, 8\}} < \dfrac{0.2}{14}= 0.014286
+\]
+\[
+   \delta_{\infty} b =\dfrac{|\Delta b|_{\infty}}{|b|_{\infty}}\approx \dfrac{|\Delta b|_{\infty}}{|\hat{b}|_{\infty}} = \dfrac{\max\{\varepsilon_3, \varepsilon_4\}}{4} < \dfrac{0.05}{4}= 0.0125
+\]
+For $\delta_2 A$ we find $\Delta A^* \Delta A$ (with substituted $\varepsilon_i = 0.05$) and then:  
+
+\[
+   \delta_2 A =\dfrac{|\Delta A|_2}{|A|_2}\approx \dfrac{|\Delta A|_2}{|\hat{A}|_2} =\dfrac{\sigma_1 (\Delta A)}{\sigma_1 (A)} = \dfrac{\sqrt{0.02133}}{\sqrt{160.455}}= 0.01153
+\]
+\[
+   \delta_2 b =\dfrac{|\Delta b|_2}{|b|_2}\approx \dfrac{|\Delta b|_2}{|\hat{b}|_2} = \dfrac{\sqrt{\left|\varepsilon_3^2 + \varepsilon_4^2\right|}}{\sqrt{3^2+4^2}} < \dfrac{\sqrt{0.05^2+0.05^2}}{\sqrt{3^2+4^2}}= 0.014142
+\]
+Now lets check the upper bound for the relative error of solutions in our norms:
+\[
+       \delta x \leq \varkappa (A) (\delta b + \delta A)
+\]
+\begin{itemize}
+   \item Norm $|\cdot_1|$ gives the lowest relative error $\delta_1 x = 0.095$;
+   \item Norm $|\cdot_2|$ gives the lowest relative error $\delta_2 x = 0.0735$;
+   \item Norm $|\cdot_\infty|$ gives the lowest relative error $\delta_\infty x = 0.107$.
+\end{itemize}
+\end{solution}
+
+\begin{problem}{}
+   Find the approximate inverse matrix $A$ and evaluate the appoximation error with respect to the uniform norm $||\cdot||_1$ if the elements of the matrix $A$ are known with an absolute error of $0.01$:
+   \[
+       A \approx \begin{bmatrix}
+         -4 & -7 \\
+         -5 & 9
+       \end{bmatrix}
+   \] 
+\end{problem}
+
+\begin{solution}
+    The real matrix $A$ looks like:
+    \[A = \begin{bmatrix}-4 & -7\\-5 & 9\end{bmatrix}+\begin{bmatrix}\varepsilon_{11} & \varepsilon_{12}\\\varepsilon_{21} & \varepsilon_{22}\end{bmatrix},\]
+   where $|\varepsilon_{ij}|\leq 0.01$
+
+   Let me find  inverse matrix of A.
+   \[
+      \hat{A}^{-1} = \dfrac{1}{det \hat A}\begin{bmatrix} 9 & 7\\5 & -4\end{bmatrix}=\dfrac{1}{-71}\begin{bmatrix} 9 & 7\\5 & -4\end{bmatrix}
+   \]
+   Let me find next the conditional number $\varkappa$ in norm $|\cdot|_1$.  
+   And let us assume that $\varkappa (A) \approx \varkappa(\hat A)$:
+   \[\varkappa_1(A) \approx \varkappa(\hat{A}) \approx ||\hat{A}||_1\cdot||\hat A^{-1}||_1=max\{16,9\}\cdot max\{0.197, 0.155\} = 16 \cdot 0.197 = 3.155\]
+   So,
+   \[ \delta A^{-1} \leq \dfrac{\varkappa(\hat A) \delta \varepsilon}{1-\varkappa (\hat A)\delta \epsilon},
+   \]
+   where $\delta \varepsilon = \dfrac {||\varepsilon||}{||\hat A||}$.
+   In our case with norm $|\cdot|_1$ we have:  
+   \[
+      \delta \varepsilon = \dfrac {||\varepsilon||_1}{||\hat A||_1}=\dfrac {max\{0.2,0.2\}}{16}=0.0125
+   \]
+   Approximation error:
+   \[ \delta A^{-1} \leq \dfrac{\varkappa_1(\hat A) \delta \varepsilon}{1-\varkappa_1 (\hat A)\delta \varepsilon}=\dfrac{3.155\cdot 0.0125}{1-3.155\cdot 0.0125}=0.0411.
+   \]
+\end{solution}
+
+\begin{problem}{}
+    Use simple iteration method for finding the solution of the given linear system:
+    \[
+         \left\{
+            \begin{array}{c}
+               26x + 2y + 6z = 2,\\
+               2x + 19y + 8z = 4, \\
+               3x + 4y + 20z = 3.
+            \end{array}
+          \right.
+    \]
+    Determine the iteration number after which the approximation error for each coordinate does not exceed $0.01$ and find the corresponding approximate solution. Start with $x_0 = \begin{bmatrix}
+      0 & 0 & 0
+    \end{bmatrix}^\intercal$
+\end{problem}
+
+\begin{solution}
+   So we have matrix A and vector b.
+   \[ 
+      A = \begin{bmatrix}
+         26 & 2 & 6\\
+         2 & 19 & 8\\
+          3 & 4 & 20\end{bmatrix}
+   \]
+   \[ 
+      b = \begin{bmatrix}2\\4\\3\end{bmatrix}
+   \]
+   Let me bring our system of linear equations to the following form:
+   \[
+         x_{k+1} = Px_k + \overline{b},
+   \]
+   where $P=E-CA$ and $\bar b = CB$.  
+   We need to choose such $C$ that our iteration process converges, i.e. $||P||<1$.  
+   All calculations will be in terms of norm $|\cdot|_{\infty}$.
+   Let us find this matrix $C$, matrix $P$ and vector $b$.  
+   \[ C = \begin{bmatrix}\dfrac{1}{26} & 0 & 0\\0 & \dfrac{1}{19} & 0\\ 0 & 0 & \dfrac{1}{20}\end{bmatrix} 
+   \]
+   Then
+   \[ P = I-CA = \begin{bmatrix} 1 & 0 & 0\\0 & 1 & 0\\ 0 & 0 & 1\end{bmatrix}-\begin{bmatrix}\dfrac{1}{26} & 0 & 0\\0 & \dfrac{1}{19} & 0\\ 0 & 0 & \dfrac{1}{20}\end{bmatrix}\cdot\begin{bmatrix} 26 & 2 & 6\\2 & 19 & 8\\ 3 & 4 & 20\end{bmatrix} = \]
+   \[
+         =\begin{bmatrix}
+            0 & - \dfrac{1}{13} & - \dfrac{3}{13} \\[0.5cm]
+            -\dfrac{2}{19} & 0 & -\dfrac{8}{19} \\[0.5cm] 
+            -\dfrac{3}{20} & -\dfrac{1}{5} & 0
+         \end{bmatrix}
+   \]
+   Its norm will be $||P||_{\infty}=0.53<1$. It means that iteration process converges.  
+   \[b = CB = \begin{bmatrix}\dfrac{1}{26} & 0 & 0\\0 & \dfrac{1}{19} & 0\\ 0 & 0 & \dfrac{1}{20}\end{bmatrix} \cdot \begin{bmatrix}2\\4\\3\end{bmatrix}= \begin{bmatrix}
+      \dfrac{1}{13}\\[0.5cm]
+      \dfrac{4}{19}\\[0.5cm]
+      \dfrac{3}{20}\end{bmatrix}\]
+   In purpose to find the number of iterations of the process we will use priori condition:
+   \[ m \geq \dfrac{\ln\left(\dfrac{\varepsilon\left(1-||P||_{\infty}\right)}
+   {||x^{(1)}-x^{(0)}||_{\infty}}\right)}{\ln ||P||_{\infty}}\]  
+   \[||x^{(1)}-x^{(0)}||_{\infty}=||b||_{\infty} = \dfrac{4}{19}\]  
+   \[ m \geq \dfrac{\ln\left(\dfrac{0.01*0.47}{\dfrac{4}{19}}\right)}{\ln 0.5}=5.49\]
+   Let us do the iteration process with number of iterations of 6 using this formula:
+   \[ x_{k+1} = P x_k+\bar b\]
+   \[
+         \begin{array}{c}
+            x_0 = \begin{bmatrix}
+               0 & 0 & 0
+            \end{bmatrix}^\intercal \\[0.5cm]
+            x_1 = \begin{bmatrix}
+               0 & - \dfrac{1}{13} & - \dfrac{3}{13} \\[0.5cm]
+               -\dfrac{2}{19} & 0 & -\dfrac{8}{19} \\[0.5cm] 
+               -\dfrac{3}{20} & -\dfrac{1}{5} & 0
+            \end{bmatrix}
+             \begin{bmatrix}
+               0 \\ 0 \\ 0
+            \end{bmatrix} 
+            + \begin{bmatrix}
+               \dfrac{1}{13}\\[0.5cm]
+               \dfrac{4}{19}\\[0.5cm]
+               \dfrac{3}{20}
+            \end{bmatrix} = \begin{bmatrix}
+               \dfrac{1}{13}\\[0.5cm]
+               \dfrac{4}{19}\\[0.5cm]
+               \dfrac{3}{20}
+            \end{bmatrix}
+             = b \\[2cm]
+            x_2 = \begin{bmatrix}
+               0 & - \dfrac{1}{13} & - \dfrac{3}{13} \\[0.5cm]
+               -\dfrac{2}{19} & 0 & -\dfrac{8}{19} \\[0.5cm] 
+               -\dfrac{3}{20} & -\dfrac{1}{5} & 0
+            \end{bmatrix}  \begin{bmatrix}
+               \dfrac{1}{13}\\[0.5cm]
+               \dfrac{4}{19}\\[0.5cm]
+               \dfrac{3}{20}
+            \end{bmatrix}  + \begin{bmatrix}
+               \dfrac{1}{13}\\[0.5cm]
+               \dfrac{4}{19}\\[0.5cm]
+               \dfrac{3}{20}
+            \end{bmatrix} = \begin{bmatrix}
+               \dfrac{129}{4940} \\[0.5cm]
+               \dfrac{172}{1235} \\[0.5cm]
+               \dfrac{119}{1235}
+            \end{bmatrix} \\[2cm]
+            \ldots \\
+            x_6 = \begin{bmatrix}
+               0.03845116 & 0.158676 & 0.1119983
+            \end{bmatrix}^\intercal.
+         \end{array} 
+   \]
+\end{solution}
+
+\begin{problem}{}
+   Find the most influential vertex in the graph using the PageRank algorithm with damping factor $ = 1 - \beta = 0.85$, where the graph adjacency matrix is defined as follows:
+   \[
+      A = \begin{bmatrix}
+         1 & 0 & 1 & 0 & 0\\
+         0 & 1 & 0 & 0 & 1\\
+         0 & 1 & 0 & 1 & 0\\
+         1 & 1 & 0 & 0 & 0\\
+         0 & 1 & 0 & 0 & 1
+      \end{bmatrix}
+   \]
+\end{problem}
+
+\begin{solution}
+    Let's transpose and normalize the initial matrix:
+    \[
+         P = \begin{bmatrix}
+            \dfrac{1}{2}  &  0  &  0  &  \dfrac{1}{2}  &  0 \\[0.5cm]
+            0  &  \dfrac{1}{2}  &  \dfrac{1}{2} &  \dfrac{1}{2}  &  \dfrac{1}{2} \\[0.5cm]
+            \dfrac{1}{2}  &  0  &  0  &  0  &  0 \\[0.5cm]
+            0  &  0  &  \dfrac{1}{2}  &  0  &  0 \\[0.5cm]
+            0  &  \dfrac{1}{2}  &  0  &  0  &  \dfrac{1}{2} 
+          \end{bmatrix}
+    \]
+    Then we get that the matrix is stochastic and aperiodic, but not incomposable. In this case let's build another matrix $P_\beta$:
+    \[
+          P_\beta = (1- \beta) P + \beta \cdot Q,
+    \]
+    where $Q$ is the matrix $Q = \left[\dfrac{1}{N}\right]$, where $\beta = 0.15$. So, we have:
+    \[
+         P_\beta = \begin{bmatrix}
+            0.455 &  0.03 &  0.030 &  0.455 &  0.03\\
+            0.03 &  0.455 &  0.455 &  0.455 &  0.455\\
+            0.455 &  0.030 &  0.03 &  0.03 &  0.03\\
+            0.03 &  0.030 &  0.455 &  0.03 &  0.03\\
+            0.03 &  0.455 &  0.03 &  0.03 &  0.455
+          \end{bmatrix}
+    \]
+    Let's find the eigenvector corresponding to the eigenvalue $\lambda = 1$. It is the following vector: 
+    \[
+          \pi = \begin{bmatrix}
+            0.27 \\ 
+            1.16 \\
+            0.199\\
+            0.168 \\
+            1
+          \end{bmatrix}
+    \]
+    So, the most influential vertex in the graph is B.
+\end{solution}
+\end{document}
