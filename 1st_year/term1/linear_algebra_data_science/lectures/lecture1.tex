@@ -1,8 +1,6 @@
-% \begin{multicols}{2}
-%     \raggedcolumns
-    \section{Difference between fundamental and applied linear algebra. Problems with the real data. Pseudoinverse matrices. Skeletonization.}
+\section{Difference between fundamental and applied linear algebra. Problems with the real data. Pseudoinverse matrices. Skeletonization.}
     \par 
-    Let's consider some of the standard linear algebra problems, for example, solving the systems of a linear equations. It can be written:
+    Let's consider some of the standard linear algebra problems, for example, solving the systems of linear equations. It can be written:
     \[
         A\vec{x} = \vec{b},    
     \]
@@ -14,7 +12,7 @@
     \[
         \vec{x} = A^{-1}\vec{b}.
     \]
-    Or we have an another method in a more general situation, when the matrix of the coefficients can be rectangular or degenerate, no inverted. We can provide a Gaussian elimination:
+    Or we have another method in a more general situation, when the matrix of the coefficients can be rectangular or degenerate, not inverted. We can provide Gaussian elimination:
     \[
         \scalebox{1.5}{$[A | b] \overset{\text{Gaussian}}{ \underset{\text{elimination}}{\xymatrix@C=3em{{}\ar@{~>}[r]&{}}}}$}
         \left[\begin{tabular}{clp{0.1cm}p{0.1cm}l}
@@ -35,11 +33,11 @@
     \]
     After that we can easily express one variable in terms of another one step by step.
     \par
-    But in the real work with the linear models the initial data can be inaccurate due to the observational errors in some physic cases or human reliability in, for example, social or business situations. It can lead to some problems. For example, in Gaussian elimination you need to choose pivot variable, and if it is contains some errors, then other computation will increase them. In situations with high order error such methods cannot be applied. But even if you have the exact formula and enough resources for calculating the inverted matrix you will release that inverse is obtained with some errors. Another problem is rounding. It happens because of precise nature of Gaussian elimination algorithm or other algorithms and machine precision. It is hard and slow to calculate precision of the solution.
+    But in the real world with the linear models, the initial data can be inaccurate due to the observational errors in some physical cases or human reliability in, for example, social or business situations. It can lead to some problems. For example, in Gaussian elimination, you need to choose a pivot variable, and if it contains some errors, then other computations will increase them. In situations with high order errors, such methods cannot be applied. But even if you have the exact formula and enough resources for calculating the inverted matrix, you will realize that the inverse is obtained with some errors. Another problem is rounding. It happens because of the precise nature of Gaussian elimination algorithm or other algorithms and machine precision. It is hard and slow to calculate the precision of the solution.
     \par
-    Next problem is about speed or complexity of calculations. For example, the complexity for Gaussian elimination is $\bigOO(n^3)$. It is bad for dealing with, for example, video or signals in real time. 
+    The next problem is about speed or complexity of calculations. For example, the complexity for Gaussian elimination is $\bigO(n^3)$. It is not suitable for dealing with, for example, video or signals in real time.
     \par 
-    Suppose you have created a linear model, that more or less describe the production or business process. For example, you get the vector of unknowns $\vec{x}$, which means that you should sell $x_1$ copies of product 1 and $x_2$ copies of product 2, etc. How much you must produce or sell? It is a possible cases needed to solve. Then you can face with indefinite system because of your initial data is not exact.
+    Suppose you have created a linear model that more or less describes the production or business process. For example, you get the vector of unknowns $\vec{x}$, which means that you should sell $x_1$ copies of product 1 and $x_2$ copies of product 2, etc. How much must you produce or sell? It is a set of possible scenarios needed to solve. Then you can face an indefinite system because your initial data are not exact.
     \subsubsection*{Indefinite (indeterminate) system}
     For example, it means system with less equations than variables or linearly dependent equations. It can be some system of a kind:
     \[
@@ -49,13 +47,13 @@
         \end{array}
             \right.  
     \]
-    So we have two lines of the same kind. The problem is how to peek one value of the vector $\vec{x}$. 
+    So we have two lines of the same kind. The problem is how to pick one value of the vector $\vec{x}$. 
     \begin{wrapfigure}[12]{l}{0.5\columnwidth}
         \includegraphics[height=0.235\columnwidth, width=0.5\columnwidth]{lectures/images/indefinite_system.png}
         \caption*{\scriptsize{Example of indefinite system.}}
         \label{fig:indefinite_system}
     \end{wrapfigure}
-    Mathematically we can peek every point from this line, but, for example, negative values (point A), obviously looks strange or even inappropriate for our case. Or, for example, you can peek either point B, or C. Again, mathematically there are solutions of our systems, but it can be no optimum solution. We will understand it on the next lecture. Another problem is about inconsistent system if there is no set of values for the unknown vector $\vec{x}$ that satisfies all of the equations. Or in mathematical terms, it happens when rank of initial coefficients matrix less than rank of augmented matrix (matrix of a kind $[A|b]$). Such systems can be either determined (defined) or underdetermined.
+    Mathematically, we can pick every point from this line, but, for example, negative values (point A), obviously looks strange or even inappropriate for our case. Or, for example, you can pick either point B, or C. Again, mathematically there are solutions of our systems, but it can be no optimum solution. We will understand it on the next lecture. Another problem is about inconsistent system if there is no set of values for the unknown vector $\vec{x}$ that satisfies all of the equations. Or in mathematical terms, it happens when rank of initial coefficients matrix is less than rank of augmented matrix (a matrix of a kind $[A|b]$). Such systems can be either determined (defined) or underdetermined.
     \subsubsection*{Inconsistent system}
     \begin{wrapfigure}[12]{r}{0.24\columnwidth}
         \includegraphics[height=0.3\columnwidth, width=0.24\columnwidth]{lectures/images/inconsistent_system_without_vectors.png}
@@ -70,9 +68,9 @@
            \end{array}
         \right. 
     \]
-    It looks like 2 parallel lines. Of course, rarely some $\vec{x}$ exists, but we cannot solve this system because of coefficients are not exact (contains some random errors, precisions, rounding after calculations, et cetera). But answers still can be the same. How much we need to sell? We can choose, for example, solutions A or B or even C, but what would be more optimally or correct. We will give an answer for this question right of the bat on the next lecture. Now let's define some new concepts that will help us with it.
+    It looks like 2 parallel lines. Of course, rarely some $\vec{x}$ exists, but we cannot solve this system because the coefficients are not exact (they contain some random errors, rounding after calculations, etc.). But answers can still be the same. How much do we need to sell? We can choose, for example, solutions A or B or even C, but what would be more optimal or correct. We will give an answer to this question right off the bat in the next lecture. Now let's define some new concepts that will help us with it.
     \subsection*{Pseudoinverse Matrices}
-    \begin{definition}{}{}
+    \begin{definition}{Pseudoinverse}{}
         Let $A \in M_{m\times n}(\C)$. Then $C$ is called pseudoinverse matrix to A, or Moore-Penrose (pseudo) inverse, if it is satisfies Penrose axioms: 
         \begin{center}
             \renewcommand{\arraystretch}{1.2}
@@ -87,10 +85,16 @@
                     \item $(AC)^* = AC$;
                     \item $(CA)^* = CA$.
                 \end{enumerate}
-                & \Ex{if $A \in M_{n\times n}, \det A \neq 0$, then $A^{-1}$ is a pseudoinverse.}
+                &Notation: $C = A^+$.
                 \end{tabular}
         \end{center} 
     \end{definition}
+    \begin{note}{}{}
+        If $A \in M_{m\times n} (\C)$, then $C \in M_{n\times m}(\C)$.
+    \end{note}
+    \begin{note}{}{}
+        if $A \in M_{n\times n}, \det A \neq 0$, then $A^{-1}$ is a pseudoinverse.
+    \end{note}
     \begin{proposition}{}{}
         If a pseudoinverse matrix $C$ to $A$ exists, it is unique.
     \end{proposition}
@@ -100,20 +104,12 @@
             AB \overset{\rom{1}}{=} \left(AC \right)\left(AB\right) \overset{\rom{3}}{\Rightarrow} \left(AC \right)^*\left(AB\right)^* \Rightarrow C^*\left(A^*B^*A^*\right) = C^*(ABA)^* = (AC)^* = AC.
         \end{gather*}
         Similarly, $BA=CA$. Now, $B\overset{\rom{2}}{=} BAB = BAC = CAC = C$.
-    \end{proof}
-    \begin{note}{}{}
-        Notation: $C = A^+$.
-    \end{note}
+    \end{proof}\\
     \Ex $A = O_{m\times n} = \begin{bmatrix}
         0 & \ldots & 0\\
         \vdots & \ddots & \vdots\\
         0 & \ldots & 0
-    \end{bmatrix}$. Then $A^+ = O_{n\times m}$.
-    \begin{note}{}{}
-        If $A \in M_{m\times n} (\C)$, then $C \in M_{n\times m}(\C)$.
-    \end{note}
-    \begin{multicols}{2}
-    \raggedcolumns
+    \end{bmatrix}$, then $A^+ = O_{n\times m}$.\\
     \Ex $\begin{bmatrix}
         5 & 0 \\
         0 & 0 \\
@@ -121,23 +117,24 @@
     \end{bmatrix}^+ = \displaystyle\begin{bmatrix}
         \medmath{\frac{1}{5}} & 0 & 0\\
         0 & 0 & 0
-    \end{bmatrix}$
-
+    \end{bmatrix}$.\\
     \Ex $\begin{bmatrix}
         1 \\ 2
     \end{bmatrix}^+ = \begin{bmatrix}
         \medmath{\frac{1}{5}} & \medmath{\frac{2}{5}}
-    \end{bmatrix}$
-    \end{multicols}
-    \Ex Let $A = \vec{a} \in \C^n$. Then: \[\vec{a}^{\, +} = \dfrac{1}{a^*a}\vec{a}^{\, *} = \dfrac{1}{|\vec{a}\,|^2} = \dfrac{1}{|a_1|^2 + \ldots + |a_n|^2} \vec{a}^{\, *}.\]
+    \end{bmatrix}$.\\
+    \Ex Let $A = \vec{a} \in \C^n$, then
+    \[\vec{a}^{\, +} = \dfrac{1}{a^*a}\vec{a}^{\, *} 
+                     = \dfrac{1}{|\vec{a}\,|^2}\vec{a}^{\, *}
+                     = \dfrac{1}{|a_1|^2 + \ldots + |a_n|^2} \vec{a}^{\, *}.\]
     \begin{proposition}{}{}
-        Suppose that $A \in M_{m\times n}(\C)$ has full column rank, that is, $\rank A = n$. Then:
+        Suppose that $A \in M_{m\times n}(\C)$ has full column rank, that is, $\rank A = n$. Then
         $A^+ = (\underbrace{A^*A}_{n\times n})^{-1}A^*.$
     \end{proposition}
     \begin{proposition}{}{}
-        If $\rank A = m$ ($A$ has full row rank), then: $A^+ = A^* (\underbrace{AA^*}_{m\times m})^{-1}.$
+        Suppose that $A \in M_{m\times n}(\C)$ has full row rank, that is, $\rank A = m$. Then $A^+ = A^* (\underbrace{AA^*}_{m\times m})^{-1}.$
     \end{proposition}
-    \Exc{Check \rom{1}-\rom{4} axioms for these $A^+$}
+    \Exc{Check \rom{1}-\rom{4} axioms for these $A^+$.}
     
     \begin{definition}{Skeletonization}{}
         A full rank decomposition (or skeletonization) of a matrix $A \in M_{m\times n}(\C)$ with $r = \rank A$ is a decomposition:
@@ -147,12 +144,11 @@
                 G\ \in \ M_{r\times n}(\C).
             \end{aligned}  
         \]
-        (Then $\rank F = \rank G = r$. $F, G$ are called matrices of full rank.)
+        Then $\rank F = \rank G = r$. $F, G$ are called matrices of full rank.
     \end{definition}
     \begin{theorema}{}{}
-        For each matrix $A \in M_{m\times n}(\C)$, its pseudoinverse matrix $A^+$ exists. If $A = F \cdot G$ is a full rank decomposition, then:
+        For each matrix $A \in M_{m\times n}(\C)$, its pseudoinverse matrix $A^+$ exists. If $A = F \cdot G$ is a full rank decomposition, then
         \[
             A^+ = G^+F^+ = G^*\left(G,G^*\right)^{-1} \left(F^*, F\right)^{-1}F^*. 
         \]
     \end{theorema}
-% \end{multicols}
