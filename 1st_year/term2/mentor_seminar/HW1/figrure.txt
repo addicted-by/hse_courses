@@ -1,0 +1,104 @@
+ {           \begin{wrapfigure}{L}{0.45\columnwidth}[H]
+        % Pattern Info
+        
+        \tikzset{
+            pattern size/.store in=\mcSize, 
+            pattern size = 5pt,
+            pattern thickness/.store in=\mcThickness, 
+            pattern thickness = 0.3pt,
+            pattern radius/.store in=\mcRadius, 
+            pattern radius = 1pt}
+            \makeatletter
+            \pgfutil@ifundefined{pgf@pattern@name@_c9sh8f92k}{
+            \pgfdeclarepatternformonly[\mcThickness,\mcSize]{_c9sh8f92k}
+            {\pgfqpoint{0pt}{0pt}}
+            {\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+            {\pgfpoint{\mcSize}{\mcSize}}
+            {
+            \pgfsetcolor{\tikz@pattern@color}
+            \pgfsetlinewidth{\mcThickness}
+            \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+            \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+            \pgfusepath{stroke}
+            }}
+            \makeatother
+            
+            % Pattern Info
+            
+            \tikzset{
+            pattern size/.store in=\mcSize, 
+            pattern size = 5pt,
+            pattern thickness/.store in=\mcThickness, 
+            pattern thickness = 0.3pt,
+            pattern radius/.store in=\mcRadius, 
+            pattern radius = 1pt}
+            \makeatletter
+            \pgfutil@ifundefined{pgf@pattern@name@_xp88u71c3}{
+            \pgfdeclarepatternformonly[\mcThickness,\mcSize]{_xp88u71c3}
+            {\pgfqpoint{0pt}{0pt}}
+            {\pgfpoint{\mcSize}{\mcSize}}
+            {\pgfpoint{\mcSize}{\mcSize}}
+            {
+            \pgfsetcolor{\tikz@pattern@color}
+            \pgfsetlinewidth{\mcThickness}
+            \pgfpathmoveto{\pgfqpoint{0pt}{\mcSize}}
+            \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{-\mcThickness}}
+            \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+            \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+            \pgfusepath{stroke}
+            }}
+            \makeatother
+            \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+            
+            \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+            %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+            
+            %Shape: Polygon Curved [id:ds3277214313026753] 
+            \draw  [pattern=_c9sh8f92k,pattern size=6pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}][line width=1.5]  (63.79,56.75) .. controls (64.59,81.05) and (79.01,66.73) .. (88.42,76.52) .. controls (97.83,86.31) and (107.96,78.57) .. (119.25,84.97) .. controls (130.55,91.37) and (149.92,91.16) .. (160.46,91.92) .. controls (171,92.67) and (179.74,96.07) .. (179.77,97.55) .. controls (179.8,99.04) and (179.29,216.18) .. (179.46,216.71) .. controls (179.63,217.25) and (146.07,216.71) .. (118.59,216.71) .. controls (91.11,216.71) and (62.9,216.88) .. (63.33,217) .. controls (63.77,217.12) and (63,32.44) .. (63.79,56.75) -- cycle ;
+            %Straight Lines [id:da5839104549698622] 
+            \draw [line width=1.5]    (63.33,217) -- (63.33,40.38) ;
+            \draw [shift={(63.33,37.38)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]    (14.21,-4.28) .. controls (9.04,-1.82) and (4.3,-0.39) .. (0,0) .. controls (4.3,0.39) and (9.04,1.82) .. (14.21,4.28)   ;
+            %Straight Lines [id:da2999855701379086] 
+            \draw [line width=1.5]    (63.33,217) -- (271.89,217) ;
+            \draw [shift={(274.89,217)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]    (14.21,-4.28) .. controls (9.04,-1.82) and (4.3,-0.39) .. (0,0) .. controls (4.3,0.39) and (9.04,1.82) .. (14.21,4.28)   ;
+            %Straight Lines [id:da3815957051131209] 
+            \draw  [dash pattern={on 0.84pt off 2.51pt}]  (179.77,97.55) -- (179.46,215.38) ;
+            %Shape: Rectangle [id:dp4700290133598841] 
+            \draw  [pattern=_xp88u71c3,pattern size=6pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}][dash pattern={on 1.69pt off 2.76pt}][line width=1.5]  (64.32,96.15) -- (179.46,96.15) -- (179.46,216.71) -- (64.32,216.71) -- cycle ;
+            %Curve Lines [id:da9509710469592756] 
+            \draw [color={rgb, 255:red, 155; green, 155; blue, 155 }  ,draw opacity=1 ] [dash pattern={on 4.5pt off 4.5pt}]  (86,85.67) .. controls (119.65,74.92) and (114.99,62.92) .. (143.65,50.26) ;
+            %Curve Lines [id:da12009894899447371] 
+            \draw [color={rgb, 255:red, 155; green, 155; blue, 155 }  ,draw opacity=1 ] [dash pattern={on 4.5pt off 4.5pt}]  (24,187) .. controls (57.65,176.26) and (52.99,164.26) .. (81.65,151.59) ;
+            
+            % Text Node
+            \draw (45.19,48.13) node  [font=\footnotesize] [align=left] {\begin{minipage}[lt]{23.18pt}\setlength\topsep{0pt}
+            $\displaystyle \phi ( u)$
+            \end{minipage}};
+            % Text Node
+            \draw (90.19,64.13) node  [font=\footnotesize] [align=left] {\begin{minipage}[lt]{23.18pt}\setlength\topsep{0pt}
+            $\displaystyle \phi ( 0)$
+            \end{minipage}};
+            % Text Node
+            \draw (192.67,55.33) node  [font=\footnotesize] [align=left] {\begin{minipage}[lt]{68pt}\setlength\topsep{0pt}
+            $\displaystyle \int _{0}^{u_{1}} \phi ( \omega ) d\omega $
+            \end{minipage}};
+            % Text Node
+            \draw (202.86,98.8) node  [font=\footnotesize] [align=left] {\begin{minipage}[lt]{23.18pt}\setlength\topsep{0pt}
+            $\displaystyle \phi ( u_{1})$
+            \end{minipage}};
+            % Text Node
+            \draw (186.16,225.33) node  [font=\footnotesize] [align=left] {\begin{minipage}[lt]{23.18pt}\setlength\topsep{0pt}
+            $\displaystyle u_{1}$
+            \end{minipage}};
+            % Text Node
+            \draw (71.49,225.33) node  [font=\footnotesize] [align=left] {\begin{minipage}[lt]{23.18pt}\setlength\topsep{0pt}
+            $\displaystyle 0$
+            \end{minipage}};
+            % Text Node
+            \draw (16.19,201.46) node  [font=\footnotesize] [align=left] {\begin{minipage}[lt]{40.18pt}\setlength\topsep{0pt}
+            $\displaystyle u_{1} \cdot \phi ( u_{1})$
+            \end{minipage}};
+            
+            
+            \end{tikzpicture}
+            \end{wrapfigure} dsomething}

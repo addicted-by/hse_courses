@@ -1,0 +1,61 @@
+% start S
+# Grammar Rules
+S[SEM = <app(?subj,?vp)>] -> NP[NUM=?n,SEM=?subj] VP[NUM=?n,SEM=?vp]
+NP[NUM=?n,SEM=<app(?det,?nom)> ] -> Det[NUM=?n,SEM=?det]  Nom[NUM=?n,SEM=?nom]
+NP[LOC=?l,NUM=?n,SEM=?np] -> PropN[LOC=?l,NUM=?n,SEM=?np]
+Nom[SEM=<app(?adj, ?nom)>] -> Adj[SEM=?adj]  N[NUM=?n,SEM=?nom]
+Nom[NUM=?n,SEM=?nom] -> N[NUM=?n,SEM=?nom]
+Nom[NUM=?n,SEM=<app(?pp,?nom)>] -> N[NUM=?n,SEM=?nom] PP[SEM=?pp]
+
+VP[NUM=?n,SEM=<app(?v,?obj)>] -> TV[NUM=?n,SEM=?v] NP[SEM=?obj]
+VP[NUM=?n,SEM=?v] -> IV[NUM=?n,SEM=?v]
+VP[NUM=?n,SEM=<app(?pp,?vp)>] -> VP[NUM=?n,SEM=?vp] PP[-PRED,SEM=?pp]
+PP[LOC=?l,PRED=?prd,SEM=<app(?p,?np)>] -> P[LOC=?l,PRED=?prd,SEM=?p] NP[LOC=?l,SEM=?np]
+
+# Lexical Rules
+PropN[-LOC,NUM=sg,SEM=<\P.P(mouse)>] -> 'mouse'
+PropN[-LOC,NUM=sg,SEM=<\P.P(kitten)>] -> 'kitten'
+
+Det[NUM=sg,SEM=<\P Q.exists x.(P(x) & Q(x))>] -> 'a' | 'A'
+Det[NUM=sg,SEM=<\P Q.exists x.((P(x) & Q(x)) & all y.(P(y) -> (x = y)))>] -> 'the' | 'The'
+
+N[NUM=sg,SEM=<\x.kitten(x)>] -> 'kitten'
+N[NUM=sg,SEM=<\x.mouse(x)>] -> 'mouse' 
+
+N[NUM=sg,SEM=<\x.jar(x)>] -> 'jar'
+# N[NUM=sg,SEM=<\x.jar(x)>] -> 'flour'
+
+Adj[SEM=<\P x.(black(x) & P(x))>] -> 'black'
+Adj[SEM=<\P x.(white(x) & P(x))>] -> 'white'
+
+TV[NUM=sg,SEM=<\X y.X(\x.followed(y,x))>,tns=past] -> 'followed'
+TV[NUM=sg,SEM=<\X y.X(\x.saw(y,x))>,tns=past] -> 'saw'
+IV[NUM=sg,SEM=<\x.rushed(x)>,tns=past] -> 'rushed'
+IV[NUM=sg,SEM=<\x.jumped(x)>,tns=past] -> 'jumped'
+
+IV[NUM=sg,SEM=<\x.played(x)>,tns=past] -> 'played'
+TV[NUM=sg,SEM=<\X y.X(\x.opened(y,x))>,tns=past] -> 'opened'
+TV[NUM=sg,SEM=<\X y.X(\x.closed(y,x))>,tns=past] -> 'closed'
+TV[NUM=sg,SEM=<\X y.X(\x.broke(y,x))>,tns=past] -> 'broke'
+TV[NUM=sg,SEM=<\X y.X(\x.fixed(y,x))>,tns=past] -> 'fixed'
+TV[NUM=sg,SEM=<\X y.X(\x.found(y,x))>,tns=past] -> 'found'
+TV[NUM=sg,SEM=<\X y.X(\x.held(y,x))>,tns=past] -> 'held'
+TV[NUM=sg,SEM=<\X y.X(\x.kicked(y,x))>,tns=past] -> 'kicked'
+TV[NUM=sg,SEM=<\X y.X(\x.moved(y,x))>,tns=past] -> 'moved'
+TV[NUM=sg,SEM=<\X y.X(\x.painted(y,x))>,tns=past] -> 'painted'
+TV[NUM=sg,SEM=<\X y.X(\x.read(y,x))>,tns=past] -> 'read'
+TV[NUM=sg,SEM=<\X y.X(\x.liked(y,x))>,tns=past] -> 'liked'
+TV[NUM=sg,SEM=<\X y.X(\x.loved(y,x))>,tns=past] -> 'loved'
+TV[NUM=sg,SEM=<\X y.X(\x.hated(y,x))>,tns=past] -> 'hated'
+
+P[PRED=<\X Y.exists x.(X(x) & Y(x))>, LOC=<\x.at(x,library)>] -> 'at'
+P[PRED=<\X Y.exists x.(X(x) & Y(x))>, LOC=<\x.in(x,library)>] -> 'in'
+P[PRED=<\X Y.exists x.(X(x) & Y(x))>, LOC=<\x.on(x,table)>] -> 'on'
+
+
+IV[NUM=sg,SEM=<\x.got_out(x)>,tns=past] -> 'got' 'out'
+IV[NUM=sg,SEM=<\x.ran_away(x)>,tns=past] -> 'ran' 'away'
+
+P[+LOC,-PRED,SEM=<\X P x.X(\y.(P(x) & of(x,y)))>] -> 'of'
+P[+LOC,-PRED,SEM=<\X P x.X(\y.(P(x) & into(x,y)))>] -> 'into'
+P[+LOC,-PRED,SEM=<\X P x.X(\y.(P(x) & after(x,y)))>] -> 'after'

@@ -1,0 +1,106 @@
+\documentclass[12pt]{report}
+\usepackage{../mystyle}
+\algnewcommand{\Initialize}[1]{%
+  \State \textbf{Initialize:}
+  \Statex \hspace*{\algorithmicindent}\parbox[t]{.8\linewidth}{\raggedright #1}
+}
+\usepackage{float}
+\usepackage{placeins}
+\begin{document}
+\boldmath
+\chapter{Mentor's seminar\\[-2.5ex] \hspace*{3.35cm} \large Work has been done by: Ryabykin Aleksey\vskip1.5ex}
+\fancyhead[L]{Exam}
+\fancyhead[C]{Mentor's Seminar}
+\fancyhead[R]{Ryabykin A.}
+\vspace*{-1cm}
+\begin{problem}{}
+Let $A^2 = E$ for a real $n\times n$ matrix $A$, which is neither zero nor identity matrix. Show that it necessarily has two eigenvectors -- one with eigenvalue $1$ and the other $-1$. Can it have other eigenvalues?
+\end{problem}
+\begin{solution}
+Suppose $v$ is the eigenvector of $A$ corresponding to some eigenvalue $\lambda$. This means by the definition of eigenvector that: $Av = \lambda v$. Now consider multiplying both sides of this equation by $A$ and perform some simplifications: 
+\[
+    \begin{array}{c}
+        AAv = A\lambda v = \lambda Av \Longrightarrow \\
+        \Rightarrow  A^2v = \lambda \lambda v \overset{A^2 = E}{\Longrightarrow} v = \lambda^2 v
+    \end{array}
+\]
+This implies that $\lambda^2 = 1$, which gives us the only two possible values for $\lambda:\ \lambda = \pm 1$.
+\end{solution}
+\begin{problem}{}
+    Let $A^2 = E$ for a real $n\times n$ matrix $A$. Show that $A$ has at least one eigenvector with eigenvalue $0$. Can it have other eigenvalues?
+\end{problem}
+\begin{solution}
+    With the same assumptions as in the first problem we can obtain the following:
+    \[
+        A^2 v = \lambda^2 v \overset{A^2 = 0}{\Rightarrow} 0 = \lambda^2 v \Longrightarrow \lambda = 0, \ \forall v \neq 0.
+    \]
+\end{solution}
+\begin{problem}{}
+    For a real $n\times n$ matrix $A$, which is neither zero nor identity, $A^3 = E$ is true. Give an example of such a matrix that has no eigenvectors.
+\end{problem}
+\begin{solution}
+    Let's take $A$ as the rotation matrix with angle $\varphi = \dfrac{2\pi}{3}$. Since we know the following property of the rotation matrix:
+    \begin{proposition}{}{}
+        The rotation matrix has the following property:
+        \[
+            \left[\begin{array}{cc}
+                \cos \varphi & \sin \varphi \\
+                -\sin \varphi & \cos \varphi
+            \end{array}\right]^n = \left[ \begin{array}{cc}
+                \cos n\varphi & \sin n\varphi\\
+                -\sin n\varphi & \cos n\varphi
+            \end{array}\right]  
+        \]
+    \end{proposition}
+    the $A^3 = \left[\begin{array}{cc} \cos 2\pi & \sin 2\pi \\  -\sin 2\pi & \cos 2\pi
+    \end{array}\right] = E$. Let's find the eigenvalues and eigenvectors of the proposed rotation matrix:
+    \[
+        \operatorname{det} \left(A - \lambda E\right) = 0 \Longrightarrow \operatorname{det} \left[
+            \begin{array}{cc}
+                \cos \dfrac{2\pi}{3} - \lambda & \sin \dfrac{2\pi}{3} \\
+                -\sin \dfrac{2\pi}{3} & \cos \dfrac{2\pi}{3} - \lambda
+            \end{array}
+        \right] 
+    \]
+    which yields the characteristic equation:
+    \[
+            \left(\cos \dfrac{2\pi}{3} - \lambda \right)^2 + \sin^2 \dfrac{2\pi}{3} = 0
+    \]
+    This equation simplifies to the following:
+    \[
+            \lambda^2 - 2\lambda \cos \dfrac{2\pi}{3} + 1 = 0
+    \]
+    which yields the eigenvalues,
+    \[
+            \lambda = \cos \dfrac{2\pi}{3} \pm \sqrt{\cos^2 \dfrac{2\pi}{3} - 1} = e^{\displaystyle\pm i\dfrac{2\pi}{3}}
+    \]
+    It means that there are no eigenvalues from $\mathbb{R}$ as well as eigenvectors.
+\end{solution}
+\begin{problem}{}
+    In the complete graph on $10$ vertices, its vertices are colored randomly and
+equiprobably in three colors. Find the average number of triangles painted in all
+three colors.
+\end{problem}
+\begin{solution}
+    Since the graph is complete any 3 vertices form a triangle. The overall amount of triangles can be computed as follows:
+    \[
+        C(n,k) = \dfrac{10!}{3!\cdot (10-3)!} = 120.
+    \]
+    Suppose, $\mathbb{I}$ is the indicator function that equal $1$ if all vertices have been painted in different colors and $0$ otherwise. Then the expectation is equal to $\mathbb{E} [\mathbb{I}] = \dfrac{2}{9}$. Since the linearity of expectation the number of triangles painted in all three colors in the proposed graph will be equal to the sum of the indicator functions for each triangle.
+    \[
+        120 \cdot \dfrac{2}{9} = \dfrac{80}{3}.  
+    \]
+\end{solution}
+\begin{problem}{}
+    In a graph with $10$ vertices, an edge between two vertices is drawn with
+    probability $p$, regardless of other edges. If an edge is drawn, then it is painted
+    randomly and equiprobably in three colors. Find the average number of triangles
+    painted in all three colors.
+\end{problem}
+\begin{solution}
+    All calculations from the previous solution are applicable in this problem as well, the only thing is that expectation will be equal: $\mathbb{E} [\mathbb{I}] = p^3 \dfrac{2}{9}$. Hence, the answer is:
+    \[
+        p^3 \cdot \dfrac{80}{3}    
+    \]
+\end{solution}
+\end{document}

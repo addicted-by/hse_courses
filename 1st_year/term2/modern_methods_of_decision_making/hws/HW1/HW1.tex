@@ -1,0 +1,237 @@
+\documentclass[12pt]{report}
+\usepackage{../mystyle}
+\algnewcommand{\Initialize}[1]{%
+  \State \textbf{Initialize:}
+  \Statex \hspace*{\algorithmicindent}\parbox[t]{.8\linewidth}{\raggedright #1}
+}
+\begin{document}
+\boldmath
+\chapter{Modern Method of Decision Making\\[-2.5ex] \hspace*{3.35cm} \large Work has been done by: Ryabykin Aleksey, Osokin Mikhail\vskip1.5ex}
+\fancyhead[L]{Homework 1.}
+\fancyhead[C]{Modern Methods of Desicion Making}
+\fancyhead[R]{Ryabykin A., Osokin M.}
+\subsection*{Task Description}
+Hedge algorithm for linear losses on the simplex. Consider the OCO problem with
+\begin{definition}{}{}
+Decision space: $K = \Delta_d,  $  
+where $\Delta_d$ is the $d$-dimensional probability simplex:
+\[
+    \Delta_d = \left\{x = \left(x(1), \ldots, x(d)
+    \right) \in \mathbb{R}^d: \ \forall i, \ x(i) \in [0,1] \text{ and } \sum\limits_{i=1}^d x(i) = 1\right\}  
+\]
+\end{definition}
+\begin{definition}{}{}
+  Loss class: 
+  \[
+        \mathcal{F} = \left\{x \in \Delta_d \rightarrow \langle x, l \rangle: \ l = \left(
+        l(1), \ldots, l(d)\right) \in [0, 1]^d\right\}
+  \]  
+\end{definition}
+\par 
+The goal of this home assignment is to analyse a more general version of the Hedge algorithm that involves a time varying parameter ``$\varepsilon_t$'', independent of a prescribed time horizon, and guaranteed to have low regret at any time. The algorithm we want to analyse is as follows:
+
+\begin{algorithm*}
+\caption[short]{General Hedge}
+\begin{algorithmic}
+    \Require $\left(\varepsilon_t\right)_{t \geq 1}$ \Comment{{\color{gray} Tuning parameters, $\varepsilon_t > 0$}}
+    \Initialize{$L_0 = \left(L_0(1), \ldots, L_0(d)\right) = (0, \ldots, 0)$} \hspace*{-6cm}
+    \Comment{{\color{gray} Cumulative loss function at time $0$}}
+    \For{$t \geq 1$}
+    \begin{itemize}
+        \item Play $x_t = \left(x_t(1), \ldots, x_t(d)\right) \in \Delta_d$, where 
+        \[
+            x_t(i) := \dfrac{e^{\displaystyle - \varepsilon_t\mathcal{L}_{t-1}(i)}}{\sum\limits_{j=1}^d e^{\displaystyle -\varepsilon_t\mathcal{L}_{t-1}(j)}}  
+        \]
+        \item Receive loss $l_t = \left(l_t(1), \ldots, l_t(d)\right) \in [0,1]^d$ and update:
+        \[
+            L_t := L_{t-1} + l_t  
+        \]
+    \end{itemize}
+    \EndFor
+\end{algorithmic}
+\end{algorithm*}
+\begin{note}{}{}
+    To connect this version of the algorithm with the one discussed previously, note that the above algorithm can be equivalently described as follows:
+    \begin{algorithmic}
+        \Initialize{$w_1 = \left(w_1(1), \ldots, L_1(d)\right) = (1, \ldots, 1)$}
+        \For{$t \geq 1$}
+        \begin{itemize}
+            \item Play $x_t = \left(x_t(1), \ldots, x_t(d)\right) \in \Delta_d$, where 
+            \[
+                x_t(i) := \dfrac{w_t(i)}{\sum\limits_{j=1}^d w_t(j)}
+            \]
+            \item Receive loss $l_t = \left(l_t(1), \ldots, l_t(d)\right) \in [0,1]^d$ and update:
+            \[
+                w_{t+1}(i) = \left(w_t(i)\right)^{\dfrac{\varepsilon_{t+1}}{\varepsilon_t}} \cdot e^{\displaystyle - \varepsilon_{t+1}l_t(i)}  
+            \]
+            \Comment{{\color{gray} $w_t(i) = e^{\displaystyle -\varepsilon_t\mathcal{L}_{t-1}(i)} \hfill$}}
+        \end{itemize}
+        \EndFor
+    \end{algorithmic}
+\end{note}
+\par
+Note that we recover the simple Hedge algorithm whenever $\varepsilon_t = \varepsilon, \ \forall t \geq 1.$
+\par 
+The goal of the home assignment is to show the following result.
+\subsection*{Solution}
+\begin{theorema}{}{}
+    \begin{itemize}
+        \item[i)] Suppose that $0 < \varepsilon_{t+1} \leq \varepsilon_t, \ \forall t \geq 1$. Then, $\forall T \geq 1$, the Hedge algorithm with time varying parameter $\left(\varepsilon
+        _t\right)_{t\geq 1}$ satisfies:
+        \[
+            R_T \leq \dfrac{1}{8} \sum\limits_{t=1}^T \varepsilon_t + \dfrac{\log d}{\varepsilon_{T+1}}
+        \]
+        \item[ii)] In particular, chosing:
+        \[
+           \varepsilon_t := \sqrt{\dfrac{8\log d}{t}} 
+        \]
+        implies that, $\forall T \geq 1$, 
+        \[
+            R_T \leq \sqrt{2T\log d}  
+        \]
+    \end{itemize}
+\end{theorema}
+\begin{proof}
+    We divide the proof in 5 steps:
+    \begin{enumerate}
+        \item Define $\displaystyle W_t := \dfrac{1}{d}\sum\limits_{i=1}^{d} e^{\displaystyle -\varepsilon_t L_{t-1}(i)}, \ \forall t \geq 1$. Show that $\forall T \geq 1$:
+        \[
+            \dfrac{\log W_{T+1}}{\varepsilon_{T+1}}  - \dfrac{\log W_1}{\varepsilon_1} \geq - \inf\limits_{x\in \Delta_d} \sum\limits_{t=1}^T \langle x, l_t \rangle - \dfrac{\log d}{\varepsilon_{T+1}};
+        \]
+        Let us bound $\log \left( \dfrac{W_{T+1}}{W_1}\right)$ from below:
+        \[
+            \begin{array}{c}
+                \displaystyle \log \left( \dfrac{W_{T+1}}{W_1}\right) = \log (\dfrac{1}{d} \sum\limits_{i=1}^{d} e^{\displaystyle -\varepsilon_{T+1} L_T(i)}) - \log 1 = -\log d + \log (\sum\limits_{i=1}^{d} e^{\displaystyle -\varepsilon_{T+1} L_T(i)}) \geq \\[1cm] 
+                \displaystyle \geq -\log d + \log (\max_i e^{\displaystyle -\varepsilon_{T+1} L_T(i)}) = -\varepsilon_{T + 1} \min_i L_T(i) - \log d        
+            \end{array}
+        \]
+        After dividing the last inequality by the $\varepsilon_{T+1}$ and using basic knowledge about properties of logarithms we can obtain:
+        \[
+            \dfrac{\log W_{T+1}}{\varepsilon_{T+1}} - \dfrac{\log W_1}{\varepsilon_{T+1}} \geq -\min\limits_i \mathcal{L}_T(i) - \dfrac{\log d}{\varepsilon_{T+1}};  
+        \]
+        We can use the knowledge that $\displaystyle \min\limits_{i} \mathcal{L}_T(i) = \inf\limits_{x \in \Delta_d} \sum\limits_{t=1}^T \langle x, l_t\rangle$:
+        \[
+            \dfrac{\log W_{T+1}}{\varepsilon_{T+1}} - \dfrac{\log W_1}{\varepsilon_{T+1}} \geq -\inf\limits_{x \in \Delta d} \sum\limits_{t=1}^T \langle x, l_t \rangle - \dfrac{\log d}{\varepsilon_{T+1}}.
+        \]
+        Finally, as we know, that $\varepsilon_1 \geq \varepsilon_{T+1}$, we can obtain the desired inequality:
+        \[
+            \dfrac{\log W_{T+1}}{\varepsilon_{T+1}}  - \dfrac{\log W_1}{\varepsilon_1} \geq - \inf\limits_{x\in \Delta_d} \sum\limits_{t=1}^T \langle x, l_t \rangle - \dfrac{\log d}{\varepsilon_{T+1}}.
+        \]
+        \item Show that $\forall T \geq 1$:
+        \[
+            \dfrac{\log W_{T+1}}{\varepsilon_{T+1}} - \dfrac{\log W_1}{\varepsilon_1} = \sum\limits_{t=1}^T \left(a_t + b_t\right)  
+        \]
+        where $\forall t \geq 1$:
+        \[
+            \begin{array}{l}
+                \displaystyle \rightarrow a_t := \dfrac{1}{\varepsilon_t} \log \left(\dfrac{W_{t+1}^{\dfrac{\varepsilon
+                _t}{\varepsilon
+                _{t+1}}}}{\widetilde{W}_{t+1}}\right)\\[0.5cm]
+                \displaystyle \rightarrow b_t := \dfrac{1}{\varepsilon_t} \log \left(\dfrac{\widetilde{W}_{t+1}}{W_t}\right), \\[0.5cm]
+                \displaystyle 
+                \rightarrow \widetilde{W}_{t+1} := \dfrac{1}{d} \sum\limits_{i=1}^d e^{\displaystyle  -\varepsilon_t L_t(i)}. 
+            \end{array}  
+        \]
+        % Following the definition from the previous statement:
+        % \[
+        %     W_t := \dfrac{1}{d}\sum\limits_{i=1}^{d} e^{\displaystyle -\varepsilon_t L_{t-1}(i)}
+        % \]
+        % Then, similarly:
+        % \[
+        %     W_{t+1} = \dfrac{1}{d}\sum\limits_{i=1}^d e^{\displaystyle -\varepsilon_{t+1} \mathcal{L}_t(i)}
+        % \]
+        % \[
+        %     a_t = \log \left(\dfrac{\left(
+        %         \dfrac{1}{d} \sum\limits_{i=1}^d e^{\displaystyle -\varepsilon_{t+1} \mathcal{L}_t(i)}\right)^{\dfrac{1}{\varepsilon_{t+1}}}}{\left(\dfrac{1}{d}\sum\limits_{i=1}^d e^{\displaystyle - \varepsilon_{t}\mathcal{L}_t(i)}\right)^{\dfrac{1}{\varepsilon_{t}}}}\right)  
+        % \]
+        % \[
+        %     b_t = \log \left(\left(\dfrac{\dfrac{1}{d}\sum\limits_{i=1}^d e^{\displaystyle -\varepsilon_t \mathcal{L}_t(i)}}{\dfrac{1}{d} \sum\limits_{i=1}^d e^{\displaystyle -\varepsilon_t \mathcal{L}_{t-1}(i)}}\right)^{\dfrac{1}{\varepsilon_t}}\right)  
+        % \]
+        Left side of the initial equality can be written in the following way:
+        \[
+            \log \left(\dfrac{W_{T+1}^{\dfrac{1}{\varepsilon_{T+1}}}}{W_1^{\dfrac{1}{\varepsilon_1}}}\right)  = \log \left(\prod\limits_{t=1}^{T} \dfrac{W_{t+1}^{\dfrac{1}{\varepsilon_{t+1}}}}{W_t^{\dfrac{1}{\varepsilon_t}}}\right) = \sum\limits_{t=1}^T \log \left(\dfrac{W_{t+1}^{\dfrac{1}{\varepsilon_t + 1}}}{W_t^{\dfrac{1}{\varepsilon_t}}}\right)
+        \]
+        At the same time:
+        \[
+            \sum\limits_{t=1}^T (a_t + b_t) = \sum\limits_{t=1}^T \left(\log\left(\dfrac{W_{t+1}^{\dfrac{1}{\varepsilon_{t+1}}}}{\widetilde{W}_{t+1}^{\dfrac{1}{\varepsilon_t}}}\right) + \log \left(\dfrac{\widetilde{W}_{t+1}}{W_t}\right)^{\dfrac{1}{\varepsilon_t}} \right) = \sum\limits_{t=1}^T \left(\log \left(\dfrac{W_{t+1}^{\dfrac{1}{\varepsilon_{t+1}}}}{W_t^{\dfrac{1}{\varepsilon_t}}}\right)\right) = 
+        \]
+        \[
+            =   \dfrac{\log W_{T+1}}{\varepsilon_{T+1}} - \dfrac{\log W_1}{\varepsilon_1}.
+        \]
+        \item Show that, $\forall t \geq 1, \ a_t \leq 0$. Actually, we need to show:
+        \[
+            \dfrac{1}{\varepsilon_{t+1}} \log W_{t+1} - \dfrac{1}{\varepsilon_t} \log \widetilde{W}_{t+1} \leq 0  
+        \]
+        or 
+        \[
+            \dfrac{\varepsilon_{t}}{\varepsilon_{t+1}} \log W_{t+1} \leq \log \widetilde{W}_{t+1}  
+        \]
+        Hence, 
+        \[
+            \log W_{t+1}^{\dfrac{\varepsilon_t}{\varepsilon_{t+1}}} \leq \log \widetilde{W}_{t+1}  
+        \]
+        and, 
+        \[
+            W_{t+1}^{\dfrac{\varepsilon_t}{\varepsilon_{t+1}}} \leq \widetilde{W}_{t+1}  
+        \]
+        
+        \[
+            \left(\dfrac{1}{d}\sum\limits_{i=1}^d e^{-\displaystyle \varepsilon_{t+1}\mathcal{L}_t (i)}\right)^{\dfrac{\varepsilon_t}{\varepsilon_{t+1}}} \leq \dfrac{1}{d} \sum\limits_{i=1}^d e^{-\varepsilon_t\mathcal{L}_t(i)}
+        \]
+        Keeping in mind the Jensen's inequality, we can conclude that the last inequality is always true since \[\dfrac{\varepsilon_t}{\varepsilon_{t+1}} \geq 1 \].
+        
+        \item Show that, $\forall t \geq 1$:
+        \[
+            b_t \leq \dfrac{\varepsilon_t}{8} - \langle x_t, l_t \rangle . 
+        \]
+        Let us do it iteratively:
+        \[
+            \begin{array}{c}
+                \displaystyle b_t = \dfrac{1}{\varepsilon_t} \log \left(\dfrac{\widetilde{W}_{t+1}}{W_t}\right) = \dfrac{1}{\varepsilon_t} \log \left(\dfrac{\displaystyle \sum\limits_{i=1}^{d} e^{\displaystyle -\varepsilon_t \mathcal{L}_t (i)}}{\displaystyle \sum\limits_{i=1}^{d} e^{\displaystyle - \varepsilon_{t}\mathcal{L}_{t-1}(i)}} \right) = 
+            \end{array}  
+        \]
+        \[
+            \begin{array}{c}
+                \displaystyle = \dfrac{1}{\varepsilon_t} \log \left(\dfrac{\displaystyle \sum\limits_{i=1}^{d} e^{\displaystyle - \varepsilon_t l_t (i)} \cdot e^{\displaystyle - \varepsilon_t\mathcal{L}_{t-1}(i)}}{\displaystyle \sum\limits_{i=1}^{d} e^{\displaystyle - \varepsilon_{t}\mathcal{L}_{t-1}(i)}}\right) = \\[1cm]
+                \displaystyle = \dfrac{1}{\varepsilon_t} \log \left( \sum\limits_{i=1}^d x_t(i) e^{\displaystyle -\varepsilon_t l_t(i)}\right) = \dfrac{1}{\varepsilon_t} \log \mathbb{E}\left[e^{\displaystyle -\varepsilon_t x_t}\right] \leq
+            \end{array}  
+        \]
+        Using Hoeffding's inequality:
+        \[
+            \leq \dfrac{1}{\varepsilon_t} \left(\dfrac{\varepsilon_t^2}{8} - \varepsilon_t \mathbb{E}[x_t]\right) = \dfrac{\varepsilon_t}{8} - \langle x_t, l_t \rangle.    
+        \]
+        \item Show that statements i) and ii) hold true by combining the 4 previous results.
+        \par 
+        \begin{itemize}
+            \item[i)] Let us use 2nd and 4th results. Since $\langle x_t, l_t \rangle = \mathbb{E}[\hat{l}_t]$:
+            \[
+                \dfrac{\log W_{T+1}}{\varepsilon_{T+1}} - \dfrac{\log W_1}{\varepsilon_1} = \sum\limits_{t=1}^T (a_t + b_t) \leq \sum\limits_{t=1}^T \left(\dfrac{\varepsilon_t}{8} - \langle x_t, l_t \rangle\right) \leq  \dfrac{\displaystyle \sum\limits_{t=1}^T \varepsilon_t}{8} - \mathbb{E}[\hat{l}_t].
+            \]
+            Now let us use the 1st result:
+            \[
+                -\inf\limits_{x \in \Delta d} \sum\limits_{t=1}^T \langle x, l_t \rangle - \dfrac{\log d}{\varepsilon_{T+1}} \leq  \dfrac{\displaystyle \sum\limits_{t=1}^T \varepsilon_t}{8} - \mathbb{E}[\hat{l}_t]
+            \]
+            Finally, 
+            \[
+                R_t = \sum\limits_{t=1}^T \mathbb{E}[\hat{l}_t] - \inf\limits_{x \in \Delta d} \sum\limits_{t=1}^{T} \langle x, l_t, \rangle \leq \dfrac{\displaystyle \sum\limits_{t=1}^T \varepsilon_t}{8} + \dfrac{\log d}{\varepsilon_{T+1}}.
+            \]
+            \item[ii)] 
+            Let us substitute $\varepsilon_t$ with $\sqrt{\dfrac{8 \log d}{t}}$. Then the inequality becomes
+            \[
+                R_t \leq \dfrac{\sqrt{8 \log d}}{8} \sum\limits_{t=1}^{T} \dfrac{1}{\sqrt{t}} + \sqrt{\log d (T + 1)} \leq \dfrac{\log d}{8} (\sqrt{T} + \sqrt{T + 1})
+            \]
+It is known that 
+\[
+    \begin{array}{c}
+        T \geq 1 \Rightarrow \dfrac{1}{16 + 4 \sqrt{8}} < T \Rightarrow T + 1 < (17 + 4 \sqrt{8})T \Rightarrow \sqrt{T + 1} < \sqrt{(17 - 4 \sqrt{8})T} \Longrightarrow \\[0.5cm] 
+        \Rightarrow \sqrt{T + 1} < (2 \sqrt{8} - 1) \sqrt{T} \Rightarrow \dfrac{\sqrt{T} + \sqrt{T + 1}}{\sqrt{8}} < 2 \sqrt{T}
+    \end{array}
+\]
+
+Then we can say that 
+$ \dfrac{\log d}{8} (\sqrt{T} + \sqrt{T + 1}) \leq \sqrt{\log d} (\sqrt{T} + \sqrt{T}) = \sqrt{\log d 2 T}$
+
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
+\end{document}
