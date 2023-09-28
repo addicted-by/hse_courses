@@ -1,0 +1,1 @@
+MSH|^~\&|Test EHR Application|X68||NIST Test Iz Reg|201207010822||VXU^V04^VXU_V04|NIST-IZ-014.00|P|2.5.1|||AL|ERPID|1||24572457^^^MAA^MR||Santa Barbara^Naretha^^^^^L||20100831|FORC|RE||9999^CDCRXA|0|1|20120815||03^MMR^CVX|999||||||||||||00^Parental Refusal^NIP002||RE

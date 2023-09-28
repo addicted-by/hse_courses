@@ -3,6 +3,7 @@
 \usepackage{physics}
 \usepackage{fancyhdr}
 \usepackage{dsfont}
+\usepackage{float}
 \usepackage{relsize}
 \usepackage{nccmath}
 \usepackage[cmtip,all]{xy}
@@ -13,38 +14,39 @@
 \usepackage{lmodern}
 \usepackage{varwidth}
 \usepackage[utf8]{inputenc}
-\usepackage[english,russian]{babel}
+\usepackage[russian, english]{babel}
 \usepackage{setspace}
 \usepackage{listings, lstautogobble}
 \usepackage{relsize}
 \usepackage{anyfontsize}
 \usepackage[labelsep=endash]{caption}
-\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[chemfig,table,xcdraw,usenames,dvipsnames]{xcolor}
+\usepackage{chemfig}
 \usepackage{microtype}
 \usepackage{mathtools}
 \usepackage{nicematrix}
-\usepackage{unicode-math}
+\usepackage{txfonts}
+\newcommand{\ftextnumero}{{\fontfamily{txr}\selectfont \textnumero}}
+\usepackage[mathrm=sym]{unicode-math}
 \usepackage{pst-node,pst-tree,pstricks}
 \usepackage{hyperref}
 \usepackage{centernot}
 \usepackage{eso-pic}
 \usepackage{etoolbox}
+
 \usepackage{wrapfig}
 \usepackage{graphicx, marvosym}
 \usepackage[many]{tcolorbox}
 \usepackage{tikz}
-\usetikzlibrary{shapes,backgrounds,matrix}
 \usepackage[fontsize=12pt]{fontsize}
 \defaultfontfeatures{Scale=MatchLowercase}
 % \setmainfont{Montserrat Medium}
-\setmainfont{FUTURA ROUND DEMI.TTF}
-\newfontfamily\myfont{FUTURA ROUND DEMI.TTF}
-\newcommand\ChapterFont{\myfont\selectfont\huge}
-\newcommand\SectionFont{\textbf\myfont\selectfont\Large}
+
+
 % \setmathfont{TeX Gyre Pagella Math}
 % \setmathfont{FiraMath-Regular}
 \setmathfont{KpMath-Bold.otf}[version=bold]
-\setmathfont{Latin Modern Math}[range={frak,\bigcap,\bigcup, \vdots, \ddots, \intercal, \underbracket , \bigsqcup, \sim}]
+\setmathfont{Latin Modern Math}[range={frak,\bigcap,\bigcup, \vdots, \ddots, \intercal, \bigsqcup, \sim}]
 \setmathfont[range={scr,bfscr},
               Scale=MatchUppercase,
               StylisticSet=1]{STIX Two Math}
@@ -55,21 +57,30 @@
 ]{STIX Two Math}
 % \setmathfont{FiraMath-Regular}
 \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\defaultfontfeatures{Path = ../fonts/}
+\setmainfont[BoldFont={FuturaLT-Bold.ttf}]{FuturaLT.ttf}
+\setsansfont[BoldFont={FuturaLT-Bold.ttf}]{FuturaLT.ttf}
+\setmonofont{FuturaLT-LightOblique.ttf}
+\newfontfamily\myfont{FuturaLT.ttf}
+\newcommand\ChapterFont{\myfont\selectfont\huge}
+\newcommand\SectionFont{\textbf\myfont\selectfont\Large}
+
 \usepackage{mathrsfs}
 \usepackage{multicol}
 \usepackage{multirow}
-\setlength{\columnseprule}{0pt}
-\setlength{\columnsep}{20.0pt}
+% \setlength{\columnseprule}{0pt}
+% \setlength{\columnsep}{20.0pt}
 \usepackage{pict2e}
 
-\DeclareRobustCommand{\triangle}{%
-  \begingroup
-  \setlength{\unitlength}{1ex}%
-  \begin{picture}(1,1)
-  \polyline(1,0)(0,0)(.5,1)(1,0)(.5,0)
-  \end{picture}%
-  \endgroup
-}
+% \DeclareRobustCommand{\triangle}{%
+%   \begingroup
+%   \setlength{\unitlength}{1ex}%
+%   \begin{picture}(1,1)
+%   \polyline(1,0)(0,0)(.5,1)(1,0)(.5,0)
+%   \end{picture}%
+%   \endgroup
+% }
 
 \newcommand{\trbr}[1]{
 	\left\langle#1\right\rangle
@@ -119,7 +130,7 @@
 \newcommand{\eit}{\end{itemize}}
 \newcommand{\bits}{\begin{itemize*}}
 \newcommand{\eits}{\end{itemize*}}
-\newcommand{\cons}{\underline{Corollary: }}
+\newcommand{\cons}{\textbf{Consequence: }}
 \newenvironment{enumerate*}{\begin{enumerate}
     \setlength{\topsep}{0ex}
     \setlength{\parskip}{0ex}
@@ -158,7 +169,7 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
+% \newcommand{\C}{\mathbb{C}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\calB}{\mathcal{B}}
 \newcommand{\calF}{\mathcal{F}}
@@ -167,6 +178,8 @@
 \newcommand{\calT}{\mathcal{T}}
 \newcommand{\calH}{\mathcal{H}}
 \newcommand{\Lf}{\mathscr{L}}
+\newcommand{\conf}{\text{conf\ }}
+\newcommand{\supp}{\text{supp\ }}
 \newcounter{excounter}
 \setcounter{excounter}{1}
 \newcommand{\Exc}[1]{\myred{Exercise:} #1 \hfill{\myred{!!!}}}
@@ -206,7 +219,6 @@
 \definecolor{myorange}{rgb}{0.7,0.41,0.1}
 \definecolor{mypurple}{rgb}{0.51,0.02,.8}
 \definecolor{mygray}{rgb}{0.6,0.6,0.6}
-
 \newcommand{\myblue}[1]{\textcolor{myblue}{#1}}
 \newcommand{\myred}[1]{\textcolor{myred}{#1}}
 \newcommand{\mygreen}[1]{\textcolor{mygreen}{#1}}
@@ -354,7 +366,6 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
 
 \newtcolorbox{note}{
   enhanced,
-  breakable,
   frame empty,
   title=Note,
   colback=white,
@@ -363,7 +374,6 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
   after skip=10pt plus 2pt,
   borderline south={0.5mm}{0mm}{black,dash pattern=on 0.1pt off 4pt,line
   width=2pt,line cap=round},
-  toprule=0pt, rightrule=0pt, bottomrule=0pt, leftrule=0mm,
   attach boxed title to top left={xshift=-5mm},
   boxed title style={empty},
   underlay boxed title=\titlepath
@@ -408,34 +418,34 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
 }
 
 % Перевод команд псевдокода
-\algrenewcommand\algorithmicwhile{\textbf{Пока}}
-\algrenewcommand\algorithmicdo{\textbf{do}}
-\algrenewcommand\algorithmicrepeat{\textbf{Повторять}}
-\algrenewcommand\algorithmicuntil{\textbf{Пока выполняется}}
-\algrenewcommand\algorithmicend{\textbf{Конец}}
-\algrenewcommand\algorithmicif{\textbf{Если}}
-\algrenewcommand\algorithmicelse{\textbf{иначе}}
-\algrenewcommand\algorithmicthen{\textbf{тогда}}
-\algrenewcommand\algorithmicfor{\textbf{Цикл}}
-\algrenewcommand\algorithmicforall{\textbf{Выполнить для всех}}
-\algrenewcommand\algorithmicfunction{\textbf{Функция}}
-\algrenewcommand\algorithmicprocedure{\textbf{Процедура}}
-\algrenewcommand\algorithmicloop{\textbf{Зациклить}}
-\algrenewcommand\algorithmicrequire{\textbf{Условия:}}
-\algrenewcommand\algorithmicensure{\textbf{Обеспечивающие условия:}}
-\algrenewcommand\algorithmicreturn{\textbf{Возвратить}}
-\algrenewtext{EndWhile}{\textbf{Конец цикла}}
-\algrenewtext{EndLoop}{\textbf{Конец зацикливания}}
-\algrenewtext{EndFor}{\textbf{Конец цикла}}
-\algrenewtext{EndFunction}{\textbf{Конец функции}}
-\algrenewtext{EndProcedure}{\textbf{Конец процедуры}}
-\algrenewtext{EndIf}{\textbf{Конец условия}}
-\algrenewtext{EndFor}{\textbf{Конец цикла}}
-\algrenewtext{BeginAlgorithm}{\textbf{Начало алгоритма}}
-\algrenewtext{EndAlgorithm}{\textbf{Конец алгоритма}}
-\algrenewtext{BeginBlock}{\textbf{Начало блока. }}
-\algrenewtext{EndBlock}{\textbf{Конец блока}}
-\algrenewtext{ElsIf}{\textbf{иначе если }}
+% \algrenewcommand\algorithmicwhile{\textbf{Пока}}
+% \algrenewcommand\algorithmicdo{\textbf{do}}
+% \algrenewcommand\algorithmicrepeat{\textbf{Повторять}}
+% \algrenewcommand\algorithmicuntil{\textbf{Пока выполняется}}
+% \algrenewcommand\algorithmicend{\textbf{Конец}}
+% \algrenewcommand\algorithmicif{\textbf{Если}}
+% \algrenewcommand\algorithmicelse{\textbf{иначе}}
+% \algrenewcommand\algorithmicthen{\textbf{тогда}}
+% \algrenewcommand\algorithmicfor{\textbf{Цикл}}
+% \algrenewcommand\algorithmicforall{\textbf{Выполнить для всех}}
+% \algrenewcommand\algorithmicfunction{\textbf{Функция}}
+% \algrenewcommand\algorithmicprocedure{\textbf{Процедура}}
+% \algrenewcommand\algorithmicloop{\textbf{Зациклить}}
+% \algrenewcommand\algorithmicrequire{\textbf{Условия:}}
+% \algrenewcommand\algorithmicensure{\textbf{Обеспечивающие условия:}}
+% \algrenewcommand\algorithmicreturn{\textbf{Возвратить}}
+% \algrenewtext{EndWhile}{\textbf{Конец цикла}}
+% \algrenewtext{EndLoop}{\textbf{Конец зацикливания}}
+% \algrenewtext{EndFor}{\textbf{Конец цикла}}
+% \algrenewtext{EndFunction}{\textbf{Конец функции}}
+% \algrenewtext{EndProcedure}{\textbf{Конец процедуры}}
+% \algrenewtext{EndIf}{\textbf{Конец условия}}
+% \algrenewtext{EndFor}{\textbf{Конец цикла}}
+% \algrenewtext{BeginAlgorithm}{\textbf{Начало алгоритма}}
+% \algrenewtext{EndAlgorithm}{\textbf{Конец алгоритма}}
+% \algrenewtext{BeginBlock}{\textbf{Начало блока. }}
+% \algrenewtext{EndBlock}{\textbf{Конец блока}}
+% \algrenewtext{ElsIf}{\textbf{иначе если }}
 
 % the following line injects our new indent handling code in place of the default spacing
 \patchcmd{\ALG@doentity}{\noindent\hskip\ALG@tlm}{\ALG@printindent}{}{\errmessage{failed to patch}}
@@ -444,8 +454,8 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
 \makeatother
 
 
-\setlength{\abovedisplayskip}{2pt}
-\setlength{\belowdisplayskip}{2pt}
+% \setlength{\abovedisplayskip}{2pt}
+% \setlength{\belowdisplayskip}{2pt}
 \usepackage{nccmath}
 \usepackage{xpatch}
 \xpatchcmd{\NCC@ignorepar}{%
@@ -479,18 +489,6 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
 
 \usepackage[titles]{tocloft}
 
-\makeatletter
-\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
-\makeatother
-
-\makeatletter
-\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
-  \hskip -\arraycolsep
-  \let\@ifnextchar\new@ifnextchar
-  \array{#1}}
-  \newcommand{\Vast}{\bBigg@{4}}
-\makeatother
-
 \AtBeginDocument{\renewcommand\contentsname{\centering \myfont \Huge Table of Contents}}
 
 \pagestyle{fancy}
@@ -499,12 +497,12 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
 \renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
 \fancyhead[C]{\myfont\leftmark}
 \fancyhead[L]{\href{http://wiki.cs.hse.ru/Linear_Algebra_for_Data_Science_(2022)}{Web page of course}} 
-\fancyfoot[R]{v1.5}
+\fancyfoot[R]{v1.0}
 \fancyfoot[C]{--\thepage--}
-\fancyfoot[L]{2022}
+\fancyfoot[L]{2023}
 \setoperatorfont\myfont
 \titleformat{\subsubsection}{\normalsize \color{myblue}}{}{}{#1}
-\titleformat{\subsection}{\large \color{myblue}}{}{}{#1}
+\titleformat{\subsection}{\large}{}{}{#1}
 \renewcommand{\thesubsection}{\arabic{subsection}.}
 
 \makeatletter
@@ -522,7 +520,7 @@ to[curve to,out=180,in=90]($(B)+(-5mm,-5mm)$)coordinate(C)
        %  \begin{center}\large\bf \ldots\ldots\ldots\end{center}}
 \makeatother
 
-\newenvironment{solution}{\paragraph{\underline{Solution}:}}{\hfill$\blacksquare$}
+\newenvironment{solution}{\paragraph{\large\underline{Solution}:}}{\hfill$\blacksquare$}
 
 
 \tikzset{
@@ -568,77 +566,3 @@ pattern radius = 1pt}
 \pgfusepath{stroke}
 }}
 \makeatother
-
-
-
-\newcommand{\tstar}[5]{% inner radius, outer radius, tips, rot angle, options
-\pgfmathsetmacro{\starangle}{360/#3}
-\draw[#5] (#4:#1)
-\foreach \x in {1,...,#3}
-{ -- (#4+\x*\starangle-\starangle/2:#2) -- (#4+\x*\starangle:#1)
-}
--- cycle;
-}
-\newcommand{\ngram}[4]{% outer radius, tips, rot angle, options
-\pgfmathsetmacro{\starangle}{360/#2}
-\pgfmathsetmacro{\innerradius}{#1*sin(90-\starangle)/sin(90+\starangle/2)}
-\tstar{\innerradius}{#1}{#2}{#3}{#4}
-}
-
-
-\ExplSyntaxOn
-\NewEnviron{bmatrixT}
- {
-  \marine_transpose:V \BODY
- }
-
-\int_new:N \l_marine_transpose_row_int
-\int_new:N \l_marine_transpose_col_int
-\seq_new:N \l_marine_transpose_rows_seq
-\seq_new:N \l_marine_transpose_arow_seq
-\prop_new:N \l_marine_transpose_matrix_prop
-\tl_new:N \l_marine_transpose_last_tl
-\tl_new:N \l_marine_transpose_body_tl
-
-\cs_new_protected:Nn \marine_transpose:n
- {
-  \seq_set_split:Nnn \l_marine_transpose_rows_seq { \\ } { #1 }
-  \int_zero:N \l_marine_transpose_row_int
-  \prop_clear:N \l_marine_transpose_matrix_prop
-  \seq_map_inline:Nn \l_marine_transpose_rows_seq
-   {
-    \int_incr:N \l_marine_transpose_row_int
-    \int_zero:N \l_marine_transpose_col_int
-    \seq_set_split:Nnn \l_marine_transpose_arow_seq { & } { ##1 }
-    \seq_map_inline:Nn \l_marine_transpose_arow_seq
-     {
-      \int_incr:N \l_marine_transpose_col_int
-      \prop_put:Nxn \l_marine_transpose_matrix_prop
-       {
-        \int_to_arabic:n { \l_marine_transpose_row_int }
-        ,
-        \int_to_arabic:n { \l_marine_transpose_col_int }
-       }
-       { ####1 }
-     }
-   }
-   \tl_clear:N \l_marine_transpose_body_tl
-   \int_step_inline:nnnn { 1 } { 1 } { \l_marine_transpose_col_int }
-    {
-     \int_step_inline:nnnn { 1 } { 1 } { \l_marine_transpose_row_int }
-      {
-       \tl_put_right:Nx \l_marine_transpose_body_tl
-        {
-         \prop_item:Nn \l_marine_transpose_matrix_prop { ####1,##1 }
-         \int_compare:nF { ####1 = \l_marine_transpose_row_int } { & }
-        }
-      }
-     \tl_put_right:Nn \l_marine_transpose_body_tl { \\ }
-    }
-   \begin{bmatrix}
-   \l_marine_transpose_body_tl
-   \end{bmatrix}
- }
-\cs_generate_variant:Nn \marine_transpose:n { V }
-\cs_generate_variant:Nn \prop_put:Nnn { Nx }
-\ExplSyntaxOff
