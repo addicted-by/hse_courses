@@ -1,0 +1,128 @@
+\documentclass[12pt]{report}
+\usepackage{../mystyle}
+\begin{document}
+\boldmath
+\fancyhead[L]{Homework 2.}
+\fancyhead[C]{Introduction to Knowledge Representation}
+\fancyhead[R]{Ryabykin Aleksey}
+    \begin{problem}{}
+        Formalize the arguments and either derive a conclusion from the premises or provide a counterexample to show that the argument is invalid: 
+        
+        \par
+        In propositional logic: 
+        
+        \begin{itemize}
+            \item[(a)] If I am honest, then I am naïve. Either I am honest or naïve, or else Sam was right and that magazine salesman is a crook. I am not naïve, and that magazine salesman is certainly a crook. Therefore, Sam was right. 
+        \par
+        Let's denote:
+        \begin{itemize}
+            \item $p$: I am honest;
+            \item $q$: I am naive;
+            \item $r$: Sam was right;
+            \item $s$: salesman is a crook.
+        \end{itemize}
+        Then let's formalize the premises and derive some conclusions:
+        \[
+            \begin{array}{lr}
+                1.\  p \rightarrow q; & \parbox{15.3em}{\small\color{gray} Premise (If I am honest, then I am naive)}\\
+                2.\  p \vee q \vee (r \wedge s); &\parbox{15.3em}{\small\color{gray}\small Premise (I am honest or naive, or Sam was right and salesman is a crook)}\\
+                3.\  \neg q \wedge  s &\parbox{15.3em}{\small\color{gray} Premise ( I am not naive, and that magazine salesman is a crook)}\\
+                4.\  \neg q &\parbox{15.3em}{\small\color{gray} Simplification (3)}\\
+                5.\  \neg p & \parbox{15.3em}{\small\color{gray} Modus Tollens (1, 4)}\\
+                6.\  q \vee (r \wedge s) & \parbox{15.3em}{\small\color{gray} Disjunctive Syllogism (2, 5)}\\
+                7.\  r \wedge s & \parbox{15.3em}{\small\color{gray} Disjunctive Syllogism (4, 6)}\\
+                8. r & \parbox{15.3em}{\small\color{gray} Simplification (7) $\Longrightarrow$} 
+            \end{array}
+        \]
+        $\Rightarrow$ argument is right.
+
+            \item[(b)] A certain consonantal segment, if it occurs initially, is prevocalic, and if it is non-initial, it is voiceless. If it is either prevocalic or voiceless, it is continuant and strident. If it is continuant, then if it is strident, it is tense. If it is tense, then if it occurs initially, it is palatalized. Therefore, the segment is palatalized and voiceless. 
+            \par
+            Let's denote:
+            \begin{itemize}
+                \item $a$: occurs initially;
+                \item $b$: prevocalic;
+                \item $c$: voiceless;
+                \item $d$: continuant;
+                \item $e$: strident;
+                \item $f$: tense;
+                \item $g$: palatalized.
+            \end{itemize}
+        \end{itemize}
+        Formalizing the premises and deriving conclusions we can provide the counterexample:
+        \[
+            \begin{array}{lr}
+                1.\ (a \rightarrow b) \wedge (\neg a \rightarrow c) & \parbox{15.3em}{\small \color{gray} Premise (If it occurs initially, is prevocalic, and if it is non-initial, it is voiceless)} \\[0.5cm]
+                2.\ (b \vee c) \rightarrow (d \wedge e) & \parbox{15.3em}{\small \color{gray} if it is either prevocalic or voiceless, it is continuant and strident}\\[0.5cm]
+                3.\ d \rightarrow (e \rightarrow f) & \parbox{15.3em}{\small \color{gray} if it is continuant, then if it is strident, it is tense}\\[0.5cm]
+                4.\ f \rightarrow (a \rightarrow g) & \parbox{15.3em}{\small \color{gray} if it is tense, then if it occurs initially, it is palatalized} \\[0.5cm]
+                5.\ \neg a \rightarrow c & \parbox{15.3em}{\small \color{gray} Simplification (1)}\\[0.5cm]
+                6|.\ \neg c & \parbox{15.3em}{\small \color{gray} Auxiliary Premise}\\
+                7.\ a & \parbox{15.3em}{\small \color{gray} Modus Tollens (5, 6)}\\
+                8.\ a \rightarrow b & \parbox{15.3em}{\small \color{gray} Simplification (1)}\\
+                9.\ b & \parbox{15.3em}{\small \color{gray} Modus Ponens (7, 8)}\\
+                10.\ b \vee c & \parbox{15.3em}{\small \color{gray} Addition (9)}\\
+                11.\ d \wedge e & \parbox{15.3em}{\small \color{gray} Modus Ponens (2, 10)}\\
+                12.\ d & \parbox{15.3em}{\small \color{gray} Simplification (11)}\\
+                13.\ e & \parbox{15.3em}{\small \color{gray} Simplification (11)}\\
+                14.\ e \rightarrow f & \parbox{15.3em}{\small \color{gray} Modus Ponens (3, 12)}\\
+                15.\ f & \parbox{15.3em}{\small \color{gray} Modus Ponens (13, 14)}\\
+                16.\ a \rightarrow g & \parbox{15.3em}{\small \color{gray} Modus Ponens (4, 15)}\\
+                17.\ g & \parbox{15.3em}{\small \color{gray} Modus Ponens (7, 16)}\\
+                18.\ g \wedge \neg c & \parbox{15.3em}{\small \color{gray} Conjunction (6, 17) \Longrightarrow}
+            \end{array}
+        \]
+        $\Rightarrow$ the argument is invalid.
+        \par
+        In predicate logic:
+        \begin{itemize}
+            \item[(c)] Everyone who is sane can do logic. No lunatics are fit to serve on a jury. None of your sons can do logic. Therefore, none of your sons is fit to serve on a jury. 
+            \par
+            Suppose:
+            \begin{itemize}
+                \item $S(x)$: $x$ is sane;
+                \item $L(x)$: $x$ can do logic;
+                \item $F(x)$: $x$ is fit to serve on a jury;
+                \item $Son(x)$: $x$ is one of sons.
+            \end{itemize}
+            \[
+                \begin{array}{lr}
+                    1. \forall x  \ (S(x) \rightarrow L(x)) & \parbox{15em}{\small \color{gray} Everyone who is sane can do logic} \\
+                    2. \forall x \ (\neg S (x) \rightarrow \neg F(x)) & \parbox{15em}{\small \color{gray} No lunatics are fit to serve on a jury}\\
+                    3. \forall x \ (Son (x) \rightarrow \neg L(x)) & \parbox{15em}{\small \color{gray} None of your sons can do
+                    logic}\\
+                    4.\ S(c) \rightarrow L(c) & \parbox{15em}{\small \color{gray} Universal Instantiation (1)}\\
+                    5.\ \neg S(c) \rightarrow \neg F(c) & \parbox{15em}{\small \color{gray} Universal Instantiation (2)}\\
+                    6.\ Son(c) \rightarrow \neg L(c) & \parbox{15em}{\small \color{gray} Universal Instantiation (3)}\\
+                    7.\ \neg L(c) \rightarrow \neg S(c) & \parbox{15em}{\small \color{gray} Contraposition (4)}\\
+                    8.\ Son(c) \rightarrow \neg S(c) & \parbox{15em}{\small \color{gray} Hypothetical Syllogism (6,7)}\\
+                    9.\ Son(c) \rightarrow \neg F(c) & \parbox{15em}{\small \color{gray} Hypothetical Syllogism (5,8)}\\
+                    10.\ \forall x (Son(x) \rightarrow \neg F(x)) & \parbox{15em}{\small \color{gray} Universal Generalization (9) \Longrightarrow}
+
+
+                \end{array}
+            \]
+            $\Rightarrow$ argument is valid
+ 
+                
+            \item[(d)] Someone owns a car but rides a bike as well. Nobody is strong unless they ride a bike. Hence, some car owner is strong.
+            Suppose:
+            \begin{itemize}
+                \item $C(x)$: $x$ owns a car;
+                \item $R(x)$: $x$ rides a bike;
+                \item $S(x)$: $x$ is strong;
+            \end{itemize}
+            Using Beth Table:
+            \begin{table}[H]
+                \center
+                \begin{tabular}{|ll|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{True}}                                             & \multicolumn{2}{c|}{\textbf{False}}                                  \\ \hline
+                \multicolumn{2}{|l|}{\begin{tabular}[c]{@{}l@{}} $\exists x (C(x) \wedge R(x))$\\ $\forall x \ (S(x) \rightarrow R(x))$\\ $\exists x\ C(x)$ \\ $\exists x \ R(x)$ \\ $\forall x (\neg C(x) \vee \neg S(x))$ \end{tabular}}  & \multicolumn{2}{l|}{$\exists x \ (C(x) \wedge S(x))$}                 \\ \hline
+                \multicolumn{1}{|l|}{1. $\forall x \ \neg C(x)$} & 2. $\forall x \ \neg S(x)$ & \multicolumn{1}{l|}{1. $\exists x \ C(x)$} & 2. $\exists x \ S(x)$ \\ \hline
+                \end{tabular}
+                \end{table}
+            $\Rightarrow $ the argument is invalid. The counterexample is when the $S(x)$ does not exist.
+        \end{itemize}
+    \end{problem}
+\end{document}

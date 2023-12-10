@@ -274,3 +274,10 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+2nd_year/term1/recsys/hw1/data/animes.csv
+2nd_year/term1/recsys/hw1/data/animes.gz
+2nd_year/term1/recsys/hw1/data/profiles.csv
+2nd_year/term1/recsys/hw1/data/profiles.gz
+2nd_year/term1/recsys/hw1/data/reviews.csv
+2nd_year/term1/recsys/hw1/data/reviews.gz
+2nd_year/term1/big_data_healthcare/hw4/WaitData.Published.xlsx
